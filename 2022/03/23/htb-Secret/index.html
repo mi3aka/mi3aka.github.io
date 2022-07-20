@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.0.0">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
@@ -16,52 +15,23 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"railgun.icu","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="https:&#x2F;&#x2F;app.hackthebox.com&#x2F;machines&#x2F;408 nmap扫描结果">
-<meta property="og:type" content="article">
-<meta property="og:title" content="HackTheBox-Secret">
-<meta property="og:url" content="https://railgun.icu/2022/03/23/htb-Secret/index.html">
-<meta property="og:site_name" content="Misaka&#39;s Blog">
-<meta property="og:description" content="https:&#x2F;&#x2F;app.hackthebox.com&#x2F;machines&#x2F;408 nmap扫描结果">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203232034435.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203232048690.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203232050916.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203232116060.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203232117299.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203232123994.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203232133748.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203232133265.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203232136222.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203232136553.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203232141634.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203232141021.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203232147194.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203232149814.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203232209271.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203232212331.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203232215975.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203232220821.png">
-<meta property="article:published_time" content="2022-03-23T06:08:30.000Z">
-<meta property="article:modified_time" content="2022-03-23T14:29:44.133Z">
-<meta property="article:author" content="Misaka">
-<meta property="article:tag" content="HackTheBox">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203232034435.png">
-
-
-<link rel="canonical" href="https://railgun.icu/2022/03/23/htb-Secret/">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mi3aka.eu.org","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://railgun.icu/2022/03/23/htb-Secret/","path":"2022/03/23/htb-Secret/","title":"HackTheBox-Secret"}</script>
+<link rel="canonical" href="https://mi3aka.eu.org/2022/03/23/htb-Secret/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mi3aka.eu.org/2022/03/23/htb-Secret/","path":"2022/03/23/htb-Secret/","title":"HackTheBox-Secret"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>HackTheBox-Secret | Misaka's Blog</title>
   
+
 
 
 
@@ -103,12 +73,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu">
-        <li class="menu-item menu-item-首页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
-        <li class="menu-item menu-item-关于"><a href="/about" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-归档"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
-        <li class="menu-item menu-item-安全"><a href="https://github.com/mi3aka/huaQ" rel="noopener" target="_blank"><i class="fas fa-shield-alt fa-fw fa-fw"></i>安全</a></li>
-        <li class="menu-item menu-item-工具"><a href="https://misaka-hvv-tools.herokuapp.com/" rel="noopener" target="_blank"><i class="fas fa-tools fa-fw"></i>工具</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-首页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-关于"><a href="/about" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-归档"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-安全"><a href="https://github.com/mi3aka/huaQ" rel="noopener" target="_blank"><i class="fas fa-shield-alt fa-fw fa-fw"></i>安全</a></li><li class="menu-item menu-item-工具"><a href="https://tools.mi3aka.eu.org/" rel="noopener" target="_blank"><i class="fas fa-tools fa-fw"></i>工具</a></li>
   </ul>
 </nav>
 
@@ -151,7 +116,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-count">35</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -216,16 +181,21 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://railgun.icu/2022/03/23/htb-Secret/">
+    <link itemprop="mainEntityOfPage" href="https://mi3aka.eu.org/2022/03/23/htb-Secret/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Misaka">
-      <meta itemprop="description" content="">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Misaka's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="HackTheBox-Secret | Misaka's Blog">
+      <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -239,9 +209,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-03-23 14:08:30 / 修改时间：22:29:44" itemprop="dateCreated datePublished" datetime="2022-03-23T14:08:30+08:00">2022-03-23</time>
+      <time title="创建时间：2022-03-23 14:08:30" itemprop="dateCreated datePublished" datetime="2022-03-23T14:08:30+08:00">2022-03-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-01 16:34:58" itemprop="dateModified" datetime="2022-07-01T16:34:58+08:00">2022-07-01</time>
     </span>
 
   
@@ -276,7 +252,7 @@
 </li>
 </ol>
 <p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203232117299.png"></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//routes/auth.js</span></span><br><span class="line"></span><br><span class="line">router.post(<span class="string">&#x27;/login&#x27;</span>, <span class="keyword">async</span>  (req , res) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> &#123; error &#125; = loginValidation(req.body)</span><br><span class="line">    <span class="keyword">if</span> (error) <span class="keyword">return</span> res.status(<span class="number">400</span>).send(error.details[<span class="number">0</span>].message);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// check if email is okay </span></span><br><span class="line">    <span class="keyword">const</span> user = <span class="keyword">await</span> User.findOne(&#123; <span class="attr">email</span>: req.body.email &#125;)</span><br><span class="line">    <span class="keyword">if</span> (!user) <span class="keyword">return</span> res.status(<span class="number">400</span>).send(<span class="string">&#x27;Email is wrong&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// check password </span></span><br><span class="line">    <span class="keyword">const</span> validPass = <span class="keyword">await</span> bcrypt.compare(req.body.password, user.password)</span><br><span class="line">    <span class="keyword">if</span> (!validPass) <span class="keyword">return</span> res.status(<span class="number">400</span>).send(<span class="string">&#x27;Password is wrong&#x27;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// create jwt </span></span><br><span class="line">    <span class="keyword">const</span> token = jwt.sign(&#123; <span class="attr">_id</span>: user.id, <span class="attr">name</span>: user.name , <span class="attr">email</span>: user.email&#125;, process.env.TOKEN_SECRET )</span><br><span class="line">    res.header(<span class="string">&#x27;auth-token&#x27;</span>, token).send(token);</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//routes/auth.js</span></span><br><span class="line"></span><br><span class="line">router.<span class="title function_">post</span>(<span class="string">&#x27;/login&#x27;</span>, <span class="keyword">async</span>  (req , res) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> &#123; error &#125; = <span class="title function_">loginValidation</span>(req.<span class="property">body</span>)</span><br><span class="line">    <span class="keyword">if</span> (error) <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">400</span>).<span class="title function_">send</span>(error.<span class="property">details</span>[<span class="number">0</span>].<span class="property">message</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// check if email is okay </span></span><br><span class="line">    <span class="keyword">const</span> user = <span class="keyword">await</span> <span class="title class_">User</span>.<span class="title function_">findOne</span>(&#123; <span class="attr">email</span>: req.<span class="property">body</span>.<span class="property">email</span> &#125;)</span><br><span class="line">    <span class="keyword">if</span> (!user) <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">400</span>).<span class="title function_">send</span>(<span class="string">&#x27;Email is wrong&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// check password </span></span><br><span class="line">    <span class="keyword">const</span> validPass = <span class="keyword">await</span> bcrypt.<span class="title function_">compare</span>(req.<span class="property">body</span>.<span class="property">password</span>, user.<span class="property">password</span>)</span><br><span class="line">    <span class="keyword">if</span> (!validPass) <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">400</span>).<span class="title function_">send</span>(<span class="string">&#x27;Password is wrong&#x27;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// create jwt </span></span><br><span class="line">    <span class="keyword">const</span> token = jwt.<span class="title function_">sign</span>(&#123; <span class="attr">_id</span>: user.<span class="property">id</span>, <span class="attr">name</span>: user.<span class="property">name</span> , <span class="attr">email</span>: user.<span class="property">email</span>&#125;, process.<span class="property">env</span>.<span class="property">TOKEN_SECRET</span> )</span><br><span class="line">    res.<span class="title function_">header</span>(<span class="string">&#x27;auth-token&#x27;</span>, token).<span class="title function_">send</span>(token);</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//.env</span><br><span class="line"></span><br><span class="line">DB_CONNECT = &#x27;mongodb://127.0.0.1:27017/auth-web&#x27;</span><br><span class="line">TOKEN_SECRET = secret</span><br></pre></td></tr></table></figure>
 
@@ -299,7 +275,7 @@
 <p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203232141021.png"></p>
 <hr>
 <p>存在命令注入</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//routes/private.js</span></span><br><span class="line"></span><br><span class="line">router.get(<span class="string">&#x27;/logs&#x27;</span>, verifytoken, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> file = req.query.file;</span><br><span class="line">    <span class="keyword">const</span> userinfo = &#123; <span class="attr">name</span>: req.user &#125;</span><br><span class="line">    <span class="keyword">const</span> name = userinfo.name.name;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (name == <span class="string">&#x27;theadmin&#x27;</span>)&#123;</span><br><span class="line">        <span class="keyword">const</span> getLogs = <span class="string">`git log --oneline <span class="subst">$&#123;file&#125;</span>`</span>;</span><br><span class="line">        exec(getLogs, <span class="function">(<span class="params">err , output</span>) =&gt;</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(err)&#123;</span><br><span class="line">                res.status(<span class="number">500</span>).send(err);</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">            res.json(output);</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        res.json(&#123;</span><br><span class="line">            <span class="attr">role</span>: &#123;</span><br><span class="line">                <span class="attr">role</span>: <span class="string">&quot;you are normal user&quot;</span>,</span><br><span class="line">                <span class="attr">desc</span>: userinfo.name.name</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//routes/private.js</span></span><br><span class="line"></span><br><span class="line">router.<span class="title function_">get</span>(<span class="string">&#x27;/logs&#x27;</span>, verifytoken, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> file = req.<span class="property">query</span>.<span class="property">file</span>;</span><br><span class="line">    <span class="keyword">const</span> userinfo = &#123; <span class="attr">name</span>: req.<span class="property">user</span> &#125;</span><br><span class="line">    <span class="keyword">const</span> name = userinfo.<span class="property">name</span>.<span class="property">name</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (name == <span class="string">&#x27;theadmin&#x27;</span>)&#123;</span><br><span class="line">        <span class="keyword">const</span> getLogs = <span class="string">`git log --oneline <span class="subst">$&#123;file&#125;</span>`</span>;</span><br><span class="line">        <span class="title function_">exec</span>(getLogs, <span class="function">(<span class="params">err , output</span>) =&gt;</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(err)&#123;</span><br><span class="line">                res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">send</span>(err);</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">            res.<span class="title function_">json</span>(output);</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        res.<span class="title function_">json</span>(&#123;</span><br><span class="line">            <span class="attr">role</span>: &#123;</span><br><span class="line">                <span class="attr">role</span>: <span class="string">&quot;you are normal user&quot;</span>,</span><br><span class="line">                <span class="attr">desc</span>: userinfo.<span class="property">name</span>.<span class="property">name</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203232147194.png"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203232149814.png"></p>
@@ -368,7 +344,7 @@
   </footer>
 
   
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
