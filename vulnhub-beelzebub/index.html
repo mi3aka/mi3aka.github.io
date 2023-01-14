@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>VulnHub-Beelzebub - Mi3aka&#39;s Blog</title><meta name="Description" content="Mi3aka的博客"><meta property="og:title" content="VulnHub-Beelzebub" />
+<meta property="og:description" content="VulnHub靶机Beelzebub" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mi3aka.eu.org/vulnhub-beelzebub/" /><meta property="og:image" content="https://mi3aka.eu.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-10-31T20:08:30+00:00" />
+<meta property="article:modified_time" content="2021-10-31T20:08:30+00:00" /><meta property="og:site_name" content="Mi3aka&#39;s Blog" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://mi3aka.eu.org/logo.png"/>
+
+<meta name="twitter:title" content="VulnHub-Beelzebub"/>
+<meta name="twitter:description" content="VulnHub靶机Beelzebub"/>
+<meta name="application-name" content="Mi3aka&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Mi3aka&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://mi3aka.eu.org/vulnhub-beelzebub/" /><link rel="prev" href="https://mi3aka.eu.org/sqli-labs/" /><link rel="next" href="https://mi3aka.eu.org/vulnhub-billu_b0x/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "VulnHub-Beelzebub",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/mi3aka.eu.org\/vulnhub-beelzebub\/"
+        },"genre": "posts","wordcount":  963 ,
+        "url": "https:\/\/mi3aka.eu.org\/vulnhub-beelzebub\/","datePublished": "2021-10-31T20:08:30+00:00","dateModified": "2021-10-31T20:08:30+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Mi3aka"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Mi3aka&#39;s Blog">Mi3aka</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="/links/"> 友链 </a><a class="menu-item" href="https://github.com/mi3aka/huaQ" rel="noopener noreffer" target="_blank"> Sec </a><a class="menu-item" href="https://tools.mi3aka.eu.org/" rel="noopener noreffer" target="_blank"> Tool </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Mi3aka&#39;s Blog">Mi3aka</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="/links/" title="">友链</a><a class="menu-item" href="https://github.com/mi3aka/huaQ" title="" rel="noopener noreffer" target="_blank">Sec</a><a class="menu-item" href="https://tools.mi3aka.eu.org/" title="" rel="noopener noreffer" target="_blank">Tool</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">VulnHub-Beelzebub</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Mi3aka</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/vulnhub/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>VulnHub</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-10-31">2021-10-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 963 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前期工作">前期工作</a></li>
+    <li><a href="#分析wordpress结构">分析wordpress结构</a></li>
+    <li><a href="#爆破ssh获取usre权限">爆破ssh获取usre权限</a></li>
+    <li><a href="#获取root权限">获取root权限</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="前期工作">前期工作</h2>
+<p><code>dirsearch</code>显示<code>index.php</code>返回<code>200</code>,但是在浏览器打开<code>index.php</code>返回<code>404 NOT FOUND</code></p>
+<p>查看网页源码显示</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>404 Not Found<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Not Found<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!--My heart was encrypted, &#34;beelzebub&#34; somehow hacked and decoded it.-md5--&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>The requested URL was not found on this server.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">hr</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">address</span><span class="p">&gt;</span>Apache/2.4.30 (Ubuntu)<span class="p">&lt;/</span><span class="nt">address</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>对<code>beelzebub</code>计算md5 <code>echo -n beelzebub | md5sum</code></p>
+<p>返回<code>d18e1e22becbd915b45e0e655429d487</code></p>
+<p>尝试以<code>beelzebub</code>作为用户名,<code>d18e1e22becbd915b45e0e655429d487</code>作为密码进行ssh连接但是ssh连接失败</p>
+<p>对路径<code>d18e1e22becbd915b45e0e655429d487</code>的扫描结果如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[23:53:07] 403 -  278B  - /d18e1e22becbd915b45e0e655429d487//.htaccess     
+</span></span><span class="line"><span class="cl">[23:53:07] 403 -  278B  - /d18e1e22becbd915b45e0e655429d487//.htpasswd     
+</span></span><span class="line"><span class="cl">[23:53:07] 301 -    0B  - /d18e1e22becbd915b45e0e655429d487//?m=a  -&gt;  http://192.168.148.7/d18e1e22becbd915b45e0e655429d487/?m=a
+</span></span><span class="line"><span class="cl">[23:53:08] 200 -   58KB - /d18e1e22becbd915b45e0e655429d487//?s=d          
+</span></span><span class="line"><span class="cl">[23:53:08] 200 -   56KB - /d18e1e22becbd915b45e0e655429d487//?wp-html-rend 
+</span></span><span class="line"><span class="cl">[23:53:08] 200 -   56KB - /d18e1e22becbd915b45e0e655429d487//?pageservices 
+</span></span><span class="line"><span class="cl">[23:53:12] 200 -   56KB - /d18e1e22becbd915b45e0e655429d487//index.php/    
+</span></span><span class="line"><span class="cl">[23:53:12] 200 -   56KB - /d18e1e22becbd915b45e0e655429d487//index.php?chemin=..%2f..%2f..%2f..%2f..%2f..%2f%2fetc
+</span></span><span class="line"><span class="cl">[23:53:12] 200 -   56KB - /d18e1e22becbd915b45e0e655429d487//index.php?file=../../../../../../etc/passwd
+</span></span><span class="line"><span class="cl">[23:53:12] 200 -   56KB - /d18e1e22becbd915b45e0e655429d487//index.php?file=/etc/passwd
+</span></span><span class="line"><span class="cl">[23:53:12] 200 -   56KB - /d18e1e22becbd915b45e0e655429d487//index.php?page=../../../../etc/passwd
+</span></span><span class="line"><span class="cl">[23:53:18] 200 -   56KB - /d18e1e22becbd915b45e0e655429d487/index.php      
+</span></span><span class="line"><span class="cl">[23:53:27] 200 -   45KB - /d18e1e22becbd915b45e0e655429d487/wp-includes/    
+</span></span><span class="line"><span class="cl">[23:53:27] 200 -    7KB - /d18e1e22becbd915b45e0e655429d487/readme.html     
+</span></span><span class="line"><span class="cl">[23:53:27] 200 -   19KB - /d18e1e22becbd915b45e0e655429d487/license.txt     
+</span></span><span class="line"><span class="cl">[23:53:41] 302 -    0B  - /d18e1e22becbd915b45e0e655429d487/wp-admin/  -&gt;  http://192.168.1.6/d18e1e22becbd915b45e0e655429d487/wp-login.php?redirect_to=http%3A%2F%2F192.168.148.7%2Fd18e1e22becbd915b45e0e655429d487%2Fwp-admin%2F&amp;reauth=1
+</span></span><span class="line"><span class="cl">[23:53:44] 301 -  350B  - /d18e1e22becbd915b45e0e655429d487/wp-admin  -&gt;  http://192.168.148.7/d18e1e22becbd915b45e0e655429d487/wp-admin/
+</span></span><span class="line"><span class="cl">[23:53:57] 200 -    0B  - /d18e1e22becbd915b45e0e655429d487/wp-config.php   
+</span></span><span class="line"><span class="cl">[23:53:57] 301 -  352B  - /d18e1e22becbd915b45e0e655429d487/wp-content  -&gt;  http://192.168.148.7/d18e1e22becbd915b45e0e655429d487/wp-content/
+</span></span><span class="line"><span class="cl">[23:53:57] 200 -    0B  - /d18e1e22becbd915b45e0e655429d487/wp-content/
+</span></span><span class="line"><span class="cl">[23:53:57] 301 -  353B  - /d18e1e22becbd915b45e0e655429d487/wp-includes  -&gt;  http://192.168.148.7/d18e1e22becbd915b45e0e655429d487/wp-includes/
+</span></span><span class="line"><span class="cl">[23:53:57] 200 -    6KB - /d18e1e22becbd915b45e0e655429d487/wp-login.php  
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="分析wordpress结构">分析wordpress结构</h2>
+<p>显示其可能为<code>wordpress</code>的后台,使用<a href="https://github.com/wpscanteam/wpscan" target="_blank" rel="noopener noreffer ">wpscan</a>对其进行扫描,检测其是否存在漏洞</p>
+<p><code>docker run -it --rm wpscanteam/wpscan --url http://192.168.148.7/d18e1e22becbd915b45e0e655429d487/ -e --plugins-detection aggressive --ignore-main-redirect --force vp</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[+] XML-RPC seems to be enabled: http://192.168.148.7/d18e1e22becbd915b45e0e655429d487/xmlrpc.php
+</span></span><span class="line"><span class="cl"> | Found By: Direct Access (Aggressive Detection)
+</span></span><span class="line"><span class="cl"> | Confidence: 100%
+</span></span><span class="line"><span class="cl"> | References:
+</span></span><span class="line"><span class="cl"> |  - http://codex.wordpress.org/XML-RPC_Pingback_API
+</span></span><span class="line"><span class="cl"> |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
+</span></span><span class="line"><span class="cl"> |  - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
+</span></span><span class="line"><span class="cl"> |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
+</span></span><span class="line"><span class="cl"> |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[+] valak
+</span></span><span class="line"><span class="cl"> | Found By: Author Id Brute Forcing - Author Pattern (Aggressive Detection)
+</span></span><span class="line"><span class="cl"> | Confirmed By: Login Error Messages (Aggressive Detection)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[+] krampus
+</span></span><span class="line"><span class="cl"> | Found By: Author Id Brute Forcing - Author Pattern (Aggressive Detection)
+</span></span><span class="line"><span class="cl"> | Confirmed By: Login Error Messages (Aggressive Detection)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>dirsearch</code>显示存在<code>/d18e1e22becbd915b45e0e655429d487/wp-content/uploads/</code>路径</p>
+<p><code>http://192.168.148.7/d18e1e22becbd915b45e0e655429d487/wp-content/uploads/Talk%20To%20VALAK/</code>存在一个特殊的网页</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111010049029.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111010049029.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111010049029.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111010049029.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111010049029.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111010049029.png" /></p>
+<p>传入数据后,发现返回的数据包中含有password,<code>M4k3Ad3a1</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111011245699.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111011245699.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111011245699.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111011245699.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111011245699.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111011245699.png" /></p>
+<h2 id="爆破ssh获取usre权限">爆破ssh获取usre权限</h2>
+<p>测试得知该密码为ssh密码,对应用户为<code>krampus</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111011248435.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111011248435.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111011248435.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111011248435.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111011248435.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111011248435.png" /></p>
+<h2 id="获取root权限">获取root权限</h2>
+<p>用<a href="https://github.com/mzet-/linux-exploit-suggester" target="_blank" rel="noopener noreffer ">linux-exploit-suggester</a>检测,发现存在CVE-2021-3156</p>
+<p>使用该exp <a href="https://github.com/worawit/CVE-2021-3156" target="_blank" rel="noopener noreffer ">https://github.com/worawit/CVE-2021-3156</a> 对CVE-2021-3156进行利用</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111011428826.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111011428826.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111011428826.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111011428826.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111011428826.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111011428826.png" /></p>
+<p>而在writeup中还提到可以使用<code>[CVE-2019-12181] Serv-U FTP Server</code>进行提权</p>
+<p><a href="https://github.com/guywhataguy/CVE-2019-12181" target="_blank" rel="noopener noreffer ">https://github.com/guywhataguy/CVE-2019-12181</a></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111011438511.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111011438511.png, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111011438511.png 1.5x, https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111011438511.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111011438511.png"
+        title="https://cdn.jsdelivr.net/gh/AMDyesIntelno/PicGoImg@master/202111011438511.png" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-10-31</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/sqli-labs/" class="prev" rel="prev" title="sqli-labs(已完成)"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>sqli-labs(已完成)</a>
+            <a href="/vulnhub-billu_b0x/" class="next" rel="next" title="VulnHub-Billu_b0x">VulnHub-Billu_b0x<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Mi3aka</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,23 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>靶场 - 分类 - Mi3aka&#39;s Blog</title>
+        <link>https://mi3aka.eu.org/categories/%E9%9D%B6%E5%9C%BA/</link>
+        <description>靶场 - 分类 - Mi3aka&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 25 Oct 2021 17:45:11 &#43;0000</lastBuildDate><atom:link href="https://mi3aka.eu.org/categories/%E9%9D%B6%E5%9C%BA/" rel="self" type="application/rss+xml" /><item>
+    <title>sqli-labs(已完成)</title>
+    <link>https://mi3aka.eu.org/sqli-labs/</link>
+    <pubDate>Mon, 25 Oct 2021 17:45:11 &#43;0000</pubDate>
+    <author>Mi3aka</author>
+    <guid>https://mi3aka.eu.org/sqli-labs/</guid>
+    <description><![CDATA[sqli-labs靶场]]></description>
+</item>
+<item>
+    <title>upload-labs(已完成)</title>
+    <link>https://mi3aka.eu.org/upload-labs/</link>
+    <pubDate>Mon, 25 Jan 2021 17:45:11 &#43;0000</pubDate>
+    <author>Mi3aka</author>
+    <guid>https://mi3aka.eu.org/upload-labs/</guid>
+    <description><![CDATA[upload-labs靶场]]></description>
+</item>
+</channel>
+</rss>

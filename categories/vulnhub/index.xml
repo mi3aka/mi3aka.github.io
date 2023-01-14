@@ -1,0 +1,55 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>VulnHub - 分类 - Mi3aka&#39;s Blog</title>
+        <link>https://mi3aka.eu.org/categories/vulnhub/</link>
+        <description>VulnHub - 分类 - Mi3aka&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 22 Feb 2022 14:08:30 &#43;0000</lastBuildDate><atom:link href="https://mi3aka.eu.org/categories/vulnhub/" rel="self" type="application/rss+xml" /><item>
+    <title>VulnHub-hacksudo</title>
+    <link>https://mi3aka.eu.org/vulnhub-hacksudo/</link>
+    <pubDate>Tue, 22 Feb 2022 14:08:30 &#43;0000</pubDate>
+    <author>Mi3aka</author>
+    <guid>https://mi3aka.eu.org/vulnhub-hacksudo/</guid>
+    <description><![CDATA[VulnHub靶机hacksudo]]></description>
+</item>
+<item>
+    <title>VulnHub-Earth</title>
+    <link>https://mi3aka.eu.org/vulnhub-earth/</link>
+    <pubDate>Mon, 21 Feb 2022 14:08:30 &#43;0000</pubDate>
+    <author>Mi3aka</author>
+    <guid>https://mi3aka.eu.org/vulnhub-earth/</guid>
+    <description><![CDATA[VulnHub靶机Earth]]></description>
+</item>
+<item>
+    <title>VulnHub-Jangow:1.0.1</title>
+    <link>https://mi3aka.eu.org/vulnhub-jangow_1.0.1/</link>
+    <pubDate>Wed, 01 Dec 2021 14:08:30 &#43;0000</pubDate>
+    <author>Mi3aka</author>
+    <guid>https://mi3aka.eu.org/vulnhub-jangow_1.0.1/</guid>
+    <description><![CDATA[VulnHub靶机Jangow:1.0.1]]></description>
+</item>
+<item>
+    <title>VulnHub-Billu_b0x</title>
+    <link>https://mi3aka.eu.org/vulnhub-billu_b0x/</link>
+    <pubDate>Thu, 04 Nov 2021 14:08:30 &#43;0000</pubDate>
+    <author>Mi3aka</author>
+    <guid>https://mi3aka.eu.org/vulnhub-billu_b0x/</guid>
+    <description><![CDATA[VulnHub靶机Billu_b0x]]></description>
+</item>
+<item>
+    <title>VulnHub-Beelzebub</title>
+    <link>https://mi3aka.eu.org/vulnhub-beelzebub/</link>
+    <pubDate>Sun, 31 Oct 2021 20:08:30 &#43;0000</pubDate>
+    <author>Mi3aka</author>
+    <guid>https://mi3aka.eu.org/vulnhub-beelzebub/</guid>
+    <description><![CDATA[VulnHub靶机Beelzebub]]></description>
+</item>
+<item>
+    <title>VulnHub-LAMPSECURITY:CTF4</title>
+    <link>https://mi3aka.eu.org/vulnhub-lampsecurity_ctf4/</link>
+    <pubDate>Sun, 18 Jul 2021 14:08:30 &#43;0000</pubDate>
+    <author>Mi3aka</author>
+    <guid>https://mi3aka.eu.org/vulnhub-lampsecurity_ctf4/</guid>
+    <description><![CDATA[VulnHub靶机LAMPSECURITY:CTF4]]></description>
+</item>
+</channel>
+</rss>
